@@ -24,6 +24,9 @@
 
 <p>-P33001：EBI这个参数是必须的，但是NCBI不需要，要不然会报错Session Stop (Error: Failed to open TCP connection for SSH)</p>
 ]]></content>
+      <categories>
+        <category>生物信息学常用软件</category>
+      </categories>
       <tags>
         <tag>生信软件</tag>
         <tag>下载SRA文件</tag>
@@ -118,6 +121,9 @@
 <p>参考：</p>
 <p><a href="http://kobas.cbi.pku.edu.cn/help.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/help.php</a><br><a href="https://www.jianshu.com/p/5a4bda169247" target="_blank" rel="noopener">https://www.jianshu.com/p/5a4bda169247</a></p>
 ]]></content>
+      <categories>
+        <category>生物信息学常用软件</category>
+      </categories>
       <tags>
         <tag>生信软件</tag>
         <tag>富集分析</tag>
