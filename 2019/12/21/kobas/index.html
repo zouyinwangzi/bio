@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="背景富集分析一般是高通量实验，如基因芯片，RNA-Seq，蛋白质组学（质谱结果）的后续分析步骤。常见的就是GO功能注释和KEGG通路富集分析。通过基因通路富集分析，我们可以初步分析基因可能参与的生物学过程或者信号通路。 富集分析的工具有很多，DAVID，STRING，Kobas，R语言等。其中DAVID在2016年以后就很少更新了；String是瑞士苏黎世大学构建的一个搜寻蛋白质之间相互作用的数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kobas 富集分析超快超速度">
+<meta property="og:url" content="http://yoursite.com/2019/12/21/kobas/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="背景富集分析一般是高通量实验，如基因芯片，RNA-Seq，蛋白质组学（质谱结果）的后续分析步骤。常见的就是GO功能注释和KEGG通路富集分析。通过基因通路富集分析，我们可以初步分析基因可能参与的生物学过程或者信号通路。 富集分析的工具有很多，DAVID，STRING，Kobas，R语言等。其中DAVID在2016年以后就很少更新了；String是瑞士苏黎世大学构建的一个搜寻蛋白质之间相互作用的数据">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/images/1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/1.1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/0.jpg">
+<meta property="og:image" content="http://yoursite.com/images/2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/3.jpg">
+<meta property="og:image" content="http://yoursite.com/images/4.jpg">
+<meta property="og:image" content="http://yoursite.com/images/5.png">
+<meta property="og:image" content="http://yoursite.com/images/6.jpg">
+<meta property="article:published_time" content="2019-12-21T14:42:37.000Z">
+<meta property="article:modified_time" content="2019-12-21T15:06:20.728Z">
+<meta property="article:author" content="Aimi">
+<meta property="article:tag" content="富集分析">
+<meta property="article:tag" content="生信软件">
+<meta property="article:tag" content="python软件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/1.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2019/12/21/kobas/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>kobas 富集分析超快超速度 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/21/kobas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Aimi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kobas 富集分析超快超速度
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-21 22:42:37 / 修改时间：23:06:20" itemprop="dateCreated datePublished" datetime="2019-12-21T22:42:37+08:00">2019-12-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">生物信息学常用软件</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>富集分析一般是高通量实验，如基因芯片，RNA-Seq，蛋白质组学（质谱结果）的后续分析步骤。常见的就是GO功能注释和KEGG通路富集分析。通过基因通路富集分析，我们可以初步分析基因可能参与的生物学过程或者信号通路。</p>
+<p>富集分析的工具有很多，DAVID，STRING，Kobas，R语言等。其中DAVID在2016年以后就很少更新了；String是瑞士苏黎世大学构建的一个搜寻蛋白质之间相互作用的数据库；R语言则语言有一定的编程基础；Kobas是用于注释富集途径和疾病的数据库，有在线版的也有服务器版的，在线的易用，服务器版的速度，不管你是生信小白或者大神都适用哦。</p>
+<a id="more"></a>
+<h3 id="Kobas简介"><a href="#Kobas简介" class="headerlink" title="Kobas简介"></a>Kobas简介</h3><p>KOBAS（KEGG Orthology Based Annotation System)，(<a href="http://kobas.cbi.pku.edu.cn/index.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/index.php</a> )是北京大学开发的用于基因、蛋白质功能注释和功能基因富集分析的web服务器。现在版本已经更新到Kobas 3.0，注释的数据库包括pathway、disease和GO。Kobas 3.0主要有两个功能，注释（Annotation）和富集（Enrichment）。富集又包括Gene-list富集和Exp-data富集。</p>
+<h3 id="Kobas的优点"><a href="#Kobas的优点" class="headerlink" title="Kobas的优点"></a>Kobas的优点</h3><p>KOBAS有以下几个优点：</p>
+<ol>
+<li>Gene-list富集输入的可以是核苷酸序列也可以是蛋白质序列，还可以是tab分隔的blast结果，还可以是NCBI Entrez Gene ID、RefSeq Protein ID、Ensembl Gene ID、UniprotKB AC/ID </li>
+<li>Kobas支持的物种有4000多种，不限于模式生物</li>
+<li>统计检验方法有Fisher’s exact test和hypergeometric distribution test</li>
+<li>底层的数据库数据每3个月更新一次</li>
+</ol>
+<h3 id="在线分析实例"><a href="#在线分析实例" class="headerlink" title="在线分析实例"></a>在线分析实例</h3><h4 id="Gene-list富集分析"><a href="#Gene-list富集分析" class="headerlink" title="Gene-list富集分析"></a>Gene-list富集分析</h4><ol>
+<li><p>点击圈红的Gene-list Enrichment进去；<br><img src="/images/1.jpg" alt="image"></p>
+</li>
+<li><p>Input<br><img src="/images/1.1.jpg" alt="image"></p>
+</li>
+</ol>
+<ul>
+<li>首先选择Gene-list的类型。可以是NCBI Entrez Gene ID、RefSeq Protein ID、Ensembl Gene ID、UniprotKB AC/ID；也可以是核苷酸或蛋白质的Fasta序列；还可以是Tab分隔的BLAST结果。</li>
+<li>然后选择类型对应的物种，默认物种是人。</li>
+<li>然后输入对应类型的Gene-list。</li>
+<li>选择富集分析需要的数据库，</li>
+</ul>
+<ol start="3">
+<li>点击Run显示以下信息，程序在后台运行。<br><img src="/images/0.jpg" alt="image"></li>
+<li>运行完毕得出以下结果。点击Download可以下载结果列表。列表有以下几个列：<br><img src="/images/2.jpg" alt="image"></li>
+</ol>
+<ul>
+<li>Term：KEGG pathway通路名称或GO Term功能的描述；</li>
+<li>Database：分析时所选的数据库，这里是GO和KEGG；</li>
+<li>ID：指富集到的对应数据库的ID条目；</li>
+<li>Input number：Gene-list落在该通路或GO term的基因数目；</li>
+<li>Background number：该通路或GO Term相关的基因数目；</li>
+<li>P-value：富集到该通路的显著性水平，越小越显著；</li>
+<li>Corrected P-value：矫正的P-value，列表默认按照Corrected P-value由小到大排序。</li>
+</ul>
+<h4 id="Exp-data富集分析"><a href="#Exp-data富集分析" class="headerlink" title="Exp-data富集分析"></a>Exp-data富集分析</h4><p><img src="/images/3.jpg" alt="image"><br>基因表达数据分析需要输入两个文件，一个是表达矩阵文件，一个是样本分类文件。</p>
+<ul>
+<li>表达矩阵的格式如下图：是一个tab分隔的txt文件，列对应样本，行对应基因ID。表达数据既可以是芯片表达矩阵，也可以是RNA-seq表达矩阵。芯片数据可以是raw reads数据，而RNA-seq数据只能是FPKM/RPKM数据，不能是raw reads。<br><img src="/images/4.jpg" alt="image"></li>
+<li>样本分类如下图：<br><img src="/images/5.png" alt="image"></li>
+<li>输出结果有五列：<br><img src="/images/6.jpg" alt="image"><ul>
+<li>GENE SET：指富集到的通路编号或GO Term编号；</li>
+<li>NAME：指富集到的KEGG pathway通路名称或GO Term功能的描述；</li>
+<li>POSITIVE：1.0代表显著富集；</li>
+<li>PROBABILITY：代表预测的可信度；</li>
+<li>ENRICH SCORE：指目标通路与separating hyperplane of SVM的距离，数值越大越好；</li>
+</ul>
+</li>
+</ul>
+<h3 id="KOBAS本地化"><a href="#KOBAS本地化" class="headerlink" title="KOBAS本地化"></a>KOBAS本地化</h3><p>安装KOBAS需要先安装一些依赖的python包、R包以及相关软件。</p>
+<h4 id="1、依赖的python包"><a href="#1、依赖的python包" class="headerlink" title="1、依赖的python包"></a>1、依赖的python包</h4><p>安装KOBAS 3.0 需要Python (&gt;= 2.3 and not 3.x)，并且需要安装以下第三方包：</p>
+<ul>
+<li>SQLite (3.x) and PySQLite (2.x)</li>
+<li>BioPython (&gt;= 1.4.3)</li>
+<li>RPy2 (&gt;= 2.2.4)</li>
+<li>matplotlib </li>
+<li>Numpy (&gt;= 1.8.0)</li>
+<li>Pandas (&gt;= 0.17.1)</li>
+</ul>
+<h4 id="2、依赖的R包"><a href="#2、依赖的R包" class="headerlink" title="2、依赖的R包"></a>2、依赖的R包</h4><p>安装KOBAS 3.0 需要R (&gt;= 2.0)，并且需要安装如下第三方包：</p>
+<ul>
+<li>QVALUE</li>
+<li>EnrichmentBrowser</li>
+<li>GSVA</li>
+<li>gage</li>
+</ul>
+<h4 id="3、其他软件"><a href="#3、其他软件" class="headerlink" title="3、其他软件"></a>3、其他软件</h4><p>安装KOBAS 3.0 需要安装NCBI BLAST+</p>
+<p>Download: <a href="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/" target="_blank" rel="noopener">ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/</a></p>
+<p>Installation: </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zvf ncbi-blast-x.x.x+-x64-linux.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">"<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/ncbi-blast-2.2.29+/bin"</span>  </span><br><span class="line"><span class="comment">#(or add path to your .bashrc)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4、安装KOBAS"><a href="#4、安装KOBAS" class="headerlink" title="4、安装KOBAS"></a>4、安装KOBAS</h4><p>首先，下载KOBAS 3.0 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">wget http://kobas.cbi.pku.edu.cn/kobas-2.1.1/kobas-3.0.3.tar.gz</span><br><span class="line">tar -zxf kobas-3.0.3.tar.gz</span><br><span class="line"><span class="comment"># 解压就能用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########解压后的文件结构#########</span></span><br><span class="line">kobas-3.0.3/</span><br><span class="line">		|-----README : introduce how to install kobas and how to use it.</span><br><span class="line"></span><br><span class="line">		|-----scripts : run KOBAS program.</span><br><span class="line"></span><br><span class="line">		|-----seq_pep : store FASTA format protein sequence files of KO and all supported species </span><br><span class="line"></span><br><span class="line">		|-----sqlite3 : store backend databases of KO and all supported species </span><br><span class="line"></span><br><span class="line">		|-----src : store KOBAS <span class="built_in">source</span> codes.</span><br><span class="line"></span><br><span class="line">		|-----<span class="built_in">test</span> : store example data <span class="keyword">for</span> testing KOBAS.</span><br><span class="line"><span class="comment">#################################</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，下载KOBAS数据包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">########KOBAS organism data package########</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/sqlite3/organism.db.gz</span><br><span class="line">gunzip organism.db.gz <span class="comment">#复制到 sqlite3 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########下载自己需要的物种#################</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/sqlite3/hsa.db.gz</span><br><span class="line">gunzip hsa.db.gz  <span class="comment">#复制到sqlite3 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########下载对应物种的pep序列##############</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/seq_pep/hsa.pep.fasta.gz</span><br><span class="line">gunzip hsa.pep.fasta.gz  <span class="comment">#复制到seq_pep 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########建blast数据库######################</span></span><br><span class="line">makeblastdb -<span class="keyword">in</span> hsa.pep.fasta -dbtype prot</span><br></pre></td></tr></table></figure>
+
+<p>最后，配置KOBAS运行环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PYTHONPATH = kobas-3.0.0-beta/src:<span class="variable">$PYTHONPATH</span></span><br><span class="line"></span><br><span class="line">cp kobas-3.0/docs/kobasrc  ~/.kobasrc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim .kobasrc <span class="comment">#编辑配置文件</span></span><br><span class="line"><span class="comment">######.kobasrc文件内容如下#########</span></span><br><span class="line">---------------------------	</span><br><span class="line"></span><br><span class="line">	[DEFAULT]</span><br><span class="line"></span><br><span class="line">	kobas_home = <span class="variable">$HOME</span>/kobas-3.0.3/	<span class="comment"># kobas 的绝对路径</span></span><br><span class="line"></span><br><span class="line">	blast_home = <span class="variable">$HOME</span>/ncbi-blast-2.2.29+/bin</span><br><span class="line"></span><br><span class="line">	[KOBAS]</span><br><span class="line"></span><br><span class="line">	kobasdb	= %(kobas_home)s/sqlite3/	<span class="comment"># path to Backend databases of KO and all supported species, if you don't want to state it by kobas_home, # you can also write the absolute path after "="</span></span><br><span class="line"></span><br><span class="line">	[BLAST]</span><br><span class="line"></span><br><span class="line">	blastp = %(blast_home)s/blastp		<span class="comment"># path to program blastp</span></span><br><span class="line">	blastx = %(blast_home)s/blastx		<span class="comment"># path to program blastx</span></span><br><span class="line">	blastdb = %(kobas_home)s/seq_pep/	<span class="comment"># path to FASTA format protein sequence files of KO and all supported species</span></span><br><span class="line"></span><br><span class="line"> -----------------------------</span><br></pre></td></tr></table></figure>
+
+<p> Kobas的使用</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">### 注释</span></span><br><span class="line">$ annotate.py -i inputfile -t blastout:tab -s ko -o outfile</span><br><span class="line"><span class="comment"># -t：输入文件的类型，有blastout:tab和blastout:xml，fasta:pro，fasta:nuc,id:ncbigene,id:refseqpro,id:uniport,id:ensembl</span></span><br><span class="line"><span class="comment"># -s：物种类型，ko指KEGG Orthology，has人，mmu 小鼠，等等</span></span><br><span class="line"><span class="comment"># -k：KOBAS home</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 检测</span></span><br><span class="line">$ identify.py -f inputfile -o outfile -m h </span><br><span class="line"> <span class="comment">#identify的inputfile是annotate的outfile</span></span><br><span class="line"><span class="comment"># -m：统计检验方法，c代表chi-square test，h代表hypergeometric test/ Fisher's exact test，x代表frequency list</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">###富集</span></span><br><span class="line">$ cluster.py -i inputfile -m k -o outfile </span><br><span class="line"><span class="comment"># -m：method，K表示 Cohen’s kappa coefficient；j表示jaccard similarity coefficient</span></span><br><span class="line"><span class="comment"># -d：database，P代表PATHWAY，D代表DISEASE，G代表GO</span></span><br><span class="line"><span class="comment"># -t：threshold,默认0.35</span></span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<p><a href="http://kobas.cbi.pku.edu.cn/help.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/help.php</a><br><a href="https://www.jianshu.com/p/5a4bda169247" target="_blank" rel="noopener">https://www.jianshu.com/p/5a4bda169247</a></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Aimi
+  </li>
+ 
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AF%8C%E9%9B%86%E5%88%86%E6%9E%90/" rel="tag"><i class="fa fa-tag"></i> 富集分析</a>
+              <a href="/tags/%E7%94%9F%E4%BF%A1%E8%BD%AF%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 生信软件</a>
+              <a href="/tags/python%E8%BD%AF%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> python软件</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/24/aspera/" rel="next" title="使用Aspera从NCBI或EBI高速下载SRA测序文件">
+      使用Aspera从NCBI或EBI高速下载SRA测序文件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kobas简介"><span class="nav-number">2.</span> <span class="nav-text">Kobas简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kobas的优点"><span class="nav-number">3.</span> <span class="nav-text">Kobas的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线分析实例"><span class="nav-number">4.</span> <span class="nav-text">在线分析实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Gene-list富集分析"><span class="nav-number">4.1.</span> <span class="nav-text">Gene-list富集分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Exp-data富集分析"><span class="nav-number">4.2.</span> <span class="nav-text">Exp-data富集分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KOBAS本地化"><span class="nav-number">5.</span> <span class="nav-text">KOBAS本地化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、依赖的python包"><span class="nav-number">5.1.</span> <span class="nav-text">1、依赖的python包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、依赖的R包"><span class="nav-number">5.2.</span> <span class="nav-text">2、依赖的R包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、其他软件"><span class="nav-number">5.3.</span> <span class="nav-text">3、其他软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、安装KOBAS"><span class="nav-number">5.4.</span> <span class="nav-text">4、安装KOBAS</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Aimi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Aimi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
