@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>文本处理工具awk</title>
+    <url>/2019/12/24/awk/</url>
+    <content><![CDATA[<p>awk每行为一条记录，每条记录执行awk的所有命令。每行默认以空格或tab键分割，依次为$1,$2,$3 …。NR代表每行的行号，NF代表每列tab或空格分割后有几列。</p>
+<a id="more"></a>
+<h2 id="字段分隔符"><a href="#字段分隔符" class="headerlink" title="字段分隔符"></a>字段分隔符</h2><p>字段分隔符默认是空格或tab，通过-F参数可以修改。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntu ~]$ ll |grep ^d</span><br><span class="line">drwxr-xr-x 45 bio  bio     4096  5月 22 13:34 ./</span><br><span class="line">drwxr-xr-x  3 root root    4096  1月 20 19:40 ../</span><br><span class="line">drwx------  3 bio  bio     4096  5月 22 11:44 .adobe/</span><br><span class="line">drwxrwxr-x  3 bio  bio     4096  3月 16 12:50 .aspera/</span><br><span class="line">drwxrwxr-x  2 bio  bio     4096  5月 21 17:58 bash/</span><br><span class="line">drwx------ 25 bio  bio     4096  5月  7 14:21 .cache/</span><br><span class="line">drwxrwxr-x  3 bio  bio     4096  2月 27 11:24 .codeintel/</span><br><span class="line">drwx------  3 bio  bio     4096  1月 20 20:19 .compiz/</span><br><span class="line">drwxr-xr-x 28 bio  bio     4096  5月  9 11:37 .config/</span><br><span class="line">drwxr-xr-x  6 root root    4096  4月  8 16:56 .cpan/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字段分隔符改为冒号</span></span><br><span class="line">[bio@ubuntu ~]$ ll |grep ^d|awk -F: <span class="string">'&#123;print $1&#125;'</span></span><br><span class="line">drwxr-xr-x 45 bio  bio     4096  5月 22 13</span><br><span class="line">drwxr-xr-x  3 root root    4096  1月 20 19</span><br><span class="line">drwx------  3 bio  bio     4096  5月 22 11</span><br><span class="line">drwxrwxr-x  3 bio  bio     4096  3月 16 12</span><br><span class="line">drwxrwxr-x  2 bio  bio     4096  5月 21 17</span><br><span class="line">drwx------ 25 bio  bio     4096  5月  7 14</span><br><span class="line">drwxrwxr-x  3 bio  bio     4096  2月 27 11</span><br><span class="line">drwx------  3 bio  bio     4096  1月 20 20</span><br><span class="line">drwxr-xr-x 28 bio  bio     4096  5月  9 11</span><br><span class="line">drwxr-xr-x  6 root root    4096  4月  8 16</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 字段分隔符有两个：冒号和i。中括号内可以使用正则表达式</span></span><br><span class="line">[bio@ubuntu ~]$ ll |grep ^d|awk -F‘[:i]’ <span class="string">'&#123;print $1,$2&#125;'</span></span><br><span class="line">drwxr-xr-x 45 b o  b</span><br><span class="line">drwxr-xr-x  3 root root    4096  1月 20 19 40 ../</span><br><span class="line">drwx------  3 b o  b</span><br><span class="line">drwxrwxr-x  3 b o  b</span><br><span class="line">drwxrwxr-x  2 b o  b</span><br></pre></td></tr></table></figure>
+
+<h2 id="BEGIN"><a href="#BEGIN" class="headerlink" title="BEGIN"></a>BEGIN</h2><p>awk在处理文件的行之前先执行BEGIN块的语句，未完成则不读取文件内容。作用如下：</p>
+<ul>
+<li>更改内置变量；</li>
+<li>自定义变量初始化；</li>
+<li>打印头文件和标题；</li>
+</ul>
+<h2 id="内置变量"><a href="#内置变量" class="headerlink" title="内置变量"></a>内置变量</h2><ul>
+<li>FS：字段分隔符；</li>
+<li>OFS：输出时的字段分隔符；</li>
+<li>RS：输入记录的行分隔符；</li>
+<li>ORS：输出时的行分隔符；</li>
+<li>NR：行号；</li>
+<li>FNR：文件的所有行数；</li>
+<li>NF：每行列数；</li>
+<li>ARGC：命令行参数个数；</li>
+<li>ARGV：命令行参数组成的数组；</li>
+<li>FILENAME：当前输入文件的名字；</li>
+<li>IGNORECASE：1表示忽略大小写；（测试了一下貌似不管用）</li>
+</ul>
+<h2 id="运算符-和–"><a href="#运算符-和–" class="headerlink" title="运算符++和–"></a>运算符++和–</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 当++作为后缀时，先将x的值赋值给y，再对x加1</span></span><br><span class="line">[bio@ubuntu ~/bash]$ awk <span class="string">'BEGIN&#123;x=1;y=x++;print x, y&#125;'</span></span><br><span class="line">2 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当++为前缀时，先x的值加1，然后x赋值给y</span></span><br><span class="line">[bio@ubuntu ~/bash]$ awk <span class="string">'BEGIN&#123;x=1;y=++x;print x, y&#125;'</span></span><br><span class="line">2 2</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Linux相关</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>文本处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Aspera从NCBI或EBI高速下载SRA测序文件</title>
     <url>/2019/12/24/aspera/</url>
     <content><![CDATA[<p>Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。</p>
