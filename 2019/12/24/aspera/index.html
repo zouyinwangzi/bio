@@ -46,17 +46,21 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+  <meta name="description" content="Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="aspera">
+<meta property="og:url" content="http://yoursite.com/2019/12/24/aspera/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-12-24T02:25:32.000Z">
-<meta property="article:modified_time" content="2019-12-24T02:25:57.632Z">
+<meta property="article:published_time" content="2019-12-24T09:25:39.000Z">
+<meta property="article:modified_time" content="2019-12-24T09:25:39.633Z">
 <meta property="article:author" content="Aimi">
+<meta property="article:tag" content="生信软件">
+<meta property="article:tag" content="下载SRA文件">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/categories/">
+<link rel="canonical" href="http://yoursite.com/2019/12/24/aspera/">
 
 
 <script id="page-configurations">
@@ -64,12 +68,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>categories | Hexo
-  </title>
+  <title>aspera | Hexo</title>
   
 
 
@@ -194,52 +197,117 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">categories
-</h1>
-
-<div class="post-meta">
+      
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/24/aspera/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Aimi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          aspera
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-24 17:25:39" itemprop="dateCreated datePublished" datetime="2019-12-24T17:25:39+08:00">2019-12-24</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。</p>
+<a id="more"></a>
+<h3 id="Aspera下载和安装"><a href="#Aspera下载和安装" class="headerlink" title="Aspera下载和安装"></a>Aspera下载和安装</h3><p>下载地址，有windows和Linux版的，下面安装的是Linux版的，因为后续处理sra文件都是在Linux上操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[bio@ubuntubio]$ wget http://download.asperasoft.com/download/sw/connect/3.7.4/aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ tar -zxf aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ bash aspera-connect-3.7.4.147727-linux-64.sh</span><br><span class="line">Installing Aspera Connect</span><br><span class="line"> </span><br><span class="line">Deploying Aspera Connect (/home/bio/.aspera/connect) <span class="keyword">for</span> the current user only.</span><br><span class="line">Unable to update desktop database, Aspera Connect may not be able to auto-launch</span><br><span class="line">Restart firefox manually to load the Aspera Connect plug-in[bio@ubuntu~]$ <span class="built_in">echo</span> <span class="string">'PATH=$PATH:~/.aspera/connect/bin/'</span> &gt;&gt; ~/.bashrc</span><br><span class="line">[bio@ubuntu~]$ <span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure>
+
+<h3 id="Aspera-使用"><a href="#Aspera-使用" class="headerlink" title="Aspera 使用"></a>Aspera 使用</h3><h4 id="ascp-常用的参数如下："><a href="#ascp-常用的参数如下：" class="headerlink" title="ascp 常用的参数如下："></a>ascp 常用的参数如下：</h4><ul>
+<li>-T：不进行加密。若不添加此参数，可能会下载不了。</li>
+<li>-l：设置最大传输速度，比如设置为 200M 则表示最大传输速度为 200m/s。若不设置该参数，则一般可达到10m/s的速度，而设置了，传输速度可以更高。</li>
+<li>-i：输入私钥。安装 aspera 后有在目录 ~/.aspera/connect/etc/ 下有几个私钥，使用 linux 服务器的时候一般使用 asperaweb_id_dsa.openssh 文件作为私钥。</li>
+<li>–host=string：ftp的host名，NCBI的为ftp-private.ncbi.nlm.nih.gov；EBI的为fasp.sra.ebi.ac.uk。</li>
+<li>–user=string：用户名，NCBI的为anonftp，EBI的为era-fasp</li>
+<li>–mode=string：选择模式。上传为 send，下载recv</li>
+</ul>
+<h4 id="从NCBI下载SRA文件"><a href="#从NCBI下载SRA文件" class="headerlink" title="从NCBI下载SRA文件"></a>从NCBI下载SRA文件</h4><p>例如要下载<a href="ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra" target="_blank" rel="noopener">ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[bio@ubuntu~]<span class="variable">$ascp</span> -T -l 200M -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh anonftp@ftp-private.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra ./</span><br></pre></td></tr></table></figure>
+
+<h4 id="从EBI下载SRA文件"><a href="#从EBI下载SRA文件" class="headerlink" title="从EBI下载SRA文件"></a>从EBI下载SRA文件</h4><p>例如要下载<a href="ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz" target="_blank" rel="noopener">ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[bio@ubuntu~]$ ascp -P33001 -T -l 200M -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz ./</span><br></pre></td></tr></table></figure>
+
+<p>-P33001：EBI这个参数是必须的，但是NCBI不需要，要不然会报错Session Stop (Error: Failed to open TCP connection for SSH)</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Aimi
+  </li>
+ 
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
 </div>
 
-</header>
 
-      
-      
-      
-      <div class="post-body">
-          <div class="category-all-page">
-            <div class="category-all-title">
-              暂无分类
-            </div>
-            <div class="category-all">
-              
-            </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%94%9F%E4%BF%A1%E8%BD%AF%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 生信软件</a>
+              <a href="/tags/%E4%B8%8B%E8%BD%BDSRA%E6%96%87%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 下载SRA文件</a>
           </div>
-        
-      </div>
-      
-      
-      
-    </div>
-    
 
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/21/kobas/" rel="prev" title="kobas 富集分析超快超速度">
+      <i class="fa fa-chevron-left"></i> kobas 富集分析超快超速度
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
     
-    
-    
+  </article>
+  
+  
+  
+
   </div>
 
 
@@ -291,6 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Aspera下载和安装"><span class="nav-number">1.</span> <span class="nav-text">Aspera下载和安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Aspera-使用"><span class="nav-number">2.</span> <span class="nav-text">Aspera 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ascp-常用的参数如下："><span class="nav-number">2.1.</span> <span class="nav-text">ascp 常用的参数如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从NCBI下载SRA文件"><span class="nav-number">2.2.</span> <span class="nav-text">从NCBI下载SRA文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从EBI下载SRA文件"><span class="nav-number">2.3.</span> <span class="nav-text">从EBI下载SRA文件</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

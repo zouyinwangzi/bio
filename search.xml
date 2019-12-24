@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>aspera</title>
+    <url>/2019/12/24/aspera/</url>
+    <content><![CDATA[<p>Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。</p>
+<a id="more"></a>
+<h3 id="Aspera下载和安装"><a href="#Aspera下载和安装" class="headerlink" title="Aspera下载和安装"></a>Aspera下载和安装</h3><p>下载地址，有windows和Linux版的，下面安装的是Linux版的，因为后续处理sra文件都是在Linux上操作。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntubio]$ wget http://download.asperasoft.com/download/sw/connect/3.7.4/aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ tar -zxf aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ bash aspera-connect-3.7.4.147727-linux-64.sh</span><br><span class="line">Installing Aspera Connect</span><br><span class="line"> </span><br><span class="line">Deploying Aspera Connect (/home/bio/.aspera/connect) <span class="keyword">for</span> the current user only.</span><br><span class="line">Unable to update desktop database, Aspera Connect may not be able to auto-launch</span><br><span class="line">Restart firefox manually to load the Aspera Connect plug-in[bio@ubuntu~]$ <span class="built_in">echo</span> <span class="string">'PATH=$PATH:~/.aspera/connect/bin/'</span> &gt;&gt; ~/.bashrc</span><br><span class="line">[bio@ubuntu~]$ <span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure>
+
+<h3 id="Aspera-使用"><a href="#Aspera-使用" class="headerlink" title="Aspera 使用"></a>Aspera 使用</h3><h4 id="ascp-常用的参数如下："><a href="#ascp-常用的参数如下：" class="headerlink" title="ascp 常用的参数如下："></a>ascp 常用的参数如下：</h4><ul>
+<li>-T：不进行加密。若不添加此参数，可能会下载不了。</li>
+<li>-l：设置最大传输速度，比如设置为 200M 则表示最大传输速度为 200m/s。若不设置该参数，则一般可达到10m/s的速度，而设置了，传输速度可以更高。</li>
+<li>-i：输入私钥。安装 aspera 后有在目录 ~/.aspera/connect/etc/ 下有几个私钥，使用 linux 服务器的时候一般使用 asperaweb_id_dsa.openssh 文件作为私钥。</li>
+<li>–host=string：ftp的host名，NCBI的为ftp-private.ncbi.nlm.nih.gov；EBI的为fasp.sra.ebi.ac.uk。</li>
+<li>–user=string：用户名，NCBI的为anonftp，EBI的为era-fasp</li>
+<li>–mode=string：选择模式。上传为 send，下载recv</li>
+</ul>
+<h4 id="从NCBI下载SRA文件"><a href="#从NCBI下载SRA文件" class="headerlink" title="从NCBI下载SRA文件"></a>从NCBI下载SRA文件</h4><p>例如要下载<a href="ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra" target="_blank" rel="noopener">ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntu~]<span class="variable">$ascp</span> -T -l 200M -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh anonftp@ftp-private.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra ./</span><br></pre></td></tr></table></figure>
+
+<h4 id="从EBI下载SRA文件"><a href="#从EBI下载SRA文件" class="headerlink" title="从EBI下载SRA文件"></a>从EBI下载SRA文件</h4><p>例如要下载<a href="ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz" target="_blank" rel="noopener">ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[bio@ubuntu~]$ ascp -P33001 -T -l 200M -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz ./</span><br></pre></td></tr></table></figure>
+
+<p>-P33001：EBI这个参数是必须的，但是NCBI不需要，要不然会报错Session Stop (Error: Failed to open TCP connection for SSH)</p>
+]]></content>
+      <tags>
+        <tag>生信软件</tag>
+        <tag>下载SRA文件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>kobas 富集分析超快超速度</title>
     <url>/2019/12/21/kobas/</url>
     <content><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>富集分析一般是高通量实验，如基因芯片，RNA-Seq，蛋白质组学（质谱结果）的后续分析步骤。常见的就是GO功能注释和KEGG通路富集分析。通过基因通路富集分析，我们可以初步分析基因可能参与的生物学过程或者信号通路。</p>
@@ -90,8 +119,8 @@
 <p><a href="http://kobas.cbi.pku.edu.cn/help.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/help.php</a><br><a href="https://www.jianshu.com/p/5a4bda169247" target="_blank" rel="noopener">https://www.jianshu.com/p/5a4bda169247</a></p>
 ]]></content>
       <tags>
-        <tag>富集分析</tag>
         <tag>生信软件</tag>
+        <tag>富集分析</tag>
         <tag>python软件</tag>
       </tags>
   </entry>
