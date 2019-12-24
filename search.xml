@@ -33,101 +33,35 @@
       </tags>
   </entry>
   <entry>
-    <title>kobas 富集分析超快超速度</title>
-    <url>/2019/12/21/kobas/</url>
-    <content><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>富集分析一般是高通量实验，如基因芯片，RNA-Seq，蛋白质组学（质谱结果）的后续分析步骤。常见的就是GO功能注释和KEGG通路富集分析。通过基因通路富集分析，我们可以初步分析基因可能参与的生物学过程或者信号通路。</p>
-<p>富集分析的工具有很多，DAVID，STRING，Kobas，R语言等。其中DAVID在2016年以后就很少更新了；String是瑞士苏黎世大学构建的一个搜寻蛋白质之间相互作用的数据库；R语言则语言有一定的编程基础；Kobas是用于注释富集途径和疾病的数据库，有在线版的也有服务器版的，在线的易用，服务器版的速度，不管你是生信小白或者大神都适用哦。</p>
+    <title>使用Aspera从NCBI或EBI高速下载SRA测序文件</title>
+    <url>/2019/12/24/kobas/</url>
+    <content><![CDATA[<p>Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。</p>
 <a id="more"></a>
-<h3 id="Kobas简介"><a href="#Kobas简介" class="headerlink" title="Kobas简介"></a>Kobas简介</h3><p>KOBAS（KEGG Orthology Based Annotation System)，(<a href="http://kobas.cbi.pku.edu.cn/index.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/index.php</a> )是北京大学开发的用于基因、蛋白质功能注释和功能基因富集分析的web服务器。现在版本已经更新到Kobas 3.0，注释的数据库包括pathway、disease和GO。Kobas 3.0主要有两个功能，注释（Annotation）和富集（Enrichment）。富集又包括Gene-list富集和Exp-data富集。</p>
-<h3 id="Kobas的优点"><a href="#Kobas的优点" class="headerlink" title="Kobas的优点"></a>Kobas的优点</h3><p>KOBAS有以下几个优点：</p>
-<ol>
-<li>Gene-list富集输入的可以是核苷酸序列也可以是蛋白质序列，还可以是tab分隔的blast结果，还可以是NCBI Entrez Gene ID、RefSeq Protein ID、Ensembl Gene ID、UniprotKB AC/ID </li>
-<li>Kobas支持的物种有4000多种，不限于模式生物</li>
-<li>统计检验方法有Fisher’s exact test和hypergeometric distribution test</li>
-<li>底层的数据库数据每3个月更新一次</li>
-</ol>
-<h3 id="在线分析实例"><a href="#在线分析实例" class="headerlink" title="在线分析实例"></a>在线分析实例</h3><h4 id="Gene-list富集分析"><a href="#Gene-list富集分析" class="headerlink" title="Gene-list富集分析"></a>Gene-list富集分析</h4><ol>
-<li><p>点击圈红的Gene-list Enrichment进去；<br><img src="/images/1.jpg" alt="image"></p>
-</li>
-<li><p>Input<br><img src="/images/1.1.jpg" alt="image"></p>
-</li>
-</ol>
-<ul>
-<li>首先选择Gene-list的类型。可以是NCBI Entrez Gene ID、RefSeq Protein ID、Ensembl Gene ID、UniprotKB AC/ID；也可以是核苷酸或蛋白质的Fasta序列；还可以是Tab分隔的BLAST结果。</li>
-<li>然后选择类型对应的物种，默认物种是人。</li>
-<li>然后输入对应类型的Gene-list。</li>
-<li>选择富集分析需要的数据库，</li>
-</ul>
-<ol start="3">
-<li>点击Run显示以下信息，程序在后台运行。<br><img src="/images/0.jpg" alt="image"></li>
-<li>运行完毕得出以下结果。点击Download可以下载结果列表。列表有以下几个列：<br><img src="/images/2.jpg" alt="image"></li>
-</ol>
-<ul>
-<li>Term：KEGG pathway通路名称或GO Term功能的描述；</li>
-<li>Database：分析时所选的数据库，这里是GO和KEGG；</li>
-<li>ID：指富集到的对应数据库的ID条目；</li>
-<li>Input number：Gene-list落在该通路或GO term的基因数目；</li>
-<li>Background number：该通路或GO Term相关的基因数目；</li>
-<li>P-value：富集到该通路的显著性水平，越小越显著；</li>
-<li>Corrected P-value：矫正的P-value，列表默认按照Corrected P-value由小到大排序。</li>
-</ul>
-<h4 id="Exp-data富集分析"><a href="#Exp-data富集分析" class="headerlink" title="Exp-data富集分析"></a>Exp-data富集分析</h4><p><img src="/images/3.jpg" alt="image"><br>基因表达数据分析需要输入两个文件，一个是表达矩阵文件，一个是样本分类文件。</p>
-<ul>
-<li>表达矩阵的格式如下图：是一个tab分隔的txt文件，列对应样本，行对应基因ID。表达数据既可以是芯片表达矩阵，也可以是RNA-seq表达矩阵。芯片数据可以是raw reads数据，而RNA-seq数据只能是FPKM/RPKM数据，不能是raw reads。<br><img src="/images/4.jpg" alt="image"></li>
-<li>样本分类如下图：<br><img src="/images/5.png" alt="image"></li>
-<li>输出结果有五列：<br><img src="/images/6.jpg" alt="image"><ul>
-<li>GENE SET：指富集到的通路编号或GO Term编号；</li>
-<li>NAME：指富集到的KEGG pathway通路名称或GO Term功能的描述；</li>
-<li>POSITIVE：1.0代表显著富集；</li>
-<li>PROBABILITY：代表预测的可信度；</li>
-<li>ENRICH SCORE：指目标通路与separating hyperplane of SVM的距离，数值越大越好；</li>
-</ul>
-</li>
-</ul>
-<h3 id="KOBAS本地化"><a href="#KOBAS本地化" class="headerlink" title="KOBAS本地化"></a>KOBAS本地化</h3><p>安装KOBAS需要先安装一些依赖的python包、R包以及相关软件。</p>
-<h4 id="1、依赖的python包"><a href="#1、依赖的python包" class="headerlink" title="1、依赖的python包"></a>1、依赖的python包</h4><p>安装KOBAS 3.0 需要Python (&gt;= 2.3 and not 3.x)，并且需要安装以下第三方包：</p>
-<ul>
-<li>SQLite (3.x) and PySQLite (2.x)</li>
-<li>BioPython (&gt;= 1.4.3)</li>
-<li>RPy2 (&gt;= 2.2.4)</li>
-<li>matplotlib </li>
-<li>Numpy (&gt;= 1.8.0)</li>
-<li>Pandas (&gt;= 0.17.1)</li>
-</ul>
-<h4 id="2、依赖的R包"><a href="#2、依赖的R包" class="headerlink" title="2、依赖的R包"></a>2、依赖的R包</h4><p>安装KOBAS 3.0 需要R (&gt;= 2.0)，并且需要安装如下第三方包：</p>
-<ul>
-<li>QVALUE</li>
-<li>EnrichmentBrowser</li>
-<li>GSVA</li>
-<li>gage</li>
-</ul>
-<h4 id="3、其他软件"><a href="#3、其他软件" class="headerlink" title="3、其他软件"></a>3、其他软件</h4><p>安装KOBAS 3.0 需要安装NCBI BLAST+</p>
-<p>Download: <a href="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/" target="_blank" rel="noopener">ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/</a></p>
-<p>Installation: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zvf ncbi-blast-x.x.x+-x64-linux.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">"<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/ncbi-blast-2.2.29+/bin"</span>  </span><br><span class="line"><span class="comment">#(or add path to your .bashrc)</span></span><br></pre></td></tr></table></figure>
+<h3 id="Aspera下载和安装"><a href="#Aspera下载和安装" class="headerlink" title="Aspera下载和安装"></a>Aspera下载和安装</h3><p>下载地址，有windows和Linux版的，下面安装的是Linux版的，因为后续处理sra文件都是在Linux上操作。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntubio]$ wget http://download.asperasoft.com/download/sw/connect/3.7.4/aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ tar -zxf aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ bash aspera-connect-3.7.4.147727-linux-64.sh</span><br><span class="line">Installing Aspera Connect</span><br><span class="line"> </span><br><span class="line">Deploying Aspera Connect (/home/bio/.aspera/connect) <span class="keyword">for</span> the current user only.</span><br><span class="line">Unable to update desktop database, Aspera Connect may not be able to auto-launch</span><br><span class="line">Restart firefox manually to load the Aspera Connect plug-in[bio@ubuntu~]$ <span class="built_in">echo</span> <span class="string">'PATH=$PATH:~/.aspera/connect/bin/'</span> &gt;&gt; ~/.bashrc</span><br><span class="line">[bio@ubuntu~]$ <span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure>
 
-<h4 id="4、安装KOBAS"><a href="#4、安装KOBAS" class="headerlink" title="4、安装KOBAS"></a>4、安装KOBAS</h4><p>首先，下载KOBAS 3.0 </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://kobas.cbi.pku.edu.cn/kobas-2.1.1/kobas-3.0.3.tar.gz</span><br><span class="line">tar -zxf kobas-3.0.3.tar.gz</span><br><span class="line"><span class="comment"># 解压就能用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########解压后的文件结构#########</span></span><br><span class="line">kobas-3.0.3/</span><br><span class="line">		|-----README : introduce how to install kobas and how to use it.</span><br><span class="line"></span><br><span class="line">		|-----scripts : run KOBAS program.</span><br><span class="line"></span><br><span class="line">		|-----seq_pep : store FASTA format protein sequence files of KO and all supported species </span><br><span class="line"></span><br><span class="line">		|-----sqlite3 : store backend databases of KO and all supported species </span><br><span class="line"></span><br><span class="line">		|-----src : store KOBAS <span class="built_in">source</span> codes.</span><br><span class="line"></span><br><span class="line">		|-----<span class="built_in">test</span> : store example data <span class="keyword">for</span> testing KOBAS.</span><br><span class="line"><span class="comment">#################################</span></span><br></pre></td></tr></table></figure>
+<h3 id="Aspera-使用"><a href="#Aspera-使用" class="headerlink" title="Aspera 使用"></a>Aspera 使用</h3><h4 id="ascp-常用的参数如下："><a href="#ascp-常用的参数如下：" class="headerlink" title="ascp 常用的参数如下："></a>ascp 常用的参数如下：</h4><ul>
+<li>-T：不进行加密。若不添加此参数，可能会下载不了。</li>
+<li>-l：设置最大传输速度，比如设置为 200M 则表示最大传输速度为 200m/s。若不设置该参数，则一般可达到10m/s的速度，而设置了，传输速度可以更高。</li>
+<li>-i：输入私钥。安装 aspera 后有在目录 ~/.aspera/connect/etc/ 下有几个私钥，使用 linux 服务器的时候一般使用 asperaweb_id_dsa.openssh 文件作为私钥。</li>
+<li>–host=string：ftp的host名，NCBI的为ftp-private.ncbi.nlm.nih.gov；EBI的为fasp.sra.ebi.ac.uk。</li>
+<li>–user=string：用户名，NCBI的为anonftp，EBI的为era-fasp</li>
+<li>–mode=string：选择模式。上传为 send，下载recv</li>
+</ul>
+<h4 id="从NCBI下载SRA文件"><a href="#从NCBI下载SRA文件" class="headerlink" title="从NCBI下载SRA文件"></a>从NCBI下载SRA文件</h4><p>例如要下载<a href="ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra" target="_blank" rel="noopener">ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntu~]<span class="variable">$ascp</span> -T -l 200M -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh anonftp@ftp-private.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByRun/sra/ERR/ERR188/ERR188245/ERR188245.sra ./</span><br></pre></td></tr></table></figure>
 
-<p>然后，下载KOBAS数据包</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">########KOBAS organism data package########</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/sqlite3/organism.db.gz</span><br><span class="line">gunzip organism.db.gz <span class="comment">#复制到 sqlite3 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########下载自己需要的物种#################</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/sqlite3/hsa.db.gz</span><br><span class="line">gunzip hsa.db.gz  <span class="comment">#复制到sqlite3 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########下载对应物种的pep序列##############</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/seq_pep/hsa.pep.fasta.gz</span><br><span class="line">gunzip hsa.pep.fasta.gz  <span class="comment">#复制到seq_pep 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########建blast数据库######################</span></span><br><span class="line">makeblastdb -<span class="keyword">in</span> hsa.pep.fasta -dbtype prot</span><br></pre></td></tr></table></figure>
+<h4 id="从EBI下载SRA文件"><a href="#从EBI下载SRA文件" class="headerlink" title="从EBI下载SRA文件"></a>从EBI下载SRA文件</h4><p>例如要下载<a href="ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz" target="_blank" rel="noopener">ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[bio@ubuntu~]$ ascp -P33001 -T -l 200M -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq/ERR188/ERR188245/ERR188245_1.fastq.gz ./</span><br></pre></td></tr></table></figure>
 
-<p>最后，配置KOBAS运行环境</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PYTHONPATH = kobas-3.0.0-beta/src:<span class="variable">$PYTHONPATH</span></span><br><span class="line"></span><br><span class="line">cp kobas-3.0/docs/kobasrc  ~/.kobasrc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim .kobasrc <span class="comment">#编辑配置文件</span></span><br><span class="line"><span class="comment">######.kobasrc文件内容如下#########</span></span><br><span class="line">---------------------------	</span><br><span class="line"></span><br><span class="line">	[DEFAULT]</span><br><span class="line"></span><br><span class="line">	kobas_home = <span class="variable">$HOME</span>/kobas-3.0.3/	<span class="comment"># kobas 的绝对路径</span></span><br><span class="line"></span><br><span class="line">	blast_home = <span class="variable">$HOME</span>/ncbi-blast-2.2.29+/bin</span><br><span class="line"></span><br><span class="line">	[KOBAS]</span><br><span class="line"></span><br><span class="line">	kobasdb	= %(kobas_home)s/sqlite3/	<span class="comment"># path to Backend databases of KO and all supported species, if you don't want to state it by kobas_home, # you can also write the absolute path after "="</span></span><br><span class="line"></span><br><span class="line">	[BLAST]</span><br><span class="line"></span><br><span class="line">	blastp = %(blast_home)s/blastp		<span class="comment"># path to program blastp</span></span><br><span class="line">	blastx = %(blast_home)s/blastx		<span class="comment"># path to program blastx</span></span><br><span class="line">	blastdb = %(kobas_home)s/seq_pep/	<span class="comment"># path to FASTA format protein sequence files of KO and all supported species</span></span><br><span class="line"></span><br><span class="line"> -----------------------------</span><br></pre></td></tr></table></figure>
-
-<p> Kobas的使用</p>
- <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> <span class="comment">### 注释</span></span><br><span class="line">$ annotate.py -i inputfile -t blastout:tab -s ko -o outfile</span><br><span class="line"><span class="comment"># -t：输入文件的类型，有blastout:tab和blastout:xml，fasta:pro，fasta:nuc,id:ncbigene,id:refseqpro,id:uniport,id:ensembl</span></span><br><span class="line"><span class="comment"># -s：物种类型，ko指KEGG Orthology，has人，mmu 小鼠，等等</span></span><br><span class="line"><span class="comment"># -k：KOBAS home</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 检测</span></span><br><span class="line">$ identify.py -f inputfile -o outfile -m h </span><br><span class="line"> <span class="comment">#identify的inputfile是annotate的outfile</span></span><br><span class="line"><span class="comment"># -m：统计检验方法，c代表chi-square test，h代表hypergeometric test/ Fisher's exact test，x代表frequency list</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">###富集</span></span><br><span class="line">$ cluster.py -i inputfile -m k -o outfile </span><br><span class="line"><span class="comment"># -m：method，K表示 Cohen’s kappa coefficient；j表示jaccard similarity coefficient</span></span><br><span class="line"><span class="comment"># -d：database，P代表PATHWAY，D代表DISEASE，G代表GO</span></span><br><span class="line"><span class="comment"># -t：threshold,默认0.35</span></span><br></pre></td></tr></table></figure>
-
-<p>参考：</p>
-<p><a href="http://kobas.cbi.pku.edu.cn/help.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/help.php</a><br><a href="https://www.jianshu.com/p/5a4bda169247" target="_blank" rel="noopener">https://www.jianshu.com/p/5a4bda169247</a></p>
+<p>-P33001：EBI这个参数是必须的，但是NCBI不需要，要不然会报错Session Stop (Error: Failed to open TCP connection for SSH)</p>
 ]]></content>
       <categories>
         <category>生物信息学常用软件</category>
       </categories>
       <tags>
         <tag>生信软件</tag>
-        <tag>富集分析</tag>
-        <tag>python软件</tag>
+        <tag>下载SRA文件</tag>
       </tags>
   </entry>
 </search>
