@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>awk</title>
+    <url>/2019/12/24/awk/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>使用Aspera从NCBI或EBI高速下载SRA测序文件</title>
     <url>/2019/12/24/aspera/</url>
     <content><![CDATA[<p>Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。</p>
