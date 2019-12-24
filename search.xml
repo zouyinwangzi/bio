@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>awk</title>
-    <url>/2019/12/24/awk/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>使用Aspera从NCBI或EBI高速下载SRA测序文件</title>
     <url>/2019/12/24/aspera/</url>
     <content><![CDATA[<p>Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。</p>
@@ -130,8 +125,8 @@
         <category>生物信息学常用软件</category>
       </categories>
       <tags>
-        <tag>生信软件</tag>
         <tag>富集分析</tag>
+        <tag>生信软件</tag>
         <tag>python软件</tag>
       </tags>
   </entry>
