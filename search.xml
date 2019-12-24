@@ -6,7 +6,7 @@
     <content><![CDATA[<p>Aspera提供了大文件高速传输方案，适合于大数据的传输。客服端的使用是免费的。</p>
 <a id="more"></a>
 <h3 id="Aspera下载和安装"><a href="#Aspera下载和安装" class="headerlink" title="Aspera下载和安装"></a>Aspera下载和安装</h3><p>下载地址，有windows和Linux版的，下面安装的是Linux版的，因为后续处理sra文件都是在Linux上操作。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntubio]$ wget http://download.asperasoft.com/download/sw/connect/3.7.4/aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ tar -zxf aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ bash aspera-connect-3.7.4.147727-linux-64.sh</span><br><span class="line">Installing Aspera Connect</span><br><span class="line"> </span><br><span class="line">Deploying Aspera Connect (/home/bio/.aspera/connect) <span class="keyword">for</span> the current user only.</span><br><span class="line">Unable to update desktop database, Aspera Connect may not be able to auto-launch</span><br><span class="line">Restart firefox manually to load the Aspera Connect plug-in[bio@ubuntu~]$ <span class="built_in">echo</span> <span class="string">'PATH=$PATH:~/.aspera/connect/bin/'</span> &gt;&gt; ~/.bashrc</span><br><span class="line">[bio@ubuntu~]$ <span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntubio]$ wget http://download.asperasoft.com/download/sw/connect/3.7.4/aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ tar -zxf aspera-connect-3.7.4.147727-linux-64.tar.gz</span><br><span class="line">[bio@ubuntubio]$ bash aspera-connect-3.7.4.147727-linux-64.sh</span><br><span class="line"><span class="comment">###</span></span><br><span class="line">Installing Aspera Connect</span><br><span class="line"> </span><br><span class="line">Deploying Aspera Connect (/home/bio/.aspera/connect) <span class="keyword">for</span> the current user only.</span><br><span class="line">Unable to update desktop database, Aspera Connect may not be able to auto-launch</span><br><span class="line">Restart firefox manually to load the Aspera Connect plug-in</span><br><span class="line"><span class="comment">###</span></span><br><span class="line">[bio@ubuntu~]$ <span class="built_in">echo</span> <span class="string">'PATH=$PATH:~/.aspera/connect/bin/'</span> &gt;&gt; ~/.bashrc</span><br><span class="line">[bio@ubuntu~]$ <span class="built_in">source</span> .bashrc</span><br></pre></td></tr></table></figure>
 
 <h3 id="Aspera-使用"><a href="#Aspera-使用" class="headerlink" title="Aspera 使用"></a>Aspera 使用</h3><h4 id="ascp-常用的参数如下："><a href="#ascp-常用的参数如下：" class="headerlink" title="ascp 常用的参数如下："></a>ascp 常用的参数如下：</h4><ul>
 <li>-T：不进行加密。若不添加此参数，可能会下载不了。</li>
@@ -125,8 +125,8 @@
         <category>生物信息学常用软件</category>
       </categories>
       <tags>
-        <tag>富集分析</tag>
         <tag>生信软件</tag>
+        <tag>富集分析</tag>
         <tag>python软件</tag>
       </tags>
   </entry>
