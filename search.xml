@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>kobas</title>
+    <title>kobas 富集分析</title>
     <url>/2019/12/21/kobas/</url>
     <content><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>富集分析一般是高通量实验，如基因芯片，RNA-Seq，蛋白质组学（质谱结果）的后续分析步骤。常见的就是GO功能注释和KEGG通路富集分析。通过基因通路富集分析，我们可以初步分析基因可能参与的生物学过程或者信号通路。</p>
 <p>富集分析的工具有很多，DAVID，STRING，Kobas，R语言等。其中DAVID在2016年以后就很少更新了；String是瑞士苏黎世大学构建的一个搜寻蛋白质之间相互作用的数据库；R语言则语言有一定的编程基础；Kobas是用于注释富集途径和疾病的数据库，有在线版的也有服务器版的，在线的易用，服务器版的速度，不管你是生信小白或者大神都适用哦。</p>
