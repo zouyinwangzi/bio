@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2019/12/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>web前端</category>
+      </categories>
+      <tags>
+        <tag>jQuery</tag>
+        <tag>表格</tag>
+        <tag>表单验证</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello RQQ</title>
+    <url>/2019/12/23/rqq/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>this is a test post</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>test</title>
+    <url>/2019/12/21/test/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p>this is a test post</p>
+]]></content>
+      <categories>
+        <category>web前端</category>
+      </categories>
+      <tags>
+        <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>kobas</title>
+    <url>/2019/12/21/kobas/</url>
+    <content><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>富集分析一般是高通量实验，如基因芯片，RNA-Seq，蛋白质组学（质谱结果）的后续分析步骤。常见的就是GO功能注释和KEGG通路富集分析。通过基因通路富集分析，我们可以初步分析基因可能参与的生物学过程或者信号通路。</p>
+<p>富集分析的工具有很多，DAVID，STRING，Kobas，R语言等。其中DAVID在2016年以后就很少更新了；String是瑞士苏黎世大学构建的一个搜寻蛋白质之间相互作用的数据库；R语言则语言有一定的编程基础；Kobas是用于注释富集途径和疾病的数据库，有在线版的也有服务器版的，在线的易用，服务器版的速度，不管你是生信小白或者大神都适用哦。</p>
+<a id="more"></a>
+
+<h3 id="Kobas简介"><a href="#Kobas简介" class="headerlink" title="Kobas简介"></a>Kobas简介</h3><p>KOBAS（KEGG Orthology Based Annotation System)，(<a href="http://kobas.cbi.pku.edu.cn/index.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/index.php</a> )是北京大学开发的用于基因、蛋白质功能注释和功能基因富集分析的web服务器。现在版本已经更新到Kobas 3.0，注释的数据库包括pathway、disease和GO。Kobas 3.0主要有两个功能，注释（Annotation）和富集（Enrichment）。富集又包括Gene-list富集和Exp-data富集。</p>
+<h3 id="Kobas的优点"><a href="#Kobas的优点" class="headerlink" title="Kobas的优点"></a>Kobas的优点</h3><p>KOBAS有以下几个优点：</p>
+<ol>
+<li>Gene-list富集输入的可以是核苷酸序列也可以是蛋白质序列，还可以是tab分隔的blast结果，还可以是NCBI Entrez Gene ID、RefSeq Protein ID、Ensembl Gene ID、UniprotKB AC/ID </li>
+<li>Kobas支持的物种有4000多种，不限于模式生物</li>
+<li>统计检验方法有Fisher’s exact test和hypergeometric distribution test</li>
+<li>底层的数据库数据每3个月更新一次</li>
+</ol>
+<h3 id="在线分析实例"><a href="#在线分析实例" class="headerlink" title="在线分析实例"></a>在线分析实例</h3><h4 id="Gene-list富集分析"><a href="#Gene-list富集分析" class="headerlink" title="Gene-list富集分析"></a>Gene-list富集分析</h4><ol>
+<li><p>点击圈红的Gene-list Enrichment进去；</p>
+</li>
+<li><p>Input<br>ss</p>
+</li>
+</ol>
+<ul>
+<li>首先选择Gene-list的类型。可以是NCBI Entrez Gene ID、RefSeq Protein ID、Ensembl Gene ID、UniprotKB AC/ID；也可以是核苷酸或蛋白质的Fasta序列；还可以是Tab分隔的BLAST结果。</li>
+<li>然后选择类型对应的物种，默认物种是人。</li>
+<li>然后输入对应类型的Gene-list。</li>
+<li>选择富集分析需要的数据库，</li>
+</ul>
+<ol start="3">
+<li>点击Run显示以下信息，程序在后台运行。<br>ss</li>
+<li>运行完毕得出以下结果。点击Download可以下载结果列表。列表有以下几个列：<br>ss</li>
+</ol>
+<ul>
+<li>Term：KEGG pathway通路名称或GO Term功能的描述；</li>
+<li>Database：分析时所选的数据库，这里是GO和KEGG；</li>
+<li>ID：指富集到的对应数据库的ID条目；</li>
+<li>Input number：Gene-list落在该通路或GO term的基因数目；</li>
+<li>Background number：该通路或GO Term相关的基因数目；</li>
+<li>P-value：富集到该通路的显著性水平，越小越显著；</li>
+<li>Corrected P-value：矫正的P-value，列表默认按照Corrected P-value由小到大排序。</li>
+</ul>
+<h4 id="Exp-data富集分析"><a href="#Exp-data富集分析" class="headerlink" title="Exp-data富集分析"></a>Exp-data富集分析</h4><p>ss<br>基因表达数据分析需要输入两个文件，一个是表达矩阵文件，一个是样本分类文件。</p>
+<ul>
+<li>表达矩阵的格式如下图：是一个tab分隔的txt文件，列对应样本，行对应基因ID。表达数据既可以是芯片表达矩阵，也可以是RNA-seq表达矩阵。芯片数据可以是raw reads数据，而RNA-seq数据只能是FPKM/RPKM数据，不能是raw reads。<br>ss</li>
+<li>样本分类如下图：<br>ss</li>
+<li>输出结果有五列：<br>ss<ul>
+<li>GENE SET：指富集到的通路编号或GO Term编号；</li>
+<li>NAME：指富集到的KEGG pathway通路名称或GO Term功能的描述；</li>
+<li>POSITIVE：1.0代表显著富集；</li>
+<li>PROBABILITY：代表预测的可信度；</li>
+<li>ENRICH SCORE：指目标通路与separating hyperplane of SVM的距离，数值越大越好；</li>
+</ul>
+</li>
+</ul>
+<h3 id="KOBAS本地化"><a href="#KOBAS本地化" class="headerlink" title="KOBAS本地化"></a>KOBAS本地化</h3><p>安装KOBAS需要先安装一些依赖的python包、R包以及相关软件。</p>
+<h4 id="1、依赖的python包"><a href="#1、依赖的python包" class="headerlink" title="1、依赖的python包"></a>1、依赖的python包</h4><p>安装KOBAS 3.0 需要Python (&gt;= 2.3 and not 3.x)，并且需要安装以下第三方包：</p>
+<ul>
+<li>SQLite (3.x) and PySQLite (2.x)</li>
+<li>BioPython (&gt;= 1.4.3)</li>
+<li>RPy2 (&gt;= 2.2.4)</li>
+<li>matplotlib </li>
+<li>Numpy (&gt;= 1.8.0)</li>
+<li>Pandas (&gt;= 0.17.1)</li>
+</ul>
+<h4 id="2、依赖的R包"><a href="#2、依赖的R包" class="headerlink" title="2、依赖的R包"></a>2、依赖的R包</h4><p>安装KOBAS 3.0 需要R (&gt;= 2.0)，并且需要安装如下第三方包：</p>
+<ul>
+<li>QVALUE</li>
+<li>EnrichmentBrowser</li>
+<li>GSVA</li>
+<li>gage</li>
+</ul>
+<h4 id="3、其他软件"><a href="#3、其他软件" class="headerlink" title="3、其他软件"></a>3、其他软件</h4><p>安装KOBAS 3.0 需要安装NCBI BLAST+</p>
+<p>Download: <a href="ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/" target="_blank" rel="noopener">ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/</a></p>
+<p>Installation: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zvf ncbi-blast-x.x.x+-x64-linux.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">"<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/ncbi-blast-2.2.29+/bin"</span>  </span><br><span class="line"><span class="comment">#(or add path to your .bashrc)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4、安装KOBAS"><a href="#4、安装KOBAS" class="headerlink" title="4、安装KOBAS"></a>4、安装KOBAS</h4><p>首先，下载KOBAS 3.0 </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://kobas.cbi.pku.edu.cn/kobas-2.1.1/kobas-3.0.3.tar.gz</span><br><span class="line">tar -zxf kobas-3.0.3.tar.gz</span><br><span class="line"><span class="comment"># 解压就能用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########解压后的文件结构#########</span></span><br><span class="line">kobas-3.0.3/</span><br><span class="line">		|-----README : introduce how to install kobas and how to use it.</span><br><span class="line"></span><br><span class="line">		|-----scripts : run KOBAS program.</span><br><span class="line"></span><br><span class="line">		|-----seq_pep : store FASTA format protein sequence files of KO and all supported species </span><br><span class="line"></span><br><span class="line">		|-----sqlite3 : store backend databases of KO and all supported species </span><br><span class="line"></span><br><span class="line">		|-----src : store KOBAS <span class="built_in">source</span> codes.</span><br><span class="line"></span><br><span class="line">		|-----<span class="built_in">test</span> : store example data <span class="keyword">for</span> testing KOBAS.</span><br><span class="line"><span class="comment">#################################</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，下载KOBAS数据包</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">########KOBAS organism data package########</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/sqlite3/organism.db.gz</span><br><span class="line">gunzip organism.db.gz <span class="comment">#复制到 sqlite3 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########下载自己需要的物种#################</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/sqlite3/hsa.db.gz</span><br><span class="line">gunzip hsa.db.gz  <span class="comment">#复制到sqlite3 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########下载对应物种的pep序列##############</span></span><br><span class="line">wget ftp://ftp.cbi.pku.edu.cn/pub/KOBAS_3.0_DOWNLOAD/seq_pep/hsa.pep.fasta.gz</span><br><span class="line">gunzip hsa.pep.fasta.gz  <span class="comment">#复制到seq_pep 目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########建blast数据库######################</span></span><br><span class="line">makeblastdb -<span class="keyword">in</span> hsa.pep.fasta -dbtype prot</span><br></pre></td></tr></table></figure>
+
+<p>最后，配置KOBAS运行环境</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PYTHONPATH = kobas-3.0.0-beta/src:<span class="variable">$PYTHONPATH</span></span><br><span class="line"></span><br><span class="line">cp kobas-3.0/docs/kobasrc  ~/.kobasrc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vim .kobasrc <span class="comment">#编辑配置文件</span></span><br><span class="line"><span class="comment">######.kobasrc文件内容如下#########</span></span><br><span class="line">---------------------------	</span><br><span class="line"></span><br><span class="line">	[DEFAULT]</span><br><span class="line"></span><br><span class="line">	kobas_home = <span class="variable">$HOME</span>/kobas-3.0.3/	<span class="comment"># kobas 的绝对路径</span></span><br><span class="line"></span><br><span class="line">	blast_home = <span class="variable">$HOME</span>/ncbi-blast-2.2.29+/bin</span><br><span class="line"></span><br><span class="line">	[KOBAS]</span><br><span class="line"></span><br><span class="line">	kobasdb	= %(kobas_home)s/sqlite3/	<span class="comment"># path to Backend databases of KO and all supported species, if you don't want to state it by kobas_home, # you can also write the absolute path after "="</span></span><br><span class="line"></span><br><span class="line">	[BLAST]</span><br><span class="line"></span><br><span class="line">	blastp = %(blast_home)s/blastp		<span class="comment"># path to program blastp</span></span><br><span class="line">	blastx = %(blast_home)s/blastx		<span class="comment"># path to program blastx</span></span><br><span class="line">	blastdb = %(kobas_home)s/seq_pep/	<span class="comment"># path to FASTA format protein sequence files of KO and all supported species</span></span><br><span class="line"></span><br><span class="line"> -----------------------------</span><br></pre></td></tr></table></figure>
+
+<p> Kobas的使用</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> <span class="comment">### 注释</span></span><br><span class="line">$ annotate.py -i inputfile -t blastout:tab -s ko -o outfile</span><br><span class="line"><span class="comment"># -t：输入文件的类型，有blastout:tab和blastout:xml，fasta:pro，fasta:nuc,id:ncbigene,id:refseqpro,id:uniport,id:ensembl</span></span><br><span class="line"><span class="comment"># -s：物种类型，ko指KEGG Orthology，has人，mmu 小鼠，等等</span></span><br><span class="line"><span class="comment"># -k：KOBAS home</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 检测</span></span><br><span class="line">$ identify.py -f inputfile -o outfile -m h </span><br><span class="line"> <span class="comment">#identify的inputfile是annotate的outfile</span></span><br><span class="line"><span class="comment"># -m：统计检验方法，c代表chi-square test，h代表hypergeometric test/ Fisher's exact test，x代表frequency list</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">###富集</span></span><br><span class="line">$ cluster.py -i inputfile -m k -o outfile </span><br><span class="line"><span class="comment"># -m：method，K表示 Cohen’s kappa coefficient；j表示jaccard similarity coefficient</span></span><br><span class="line"><span class="comment"># -d：database，P代表PATHWAY，D代表DISEASE，G代表GO</span></span><br><span class="line"><span class="comment"># -t：threshold,默认0.35</span></span><br></pre></td></tr></table></figure>
+
+<p>参考：</p>
+<p><a href="http://kobas.cbi.pku.edu.cn/help.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/help.php</a><br><a href="https://www.jianshu.com/p/5a4bda169247" target="_blank" rel="noopener">https://www.jianshu.com/p/5a4bda169247</a></p>
+]]></content>
+      <tags>
+        <tag>富集</tag>
+      </tags>
+  </entry>
+</search>
