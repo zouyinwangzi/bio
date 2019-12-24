@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>kobas 富集分析</title>
+    <title>kobas 富集分析超快超速度</title>
     <url>/2019/12/21/kobas/</url>
     <content><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>富集分析一般是高通量实验，如基因芯片，RNA-Seq，蛋白质组学（质谱结果）的后续分析步骤。常见的就是GO功能注释和KEGG通路富集分析。通过基因通路富集分析，我们可以初步分析基因可能参与的生物学过程或者信号通路。</p>
 <p>富集分析的工具有很多，DAVID，STRING，Kobas，R语言等。其中DAVID在2016年以后就很少更新了；String是瑞士苏黎世大学构建的一个搜寻蛋白质之间相互作用的数据库；R语言则语言有一定的编程基础；Kobas是用于注释富集途径和疾病的数据库，有在线版的也有服务器版的，在线的易用，服务器版的速度，不管你是生信小白或者大神都适用哦。</p>
 <a id="more"></a>
-
 <h3 id="Kobas简介"><a href="#Kobas简介" class="headerlink" title="Kobas简介"></a>Kobas简介</h3><p>KOBAS（KEGG Orthology Based Annotation System)，(<a href="http://kobas.cbi.pku.edu.cn/index.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/index.php</a> )是北京大学开发的用于基因、蛋白质功能注释和功能基因富集分析的web服务器。现在版本已经更新到Kobas 3.0，注释的数据库包括pathway、disease和GO。Kobas 3.0主要有两个功能，注释（Annotation）和富集（Enrichment）。富集又包括Gene-list富集和Exp-data富集。</p>
 <h3 id="Kobas的优点"><a href="#Kobas的优点" class="headerlink" title="Kobas的优点"></a>Kobas的优点</h3><p>KOBAS有以下几个优点：</p>
 <ol>
@@ -16,9 +15,9 @@
 <li>底层的数据库数据每3个月更新一次</li>
 </ol>
 <h3 id="在线分析实例"><a href="#在线分析实例" class="headerlink" title="在线分析实例"></a>在线分析实例</h3><h4 id="Gene-list富集分析"><a href="#Gene-list富集分析" class="headerlink" title="Gene-list富集分析"></a>Gene-list富集分析</h4><ol>
-<li><p>点击圈红的Gene-list Enrichment进去；</p>
+<li><p>点击圈红的Gene-list Enrichment进去；<br><img src="https://mmbiz.qpic.cn/mmbiz_jpg/oAUPFQQ5EKSRSicqLsS4ia8XFApufcqJod4VuqZicubztx7Ea3UicRswjl4BOkvSiaZibRuCN28PCEdpzbnQBk8ddLKQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
 </li>
-<li><p>Input<br>ss</p>
+<li><p>Input<br><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKSRSicqLsS4ia8XFApufcqJodK2kyD3cicANd500ibD0cAYArNgzMB5DxosrDc25LeHTPaX1ukQA7hGAg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
 </li>
 </ol>
 <ul>
@@ -28,8 +27,8 @@
 <li>选择富集分析需要的数据库，</li>
 </ul>
 <ol start="3">
-<li>点击Run显示以下信息，程序在后台运行。<br>ss</li>
-<li>运行完毕得出以下结果。点击Download可以下载结果列表。列表有以下几个列：<br>ss</li>
+<li>点击Run显示以下信息，程序在后台运行。<br><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKSRSicqLsS4ia8XFApufcqJodafN0KOsm59w9wiad69ic9IUvZicsuM0kodDaqhSoy0dibXoicET6KrkPI4A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></li>
+<li>运行完毕得出以下结果。点击Download可以下载结果列表。列表有以下几个列：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKSRSicqLsS4ia8XFApufcqJodoqBDnnGKvkQnCLibD1kzN3h1TiaP5Sficxa2gwhgJJeibT8sWfIuVxLSOA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></li>
 </ol>
 <ul>
 <li>Term：KEGG pathway通路名称或GO Term功能的描述；</li>
@@ -40,11 +39,11 @@
 <li>P-value：富集到该通路的显著性水平，越小越显著；</li>
 <li>Corrected P-value：矫正的P-value，列表默认按照Corrected P-value由小到大排序。</li>
 </ul>
-<h4 id="Exp-data富集分析"><a href="#Exp-data富集分析" class="headerlink" title="Exp-data富集分析"></a>Exp-data富集分析</h4><p>ss<br>基因表达数据分析需要输入两个文件，一个是表达矩阵文件，一个是样本分类文件。</p>
+<h4 id="Exp-data富集分析"><a href="#Exp-data富集分析" class="headerlink" title="Exp-data富集分析"></a>Exp-data富集分析</h4><p><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKSRSicqLsS4ia8XFApufcqJodT39jubUHx9NhHcdqp3wibaYcXiamTYzVtssGCshZVrftc4jMrzJhTJZw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"><br>基因表达数据分析需要输入两个文件，一个是表达矩阵文件，一个是样本分类文件。</p>
 <ul>
-<li>表达矩阵的格式如下图：是一个tab分隔的txt文件，列对应样本，行对应基因ID。表达数据既可以是芯片表达矩阵，也可以是RNA-seq表达矩阵。芯片数据可以是raw reads数据，而RNA-seq数据只能是FPKM/RPKM数据，不能是raw reads。<br>ss</li>
-<li>样本分类如下图：<br>ss</li>
-<li>输出结果有五列：<br>ss<ul>
+<li>表达矩阵的格式如下图：是一个tab分隔的txt文件，列对应样本，行对应基因ID。表达数据既可以是芯片表达矩阵，也可以是RNA-seq表达矩阵。芯片数据可以是raw reads数据，而RNA-seq数据只能是FPKM/RPKM数据，不能是raw reads。<br><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKSRSicqLsS4ia8XFApufcqJodODgiaJpJ773cKjqvwq8nwTaVgAJC1W8JiccTiceNHpXGvv8NodaMbjl2g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></li>
+<li>样本分类如下图：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKSRSicqLsS4ia8XFApufcqJod8YNiaOv4zRGkRhQnicTRE4rrFkibGY2Odatfpd8gWVs09G8kPiaowY8Jfw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></li>
+<li>输出结果有五列：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKSRSicqLsS4ia8XFApufcqJodsJwNicaAsEgDcnRKf5nrJsAG1bvia83qOqicKrlibS8U6F4F0YAaWibwSdA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"><ul>
 <li>GENE SET：指富集到的通路编号或GO Term编号；</li>
 <li>NAME：指富集到的KEGG pathway通路名称或GO Term功能的描述；</li>
 <li>POSITIVE：1.0代表显著富集；</li>
@@ -91,7 +90,9 @@
 <p><a href="http://kobas.cbi.pku.edu.cn/help.php" target="_blank" rel="noopener">http://kobas.cbi.pku.edu.cn/help.php</a><br><a href="https://www.jianshu.com/p/5a4bda169247" target="_blank" rel="noopener">https://www.jianshu.com/p/5a4bda169247</a></p>
 ]]></content>
       <tags>
-        <tag>富集</tag>
+        <tag>富集分析</tag>
+        <tag>生信软件</tag>
+        <tag>python软件</tag>
       </tags>
   </entry>
 </search>
