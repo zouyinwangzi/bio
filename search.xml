@@ -163,8 +163,8 @@
         <category>生物信息学常用软件</category>
       </categories>
       <tags>
-        <tag>生信软件</tag>
         <tag>富集分析</tag>
+        <tag>生信软件</tag>
         <tag>python软件</tag>
       </tags>
   </entry>
@@ -204,5 +204,12 @@
 <h4 id="匹配行后插入文本"><a href="#匹配行后插入文本" class="headerlink" title="匹配行后插入文本"></a>匹配行后插入文本</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#使用a在第二行后插入文本</span><br><span class="line">[root@localhost ~]# sed &#39;2 a Insert&#39; Sed.txt</span><br><span class="line">this is line 1,this is First line</span><br><span class="line">this is line 2,the Second line,Empty line followed</span><br><span class="line">Insert</span><br><span class="line"></span><br><span class="line">this is line 4,this is Third line</span><br><span class="line">this is line 5,this is Fifth line</span><br></pre></td></tr></table></figure>
 <h4 id="匹配行的上一行插入文本"><a href="#匹配行的上一行插入文本" class="headerlink" title="匹配行的上一行插入文本"></a>匹配行的上一行插入文本</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在匹配行的上一行插入问题</span><br><span class="line">[root@localhost ~]# sed &#39;&#x2F;Second&#x2F;i\Insert&#39; Sed.txt</span><br><span class="line">this is line 1,this is First line</span><br><span class="line">Insert</span><br><span class="line">this is line 2,the Second line,Empty line followed</span><br><span class="line"></span><br><span class="line">this is line 4,this is Third line</span><br><span class="line">this is line 5,this is Fifth line</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>Linux相关</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>文本处理</tag>
+      </tags>
   </entry>
 </search>
