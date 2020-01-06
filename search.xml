@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ChIP-seq分析实例</title>
+    <url>/2020/01/06/ChIP-seq/</url>
+    <content><![CDATA[<p> 本例子选取的文章是为了探索PRC1，PCR2这样的蛋白复合物，不是转录因子或者组蛋白的CHIP-seq。</p>
+<a id="more"></a>
+<p><a href="https://mp.weixin.qq.com/s/_A0rHldzEgVk7bgwt457qQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/_A0rHldzEgVk7bgwt457qQ</a>?<br><a href="https://www.ncbi.nlm.nih.gov/pubmed/23273917" target="_blank" rel="noopener">https://www.ncbi.nlm.nih.gov/pubmed/23273917</a></p>
+<h3 id="sra数据下载"><a href="#sra数据下载" class="headerlink" title="sra数据下载"></a>sra数据下载</h3><p><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKRtUvC7EsmA5MXI2UnsOxrz4rwMjf7oDjosdVc5EzTecJlY5dIyuGOOClMlDpPq2FdlVHH1fhceEw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
+<p>在NCBI的FTP数据库找到SRP017311 </p>
+<p><a href="ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/" target="_blank" rel="noopener">ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/</a></p>
+<h4 id="下载sra文件"><a href="#下载sra文件" class="headerlink" title="下载sra文件"></a>下载sra文件</h4><p>使用wget下载，会较慢。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for ((i=4;i&lt;=9;i++)) ;do wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR62020$i/SRR62020$i.sra;done</span><br></pre></td></tr></table></figure>
+
+<p>使用ascp下载，速度飞快。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for ((i=4;i&lt;=9;i++)) ;do ascp -T -l 200M -i ~/.aspera/connect/etc/asperaweb_id_dsa.openssh anonftp@ftp-private.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR62020$i/SRR62020$i.sra ./;done</span><br></pre></td></tr></table></figure>
+
+<h4 id="sra文件转化为fastq格式"><a href="#sra文件转化为fastq格式" class="headerlink" title="sra文件转化为fastq格式"></a>sra文件转化为fastq格式</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls *sra |while read id; do ~/biosoft/sratoolkit/sratoolkit.2.6.3-centos_linux64/bin/fastq-dump –split-3 $id;done</span><br></pre></td></tr></table></figure>
+
+<h3 id="Qualify-control"><a href="#Qualify-control" class="headerlink" title="Qualify control"></a>Qualify control</h3><p>使用的是fastqc软件。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ls *fastq |xargs ~/biosoft/fastqc/FastQC/fastqc -t 10</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="比对到参考基因组并sort-BAM"><a href="#比对到参考基因组并sort-BAM" class="headerlink" title="比对到参考基因组并sort BAM"></a>比对到参考基因组并sort BAM</h3><p>使用的软件是bowtie2比对，samtools排序。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">~/biosoft/bowtie/bowtie2-2.2.9/bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U SRR620204.fastq| samtools sort -O bam -o ring1B.bam</span><br><span class="line"></span><br><span class="line">~/biosoft/bowtie/bowtie2-2.2.9/bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U SRR620205.fastq| samtools sort -O bam -o cbx7.bam</span><br><span class="line"></span><br><span class="line">~/biosoft/bowtie/bowtie2-2.2.9/bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U SRR620206.fastq| samtools sort -O bam -o suz12.bam</span><br><span class="line"></span><br><span class="line">~/biosoft/bowtie/bowtie2-2.2.9/bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U SRR620207.fastq| samtools sort -O bam -o RYBP.bam</span><br><span class="line"></span><br><span class="line">~/biosoft/bowtie/bowtie2-2.2.9/bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U SRR620208.fastq| samtools sort -O bam -o IgGold.bam</span><br><span class="line"></span><br><span class="line">~/biosoft/bowtie/bowtie2-2.2.9/bowtie2 -p 6 -3 5 --local -x ~/reference/index/bowtie/mm10 -U SRR620209.fastq| samtools sort -O bam -o IgG.bam</span><br></pre></td></tr></table></figure>
+
+<h3 id="Peak-Calling"><a href="#Peak-Calling" class="headerlink" title="Peak Calling"></a>Peak Calling</h3><p>call peak使用的是macs2软件的callpeak方法。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">nohup ~/.local/bin/macs2 callpeak -c ../IgGold.bam -t ../suz12.bam -m 10 30 -p 1e-5 -f BAM -g mm -n suz12 2&gt;suz12.masc2.log &amp;</span><br><span class="line"></span><br><span class="line">nohup ~/.local/bin/macs2 callpeak -c ../IgGold.bam -t ../ring1B.bam -m 10 30 -p 1e-5 -f BAM -g mm -n ring1B 2&gt;ring1B.masc2.log &amp;</span><br><span class="line"></span><br><span class="line">nohup ~/.local/bin/macs2 callpeak -c ../IgG.bam -t ../cbx7.bam -m 10 30 -p 1e-5 -f BAM -g mm -n cbx7 2&gt;cbx7.masc2.log &amp;</span><br><span class="line"></span><br><span class="line">nohup ~/.local/bin/macs2 callpeak -c ../IgG.bam -t ../RYBP.bam -m 10 30 -p 1e-5 -f BAM -g mm -n RYBP 2&gt;RYBP.masc2.log &amp;</span><br></pre></td></tr></table></figure>
+<p>相关参数如下：</p>
+<ul>
+<li>-c表示对照样本和-t表示处理样本。 其中-t必须，很好理解，没有处理组你还找啥Peak。</li>
+<li>-m 构建双峰模型时使用，默认是[5,50]，表示选择那些倍数变化在5~10之间的富集区域。如果找不到100个区域构建模型，并且你还设置了–fix-bimodal时，它就会用–extsize参数继续分析。</li>
+<li>-f 用来声明输入的文件格式。</li>
+<li>-p：使用P值，而不是q值，也就是说用未多重矫正的p值进行筛选。</li>
+<li>-n是随便取的，表示实验的名称，最好取个有意义的名字。</li>
+<li>-g表示实际可比对的基因组大小。hs:    2.7e9。mm:    1.87e9。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>ChIP-seq</category>
+      </categories>
+      <tags>
+        <tag>ChIP-seq</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>文献获取的途径</title>
     <url>/2020/01/06/sci/</url>
     <content><![CDATA[<h3 id="Science-Hub-或Library-Genesis"><a href="#Science-Hub-或Library-Genesis" class="headerlink" title="Science Hub 或Library Genesis"></a>Science Hub 或Library Genesis</h3><p>sci-hub的域名经常切换，所以如果一个域名失效了可以试试sci-hub.tw、sci-hub.la、sci-hub.bz、sci-hub.io等。<br>而libgen的域名一直未变：<a href="http://gen.lib.rus.ec/，也可以通过libgen找到最新的sci-hub网址。" target="_blank" rel="noopener">http://gen.lib.rus.ec/，也可以通过libgen找到最新的sci-hub网址。</a></p>
