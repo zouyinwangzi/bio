@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>1000genomes</title>
+    <url>/2020/01/06/1000genomes/</url>
+    <content><![CDATA[<h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><p>2008年至2015年，现在已经结束。之后由EMBL-EBI存储以及后期扩大。4x的测序深度，虽然不能发现所有的变体，但是能发现1%频率的变体。</p>
+<p>2010年6月21日，由中国深圳华大基因研究院、英国桑格研究所和美国国立人类基因组研究所等共同发起并主导的“国际千人基因组计划”协作组对外宣布：该计划第一阶段的“3个先导项目”已圆满完成，全部数据已存储于该计划所设立的公共数据库，公众可免费获取和浏览第一阶段产生的全部数据 。这就是现在的<a href="http://www.internationalgenome.org/about" target="_blank" rel="noopener">1000genomes</a>数据库。</p>
+<ul>
+<li><p>第一个先导项目运用多种下一代高通量测序技术平台，完成了两个核心家庭共6人的高覆盖度全基因组测序，每个基因组的测序深度在20～60倍。通过此项目，可以评价多种主要测序方法的优缺点，为“国际千人基因组计划”的后续项目扫清技术障碍。</p>
+</li>
+<li><p>第二个先导项目完成了179人的低覆盖度全基因组测序，平均测序深度在3倍。数据表明，大样本低覆盖度测序在降低成本的同时，仍然能有效识别人群中的基因多样性。</p>
+</li>
+<li><p>第三个先导项目通过对700人的1000个基因外显子的测序，获得了占人类基因组全部序列2%的蛋白质编码基因名录。前所未有的大样本量有助于研究人群罕见变异的表达图谱。</p>
+</li>
+</ul>
+<p>该数据库最终将包含来自全球27个族群的2500个人的全部基因组信息。目前产生的数据量已达到50TB（5万GB），包含8万亿个DNA碱基对。这一数据资源是一个开放的公共资源，为各种疾病的关联分析提供详细的基础数据；为解释人类重大疾病发病机理、开展个性化预测、预防和治疗打下基础。此外，该项目还加深了人们对人类群体遗传学的理解，促进人类进化史的研究。目前已完成的3个先导项目是为了验证多种测序方法对于东亚、欧洲和非洲人群中遗传多态性频率不低于1%的鉴别能力，这将大大高于之前完成的国际单倍体型计划（HapMap计划）5%～10%的遗传多态性的检出能力。</p>
+<h3 id="下载某基因的vc文件"><a href="#下载某基因的vc文件" class="headerlink" title="下载某基因的vc文件"></a>下载某基因的vc文件</h3><p><a href="https://mp.weixin.qq.com/s/n0lHCcOqp1kWbuyFjb7IJw" target="_blank" rel="noopener">教程链接</a></p>
+<h3 id="ftp下载"><a href="#ftp下载" class="headerlink" title="ftp下载"></a>ftp下载</h3><p>FTP 结构(README.ftp_structure) 千人基因组计划有两个主要的 ftp 站点镜像：</p>
+<ul>
+<li><a href="ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/" target="_blank" rel="noopener">ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/</a></li>
+<li><a href="ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/" target="_blank" rel="noopener">ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/</a></li>
+</ul>
+<h4 id="FTP下一些文件夹的意思如下："><a href="#FTP下一些文件夹的意思如下：" class="headerlink" title="FTP下一些文件夹的意思如下："></a>FTP下一些文件夹的意思如下：</h4><ul>
+<li>data：data 目录包含主要工程的每个个体的子目录， 每个单独的子目录也包含一系列 的子目录–包含不同的数据集，例如 sequence reads 和 sequence alignments 等。 individual id 或 coriell sample names /technical/working/20140502_ sample_ summary_ info/以及/technical/working/20130606_ sample_ info/中有 individual id 与 population 对应的信息。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>二代测序</tag>
+        <tag>基因组</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>高通量测序名词解释</title>
     <url>/2020/01/06/ngs/</url>
     <content><![CDATA[<h4 id="全基因组重测序"><a href="#全基因组重测序" class="headerlink" title="全基因组重测序"></a>全基因组重测序</h4><p>是重新测序的意思么?也对，因为基因组序列已知啦，但是由于个体的不同就有了差异性，所以需要对不同的个体进行测序哦，并且在此的基础上，对个体或者群体的差异性进行分析。全基因组重测序的个体，通过序列比对，可以找到大量的单核苷酸多态性位点（SNP），插入缺失位点（InDel，Insertion/Deletion）、结构变异位点（SV，Structure Variation）位点和拷贝数变异位点（CNV，copy number variation)。然后经过注释，就能得到很多很多有用的信息，具有辣么辣么大（比我的脸大很多）的科研和产业价值。她的英文名叫英文名为Genome Re-sequencing哦。</p>
