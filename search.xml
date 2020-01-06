@@ -47,6 +47,7 @@
     <title>文献获取的途径</title>
     <url>/2020/01/06/sci/</url>
     <content><![CDATA[<h3 id="Science-Hub-或Library-Genesis"><a href="#Science-Hub-或Library-Genesis" class="headerlink" title="Science Hub 或Library Genesis"></a>Science Hub 或Library Genesis</h3><p>sci-hub的域名经常切换，所以如果一个域名失效了可以试试sci-hub.tw、sci-hub.la、sci-hub.bz、sci-hub.io等。<br>而libgen的域名一直未变：<a href="http://gen.lib.rus.ec/，也可以通过libgen找到最新的sci-hub网址。" target="_blank" rel="noopener">http://gen.lib.rus.ec/，也可以通过libgen找到最新的sci-hub网址。</a></p>
+<a id="more"></a>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzUzODg0ODA4MA==&amp;mid=2247483906&amp;idx=1&amp;sn=619dbe03be5dd99ddfaf018e8e76ee67&amp;chksm=fad03c3dcda7b52b0b99d6f7f6aa58d983cfa0ed96136ec4e9c5ca6a5542a8b9ccb712ceb2e3&amp;mpshare=1&amp;scene=1&amp;srcid=0818qkVvfuxagvvfe6tRx0WT#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzUzODg0ODA4MA==&amp;mid=2247483906&amp;idx=1&amp;sn=619dbe03be5dd99ddfaf018e8e76ee67&amp;chksm=fad03c3dcda7b52b0b99d6f7f6aa58d983cfa0ed96136ec4e9c5ca6a5542a8b9ccb712ceb2e3&amp;mpshare=1&amp;scene=1&amp;srcid=0818qkVvfuxagvvfe6tRx0WT#rd</a></p>
 <h3 id="Glgoo学术搜索"><a href="#Glgoo学术搜索" class="headerlink" title="Glgoo学术搜索"></a>Glgoo学术搜索</h3><p><a href="https://xue.glgoo.org/" target="_blank" rel="noopener">https://xue.glgoo.org/</a></p>
 <h3 id="谷粉学术"><a href="#谷粉学术" class="headerlink" title="谷粉学术"></a>谷粉学术</h3><p><a href="https://gfsoso.99lb.net/" target="_blank" rel="noopener">https://gfsoso.99lb.net/</a></p>
@@ -62,6 +63,7 @@
     <url>/2020/01/06/1000genomes/</url>
     <content><![CDATA[<h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><p>2008年至2015年，现在已经结束。之后由EMBL-EBI存储以及后期扩大。4x的测序深度，虽然不能发现所有的变体，但是能发现1%频率的变体。</p>
 <p>2010年6月21日，由中国深圳华大基因研究院、英国桑格研究所和美国国立人类基因组研究所等共同发起并主导的“国际千人基因组计划”协作组对外宣布：该计划第一阶段的“3个先导项目”已圆满完成，全部数据已存储于该计划所设立的公共数据库，公众可免费获取和浏览第一阶段产生的全部数据 。这就是现在的<a href="http://www.internationalgenome.org/about" target="_blank" rel="noopener">1000genomes</a>数据库。</p>
+<a id="more"></a>
 <ul>
 <li><p>第一个先导项目运用多种下一代高通量测序技术平台，完成了两个核心家庭共6人的高覆盖度全基因组测序，每个基因组的测序深度在20～60倍。通过此项目，可以评价多种主要测序方法的优缺点，为“国际千人基因组计划”的后续项目扫清技术障碍。</p>
 </li>
@@ -214,9 +216,9 @@
         <category>单细胞测序</category>
       </categories>
       <tags>
-        <tag>单细胞测序</tag>
         <tag>二代测序</tag>
         <tag>高通量测序</tag>
+        <tag>单细胞测序</tag>
       </tags>
   </entry>
   <entry>
@@ -426,8 +428,8 @@
         <category>生物信息学常用软件</category>
       </categories>
       <tags>
-        <tag>富集分析</tag>
         <tag>生信软件</tag>
+        <tag>富集分析</tag>
         <tag>python软件</tag>
       </tags>
   </entry>
