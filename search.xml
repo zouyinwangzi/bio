@@ -81,6 +81,9 @@
 <h3 id="PubMed文献检索"><a href="#PubMed文献检索" class="headerlink" title="PubMed文献检索"></a>PubMed文献检索</h3><p><a href="http://www.ncbi.nlm.nih.gov/PubMed/" target="_blank" rel="noopener">http://www.ncbi.nlm.nih.gov/PubMed/</a></p>
 <p>遇到下载不了的文献，也可以关注“生物学霸”，输入P+PMID可以获取文献，每天有3次机会。</p>
 ]]></content>
+      <categories>
+        <category>文献下载</category>
+      </categories>
       <tags>
         <tag>文献下载</tag>
       </tags>
@@ -110,6 +113,9 @@
 <li>data：data 目录包含主要工程的每个个体的子目录， 每个单独的子目录也包含一系列 的子目录–包含不同的数据集，例如 sequence reads 和 sequence alignments 等。 individual id 或 coriell sample names /technical/working/20140502_ sample_ summary_ info/以及/technical/working/20130606_ sample_ info/中有 individual id 与 population 对应的信息。</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>二代测序</category>
+      </categories>
       <tags>
         <tag>二代测序</tag>
         <tag>基因组</tag>
@@ -455,8 +461,8 @@
         <category>生物信息学常用软件</category>
       </categories>
       <tags>
-        <tag>生信软件</tag>
         <tag>富集分析</tag>
+        <tag>生信软件</tag>
         <tag>python软件</tag>
       </tags>
   </entry>
