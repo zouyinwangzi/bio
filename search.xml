@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>下载参考基因组及注释文件</title>
+    <url>/2020/01/06/downloadgenome/</url>
+    <content><![CDATA[<h1 id="下载参考基因组及注释文件"><a href="#下载参考基因组及注释文件" class="headerlink" title="下载参考基因组及注释文件"></a>下载参考基因组及注释文件</h1><p>通常测序生成的reads要与参考基因组或参考转录组进行比对，所以首先需要获取参考基因组和参考转录组信息。</p>
+<a id="more"></a>
+
+<h2 id="下载参考基因组"><a href="#下载参考基因组" class="headerlink" title="下载参考基因组"></a>下载参考基因组</h2><h3 id="UCSC下载"><a href="#UCSC下载" class="headerlink" title="UCSC下载"></a>UCSC下载</h3><p><a href="http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz" target="_blank" rel="noopener">http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz</a></p>
+<p>chromFa.tar.gz - The assembly sequence in one file per chromosome.Repeats from RepeatMasker and Tandem Repeats Finder (with period of 12 or less) are shown in lower case; non-repeating sequence is shown in upper case.</p>
+<p>合并为一个文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir reference &amp;&amp; cd reference</span><br><span class="line">mkdir -p genome&#x2F;hg19 &amp;&amp; cd genome&#x2F;hg19</span><br><span class="line">nohup wget http:&#x2F;&#x2F;hgdownload.soe.ucsc.edu&#x2F;goldenPath&#x2F;hg19&#x2F;bigZips&#x2F;chromFa.tar.gz &amp;</span><br><span class="line">tar -zvf chromFa.tar.gz</span><br><span class="line">cat *.fa &gt; hg19.fa</span><br><span class="line">rm chr*</span><br></pre></td></tr></table></figure>
+<h3 id="EMBL下载"><a href="#EMBL下载" class="headerlink" title="EMBL下载"></a>EMBL下载</h3><p><a href="ftp://ftp.ensembl.org/pub/release-91/fasta/homo_sapiens/dna/" target="_blank" rel="noopener">ftp://ftp.ensembl.org/pub/release-91/fasta/homo_sapiens/dna/</a></p>
+<p>目录下有几类文件：<br>分别是<a href="ftp://ftp.ensembl.org/pub/release-91/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz" target="_blank" rel="noopener">primary</a>, toplevel和unmasked (dna)、soft-masked (dna_sm)和masked (dna_rm)。一般选择dna.primary或dna_sm.primary。</p>
+<h4 id="为什么选择Primary"><a href="#为什么选择Primary" class="headerlink" title="为什么选择Primary"></a>为什么选择Primary</h4><p>Primary assembly contains all toplevel sequence regions excluding haplotypes and patches. This file is best used for performing sequence similarity searcheswhere patch and haplotype sequences would confuse analysis.</p>
+<h4 id="为什么不选择masked"><a href="#为什么不选择masked" class="headerlink" title="为什么不选择masked"></a>为什么不选择masked</h4><p>Masked基因组是指所有重复区和低复杂区被N代替的基因组序列，比对时就不会有reads比对到这些区域。一般不推荐用masked的基因组，因为它造成了信息的丢失，由此带来的一个问题是uniquely比对到masked基因组上的reads实际上可能不是unique的。而且masked基因组还会带来比对错误，使得在允许错配的情况下，本来来自重复区的reads比对到基因组的其它位置。 另外检测重复区和低复杂区的软件不可能是完美的，这就造成遮盖住的重复序列和低复杂区并不一定是100%准确和敏感的</p>
+<h4 id="soft-masked基因组"><a href="#soft-masked基因组" class="headerlink" title="soft-masked基因组"></a>soft-masked基因组</h4><p> 是指把所有重复区和低复杂区的序列用小写字母标出的基因组，由于主要的比对软件，比如BWA、bowtie2等都忽略这些soft-mask，直接把小写字母当做大写字母比对，所以使用soft-masked基因组的比对效果和使用unmasked基因组的比对效果是相同的。</p>
+<h3 id="NCBI下载"><a href="#NCBI下载" class="headerlink" title="NCBI下载"></a>NCBI下载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">codedoc:hg19参考基因组下载</span><br><span class="line"></span><br><span class="line">for i in $(seq 1 22) X Y M;</span><br><span class="line">do wget ftp:&#x2F;&#x2F;ftp.ncbi.nlm.nih.gov&#x2F;genomes&#x2F;Homo_sapiens&#x2F;ARCHIVE&#x2F;BUILD.37.3&#x2F;Assembled_chromosomes&#x2F;seq&#x2F;hs_ref_GRCh37.p5_chr$&#123;i&#125;.fa.gz; </span><br><span class="line">gzip -d hs_ref_GRCh37.p5_chr$&#123;i&#125;.fa.gz;</span><br><span class="line">cat hs_ref_GRCh37.p5_chr$&#123;i&#125;.fa.gz &gt;&gt;hg19.fa;</span><br><span class="line">sleep 10s;</span><br><span class="line">done;</span><br></pre></td></tr></table></figure>
+<h2 id="下载基因组注释文件"><a href="#下载基因组注释文件" class="headerlink" title="下载基因组注释文件"></a>下载基因组注释文件</h2><h3 id="EMBL下载-1"><a href="#EMBL下载-1" class="headerlink" title="EMBL下载"></a>EMBL下载</h3><h4 id="FTP下载："><a href="#FTP下载：" class="headerlink" title="FTP下载："></a>FTP下载：</h4><p><a href="ftp://ftp.ensembl.org/pub/release-91/gtf/" target="_blank" rel="noopener">ftp://ftp.ensembl.org/pub/release-91/gtf/</a></p>
+<h4 id="BioMart下载"><a href="#BioMart下载" class="headerlink" title="BioMart下载:"></a>BioMart下载:</h4><blockquote>
+<p>ENSEMBL数据库的BioMart <a href="http://www.ensembl.org/biomart/martview" target="_blank" rel="noopener">http://www.ensembl.org/biomart/martview</a> 工具为下载基因的功能信息、序列信息、结构信息、ID的转换等提供了很大的便利。</p>
+</blockquote>
+<p>注意在BioMart的Attribute选项里如果选择了蛋白相关的选项，得到的结果中只有蛋白编码基因的信息。如果要下载所有基因信息，请不要选择蛋白相关的选项。</p>
+<p>具体使用如下，下载基因相关信息，首先选择Ensembl Genes 89数据集</p>
+<h3 id="gencode下载"><a href="#gencode下载" class="headerlink" title="gencode下载"></a>gencode下载</h3><p>就是去<a href="https://mp.weixin.qq.com/s?__biz=MzI1MjU5MjMzNA==&mid=2247484499&idx=1&sn=597d0be97e2438693b96024a83047807&chksm=e9e02df2de97a4e42f5df3f1f82aa805acf7a9657547e5bf4e1ac727c06218e2ee83273b1b36&mpshare=1&scene=1&srcid=0316towHxmDrrwmE6FMeoJSG&pass_ticket=nceEm7i817n%2BiPLgPDIba4NQtkP9XB7RHHGkKnLD%2BniRIuK7F1kXSuoPMdyFqcxf#rd" target="_blank" rel="noopener">教程</a> <a href="http://www.gencodegenes.org/" target="_blank" rel="noopener">gencode数据库</a>下载基因组注释文件</p>
+<h3 id="NCBI下载-1"><a href="#NCBI下载-1" class="headerlink" title="NCBI下载"></a>NCBI下载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># hg38</span><br><span class="line">wget ftp:&#x2F;&#x2F;ftp.ncbi.nlm.nih.gov&#x2F;genomes&#x2F;Homo_sapiens&#x2F;GFF&#x2F;ref_GRCh38.p7_top_level.gff3.gz </span><br><span class="line"># hg19</span><br><span class="line">wget ftp:&#x2F;&#x2F;ftp.ncbi.nlm.nih.gov&#x2F;genomes&#x2F;Homo_sapiens&#x2F;ARCHIVE&#x2F;BUILD.37.3&#x2F;GFF&#x2F;ref_GRCh37.p5_top_level.gff3.gz</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>高通量测序</category>
+      </categories>
+      <tags>
+        <tag>二代测序</tag>
+        <tag>基因组</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>R语言GDCRNATools工具</title>
     <url>/2020/01/06/GDCRNATools/</url>
     <content><![CDATA[<p>工具包主要做RNA表达量分析，单因素生存分析，富集分析，以及 lncRNA-mRNA的内源竞争RNA分析。ceRNA（competing endogenous RNAs,内源竞争RNA），已知microRNA可以通过结合mRNA导致基因沉默，而ceRNA可以通过竞争性地结合microRNA来调节基因表达。ceRNA可以通过应答元件（microRNA response elements，MREs)与microRNA结合从而影响microRNA导致的基因沉默，这揭示了一条RNA-&gt;microRNA调节通路的存在，具有重大生物意义</p>
