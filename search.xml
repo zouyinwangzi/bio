@@ -68,8 +68,7 @@
     <content><![CDATA[<p> 本例子选取的文章是为了探索PRC1，PCR2这样的蛋白复合物，不是转录因子或者组蛋白的CHIP-seq。</p>
 <a id="more"></a>
 <p><a href="https://mp.weixin.qq.com/s/_A0rHldzEgVk7bgwt457qQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/_A0rHldzEgVk7bgwt457qQ</a>?<br><a href="https://www.ncbi.nlm.nih.gov/pubmed/23273917" target="_blank" rel="noopener">https://www.ncbi.nlm.nih.gov/pubmed/23273917</a></p>
-<h3 id="sra数据下载"><a href="#sra数据下载" class="headerlink" title="sra数据下载"></a>sra数据下载</h3><p><img src="https://mmbiz.qpic.cn/mmbiz_png/oAUPFQQ5EKRtUvC7EsmA5MXI2UnsOxrz4rwMjf7oDjosdVc5EzTecJlY5dIyuGOOClMlDpPq2FdlVHH1fhceEw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="image"></p>
-<p>在NCBI的FTP数据库找到SRP017311 </p>
+<h3 id="sra数据下载"><a href="#sra数据下载" class="headerlink" title="sra数据下载"></a>sra数据下载</h3><p>在NCBI的FTP数据库找到SRP017311 </p>
 <p><a href="ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/" target="_blank" rel="noopener">ftp://ftp.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/</a></p>
 <h4 id="下载sra文件"><a href="#下载sra文件" class="headerlink" title="下载sra文件"></a>下载sra文件</h4><p>使用wget下载，会较慢。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for ((i=4;i&lt;=9;i++)) ;do wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP017/SRP017311/SRR62020$i/SRR62020$i.sra;done</span><br></pre></td></tr></table></figure>
