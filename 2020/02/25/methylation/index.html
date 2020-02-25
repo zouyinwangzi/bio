@@ -46,12 +46,12 @@
   };
 </script>
 
-  <meta name="description" content="DNA甲基化数据分析DNA 甲基化数据分析过程主要包括 DNA 甲基化测序数据比对、DNA 甲基化水平计算（其中包括单位点、区间、基因等区域的 DNA甲基化水平计算）、DNA甲基化可视化、DNA甲基化差异分析等过程。 DNA甲基化测序数据比对DNA 甲基化数据比对软件较早的是 2010 年左右的 BatMeth(Lim et al 2012)、BSmap(Xi and Li 2009)、Bis">
+  <meta name="description" content="目前 DNA 甲基化检测相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， WGBS-Seq）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, RRBS-Seq）、DNA 甲基化芯片测序技术（450K 芯片测序技术以及 27K 芯片测序技术）以及基于富集的测">
 <meta property="og:type" content="article">
 <meta property="og:title" content="methylation">
 <meta property="og:url" content="http://yoursite.com/2020/02/25/methylation/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="DNA甲基化数据分析DNA 甲基化数据分析过程主要包括 DNA 甲基化测序数据比对、DNA 甲基化水平计算（其中包括单位点、区间、基因等区域的 DNA甲基化水平计算）、DNA甲基化可视化、DNA甲基化差异分析等过程。 DNA甲基化测序数据比对DNA 甲基化数据比对软件较早的是 2010 年左右的 BatMeth(Lim et al 2012)、BSmap(Xi and Li 2009)、Bis">
+<meta property="og:description" content="目前 DNA 甲基化检测相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， WGBS-Seq）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, RRBS-Seq）、DNA 甲基化芯片测序技术（450K 芯片测序技术以及 27K 芯片测序技术）以及基于富集的测">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://yoursite.com/images/jiajihua_cexu.jpg">
 <meta property="og:image" content="http://yoursite.com/images/align_map.jpg">
@@ -266,7 +266,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a>
+        <p>目前 DNA 甲基化检测相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， WGBS-Seq）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, RRBS-Seq）、DNA 甲基化芯片测序技术（450K 芯片测序技术以及 27K 芯片测序技术）以及基于富集的测序技术等。其中基于富集的测序技术主要包括 DNA 甲基化依赖的免疫共沉淀测序技术（Methylation  Dependent ImmunoPrecipitation  followed  by  sequencing,  MeDIP-Seq），DNA 甲基化 CpG 结合蛋白富集区域测序技术（methyl-CpG  binding  domain protein-enriched genome sequencing, MBD-Seq）以及 DNA 甲基化敏感的限制性酶切测序技术（Methylation-sensitive  Restriction  Enzyme  digestion  followed  by sequencing, MRE-seq。其中 DNA 甲基化依赖的免疫沉淀测序技术以及 DNA 甲基化敏感的限制性酶切测序技术能够结合完成几乎全基因组范围的 DNA甲基化测序。目前为止，最主流的检测 DNA 甲基化的测序技术是全基因组重亚硫酸盐测序技术（WGBS-Seq），能完成单位点全基因组水平 DNA甲基化测序。</p>
+<a id="more"></a>
 <p><img src="/images/jiajihua_cexu.jpg" alt="image"></p>
 <h3 id="DNA甲基化数据分析"><a href="#DNA甲基化数据分析" class="headerlink" title="DNA甲基化数据分析"></a>DNA甲基化数据分析</h3><p>DNA 甲基化数据分析过程主要包括 DNA 甲基化测序数据比对、DNA 甲基化水平计算（其中包括单位点、区间、基因等区域的 DNA甲基化水平计算）、DNA甲基化可视化、DNA甲基化差异分析等过程。</p>
 <h4 id="DNA甲基化测序数据比对"><a href="#DNA甲基化测序数据比对" class="headerlink" title="DNA甲基化测序数据比对"></a>DNA甲基化测序数据比对</h4><p>DNA 甲基化数据比对软件较早的是 2010 年左右的 BatMeth(Lim et al 2012)、BSmap(Xi and Li 2009)、Bismark(Krueger and Andrews 2011)。其中 Bismark 在早期是使用的 Bowtie 1(Langmead et al 2009)作为比对核心，这几款软件面临的问题是都无法处理比对数据中的插入缺失（Insertion and Deletion, Indel）比对，此外无法很好的处理长序列比对。随着生物信息学的发展以及 Bowtie 2(Langmead and Salzberg 2012)的出现和成熟，BSmooth(Hansen et al 2012)、BS-Seeker2(Guo et al 2013)、Bismark 2 等软件随之出现，尽管 DNA 甲基化数据比对软件有了非常好的发展，但是在包含长的 Indel 比对方面表现欠佳。其中 BSmap2 只允许测序数据中包含一个 Indel 并且长度必须小于3 bp。而以 Bowtie 2 为比对核心的 Bismark 以及 BS-Seeker 中，由于 Bowtie 2 是以设定一定长度（例如 28 bp）的比对 seed，并且比对 seed 中最多允许一个错配为比对核心。因此当测序序列来自基因组位置包含多个错配或 Indel 时，该软件不能很好的完成比对过程。</p>
