@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>methylation</title>
+    <title>DNA甲基化测序数据分析介绍</title>
     <url>/2020/02/25/methylation/</url>
     <content><![CDATA[<p>目前 <strong>DNA 甲基化检测</strong>相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， <code>WGBS-Seq</code>）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, <code>RRBS-Seq</code>）、DNA 甲基化芯片测序技术（<code>450K 芯片测序</code>技术以及 <code>27K</code> 芯片测序技术）以及基于富集的测序技术等。其中<strong>基于富集的测序技术</strong>主要包括 DNA 甲基化依赖的免疫共沉淀测序技术（Methylation  Dependent ImmunoPrecipitation  followed  by  sequencing,  <code>MeDIP-Seq</code>），DNA 甲基化 CpG 结合蛋白富集区域测序技术（methyl-CpG  binding  domain protein-enriched genome sequencing, <code>MBD-Seq</code>）以及 DNA 甲基化敏感的限制性酶切测序技术（Methylation-sensitive  Restriction  Enzyme  digestion  followed  by sequencing, <code>MRE-seq</code>)。其中 DNA 甲基化依赖的免疫沉淀测序技术以及 DNA 甲基化敏感的限制性酶切测序技术能够结合完成几乎全基因组范围的 DNA甲基化测序。目前为止，最主流的检测 DNA 甲基化的测序技术是全基因组重亚硫酸盐测序技术（WGBS-Seq），能完成单位点全基因组水平 DNA甲基化测序。</p>
 <a id="more"></a>
@@ -18,6 +18,15 @@
 <h3 id="甲基化数据比对参考基因组的原理"><a href="#甲基化数据比对参考基因组的原理" class="headerlink" title="甲基化数据比对参考基因组的原理"></a>甲基化数据比对参考基因组的原理</h3><p><img src="/images/align_map.jpg" alt="image"></p>
 <p>与常规 DNA 测序序列比对过程不同的是，由于在<code>重亚硫酸盐</code>处理后，甲基化的胞嘧啶因为有甲基基团的保护并未发生化学变化，但是未甲基化的C被转换为U，在经过 PCR 扩增过程后转变为T，因此如果测序序列中存在未甲基化的C，那么测序结果T与参考基因组C之间将存在<strong>错配问题</strong>，这无疑将会影响序列比对的准确结果。因此为了规避这一问题，目前常见的方法是首先将<code>测序序列</code>完成胞嘧啶（C）到胸腺嘧啶（T）的转换，并且比对软件需要将<code>原始测序序列</code>进行鸟嘌呤（G）到腺嘌呤（A）的转换处理（这一转换是因为该测序序列可能来源于 PCR扩增的产物）。与此同时，需要分别对<code>参考基因</code>组做相同的处理（C 到 T 的转换以及 G到 A 的转换处理）。在完成这一步操作之后，软件将转换处理后的测序序列分别比对到转换处理后的参考基因组上。然后根据输入序列以及比对到的参考基因组的不同组合得到四组结果。将比对的结果信息进行综合比较分析，输出比对概率最大的位置信息（即比对分值最高的位置）<br><img src="/images/bidui_yuanli.jpg" alt="image"></p>
 ]]></content>
+      <categories>
+        <category>表观遗传</category>
+        <category>DNA甲基化测序</category>
+      </categories>
+      <tags>
+        <tag>二代测序</tag>
+        <tag>甲基化</tag>
+        <tag>BatMeth2</tag>
+      </tags>
   </entry>
   <entry>
     <title>下载参考基因组及注释文件</title>
@@ -50,8 +59,8 @@
         <category>高通量测序</category>
       </categories>
       <tags>
-        <tag>基因组</tag>
         <tag>二代测序</tag>
+        <tag>基因组</tag>
       </tags>
   </entry>
   <entry>
@@ -170,8 +179,8 @@
         <category>二代测序</category>
       </categories>
       <tags>
-        <tag>基因组</tag>
         <tag>二代测序</tag>
+        <tag>基因组</tag>
       </tags>
   </entry>
   <entry>
@@ -303,8 +312,8 @@
       </categories>
       <tags>
         <tag>二代测序</tag>
-        <tag>高通量测序</tag>
         <tag>单细胞测序</tag>
+        <tag>高通量测序</tag>
       </tags>
   </entry>
   <entry>
@@ -514,8 +523,8 @@
         <category>生物信息学常用软件</category>
       </categories>
       <tags>
-        <tag>富集分析</tag>
         <tag>生信软件</tag>
+        <tag>富集分析</tag>
         <tag>python软件</tag>
       </tags>
   </entry>
