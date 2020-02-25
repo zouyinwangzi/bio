@@ -3,7 +3,7 @@
   <entry>
     <title>methylation</title>
     <url>/2020/02/25/methylation/</url>
-    <content><![CDATA[<p>目前 DNA 甲基化检测相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， WGBS-Seq）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, RRBS-Seq）、DNA 甲基化芯片测序技术（450K 芯片测序技术以及 27K 芯片测序技术）以及基于富集的测序技术等。其中基于富集的测序技术主要包括 DNA 甲基化依赖的免疫共沉淀测序技术（Methylation  Dependent ImmunoPrecipitation  followed  by  sequencing,  MeDIP-Seq），DNA 甲基化 CpG 结合蛋白富集区域测序技术（methyl-CpG  binding  domain protein-enriched genome sequencing, MBD-Seq）以及 DNA 甲基化敏感的限制性酶切测序技术（Methylation-sensitive  Restriction  Enzyme  digestion  followed  by sequencing, MRE-seq。其中 DNA 甲基化依赖的免疫沉淀测序技术以及 DNA 甲基化敏感的限制性酶切测序技术能够结合完成几乎全基因组范围的 DNA甲基化测序。目前为止，最主流的检测 DNA 甲基化的测序技术是全基因组重亚硫酸盐测序技术（WGBS-Seq），能完成单位点全基因组水平 DNA甲基化测序。</p>
+    <content><![CDATA[<p>目前 <strong>DNA 甲基化检测</strong>相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， <code>WGBS-Seq</code>）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, <code>RRBS-Seq</code>）、DNA 甲基化芯片测序技术（<code>450K 芯片测序</code>技术以及 <code>27K</code> 芯片测序技术）以及基于富集的测序技术等。其中<strong>基于富集的测序技术</strong>主要包括 DNA 甲基化依赖的免疫共沉淀测序技术（Methylation  Dependent ImmunoPrecipitation  followed  by  sequencing,  <code>MeDIP-Seq</code>），DNA 甲基化 CpG 结合蛋白富集区域测序技术（methyl-CpG  binding  domain protein-enriched genome sequencing, <code>MBD-Seq</code>）以及 DNA 甲基化敏感的限制性酶切测序技术（Methylation-sensitive  Restriction  Enzyme  digestion  followed  by sequencing, <code>MRE-seq</code>)。其中 DNA 甲基化依赖的免疫沉淀测序技术以及 DNA 甲基化敏感的限制性酶切测序技术能够结合完成几乎全基因组范围的 DNA甲基化测序。目前为止，最主流的检测 DNA 甲基化的测序技术是全基因组重亚硫酸盐测序技术（WGBS-Seq），能完成单位点全基因组水平 DNA甲基化测序</p>
 <a id="more"></a>
 <p><img src="/images/jiajihua_cexu.jpg" alt="image"></p>
 <h3 id="DNA甲基化数据分析"><a href="#DNA甲基化数据分析" class="headerlink" title="DNA甲基化数据分析"></a>DNA甲基化数据分析</h3><p>DNA 甲基化数据分析过程主要包括 DNA 甲基化测序数据比对、DNA 甲基化水平计算（其中包括单位点、区间、基因等区域的 DNA甲基化水平计算）、DNA甲基化可视化、DNA甲基化差异分析等过程。</p>
@@ -303,8 +303,8 @@
       </categories>
       <tags>
         <tag>二代测序</tag>
-        <tag>高通量测序</tag>
         <tag>单细胞测序</tag>
+        <tag>高通量测序</tag>
       </tags>
   </entry>
   <entry>
