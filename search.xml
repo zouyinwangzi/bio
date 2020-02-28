@@ -14,7 +14,7 @@
 
 <h3 id="用自带的测试数据测试"><a href="#用自带的测试数据测试" class="headerlink" title="用自带的测试数据测试"></a>用自带的测试数据测试</h3><p>ChAMP包自带两个测试数据集，HumanMethylation450 data (.idat) and  simulated EPIC data。450k lung tumor data set包含8个样本（4个肿瘤样本和4个对照）。EPIC数据集包括16个样本，但是都是由一个样本修改DMP 和 DMR而来。</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">library</span>(<span class="string">"ChAMP"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#450测试数据</span></span><br><span class="line">testDir=system.file(<span class="string">"extdata"</span>,package=<span class="string">"ChAMPdata"</span>)</span><br><span class="line">myLoad &lt;- champ.load(testDir,arraytype=<span class="string">"450K"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#EPIC测试数据</span></span><br><span class="line">data(EPICSimData)</span><br></pre></td></tr></table></figure>
-<h3 id="ChAMP流程"><a href="#ChAMP流程" class="headerlink" title="ChAMP流程"></a>ChAMP流程</h3><p><img src="'/images/ChAMP_pip.jpg'" alt="image"></p>
+<h3 id="ChAMP流程"><a href="#ChAMP流程" class="headerlink" title="ChAMP流程"></a>ChAMP流程</h3><p><img src="/images/ChAMP_pip.jpg" alt="image"></p>
 <ul>
 <li>蓝色：代表<strong>甲基化数据准备</strong>，包括Loading, Normalization, Quality Control checks etc.</li>
 <li>红色：代表<strong>产生分析结果</strong>，包括 Differentially Methylated Positions (DMPs), Differentially Methylated Regions (DMRs), Differentially methylated Blocks, EpiMod (a method for detecting differentially methylated gene modules derived from FEM package), Pathway Enrichment Results etc.</li>
@@ -42,41 +42,41 @@
 <li>ChAMP will by default <code>filter out</code> all <strong>non-CpG probes</strong> contained in your dataset.</li>
 <li>by default ChAMP will filter all <code>SNP-related probes</code>.</li>
 <li>by default setting, ChAMP will filter all <code>multi-hit</code> probes. </li>
-<li>ChAMP will <code>filter out</code> all probes located in chromosome <code>X and Y</code>.<br><img src="'/images/filter.jpg'" alt="image"></li>
+<li>ChAMP will <code>filter out</code> all probes located in chromosome <code>X and Y</code>.<br><img src="/images/filter.jpg" alt="image"></li>
 </ol>
 <h4 id="Quality-Control"><a href="#Quality-Control" class="headerlink" title="Quality Control"></a>Quality Control</h4><p>champ.QC()函数会画3种图：mdsplot,densityPlot,dendrogram。使用QC.GUI()能画更多图，但耗内存。</p>
 <ul>
 <li>mdsplot：基于前1000个最易变化的位点<strong>查看样本的相似度</strong>，用颜色标记不同的样本分组。</li>
 <li>densityPlot：<strong>查看样本的beta值分布</strong>，有严重偏离的样本预示着质量较差（如亚硫酸盐处理不完全）</li>
-<li>dendrogram：<strong>所有样本的聚类图</strong>。champ.QC()函数中Feature.sel=”None” 参数表示直接通过探针数值来计算样本的距离，比较耗内存；还有 “SVD” method。<br><img src="'/images/mdsplot.jpg'" alt="image"><br><img src="'/images/densityplot.jpg'" alt="image"><br><img src="'/images/dendrogram.jpg'" alt="image"></li>
+<li>dendrogram：<strong>所有样本的聚类图</strong>。champ.QC()函数中Feature.sel=”None” 参数表示直接通过探针数值来计算样本的距离，比较耗内存；还有 “SVD” method。<br><img src="/images/mdsplot.jpg" alt="image"><br><img src="/images/densityplot.jpg" alt="image"><br><img src="/images/dendrogram.jpg" alt="image"></li>
 </ul>
 <h4 id="Normalization"><a href="#Normalization" class="headerlink" title="Normalization"></a>Normalization</h4><p>因为 Illumina beadarrays探针有两种设计type-I and type-II，两种探针化学反应不同，设计也不同，导致分布区域也不同。the type-II 分布 exhibit a reduced dynamic range，需要矫正。</p>
 <p>champ.norm()提供四种方法做type-II Normalization。<code>&quot;PBC&quot;,&quot;BMIQ&quot;,&quot;SWAN&quot; and &quot;FunctionalNormalize&quot;</code>。</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">myNorm &lt;- champ.norm(beta=myLoad$beta,arraytype=<span class="string">"450K"</span>,cores=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#标准化后可以再作图看看差异</span></span><br><span class="line">QC.GUI(myNorm,arraytype=<span class="string">"450K"</span>)</span><br><span class="line"></span><br><span class="line">save(myNorm,file=<span class="string">"myNorm.rda"</span>)</span><br></pre></td></tr></table></figure>
 <h4 id="SVD-Plot"><a href="#SVD-Plot" class="headerlink" title="SVD Plot"></a>SVD Plot</h4><p>SVD (singular value decomposition method)用来用于<code>评估数据集中变量的主要成分</code>。这些显著性位点可能与我们感兴趣的生物学现象，也可能与技术相关，如批次效应或群体效应。如果存在批次效应，就进行批次效应的矫正，矫正完之后可以再看看SVD plot。<br>champ.SVD()分析时会把协变量打印在屏幕上，结果是热图，保存为SVDsummary.pdf文件。黑色表示最显著的p值。</p>
 <figure class="highlight r"><table><tr><td class="code"><pre><span class="line">champ.SVD(beta=myNorm,pd=myLoad$pd)</span><br></pre></td></tr></table></figure>
-<p><img src="'/images/SVD.jpg'" alt="image"></p>
+<p><img src="/images/SVD.jpg" alt="image"></p>
 <h4 id="差异甲基化分析（DMP-amp-DMR-amp-DMB"><a href="#差异甲基化分析（DMP-amp-DMR-amp-DMB" class="headerlink" title="差异甲基化分析（DMP &amp; DMR &amp; DMB)"></a>差异甲基化分析（DMP &amp; DMR &amp; DMB)</h4><p>差异分析是多数研究都要分析的，这里包括三种方法：DMP，DMR，DMB。DMP代表找出Differential Methylation Probe（<strong>差异化CpG位点</strong>），DMR代表找出Differential Methylation Region（<strong>差异化CpG区域</strong>），Block代表Differential Methylation Block（<strong>更大范围的差异化region区域</strong>）</p>
 <p>简单来说，DMP是找出一个一个的差异甲基化CpG位点，DMR就是一个连续不断都比较长的差异片段，科学家们觉得，这样的连续差异片段，对于基因的影响会更加明显，只找这样的片段，可以使得计算生物学的打击精度更为准确，也可以让最终找出来的结论数据更少，便于实验人员筛选。另外一个类似的东西就是DMB，那个东西出现的原因是，有的科学家觉得，DMR这样的区域还不够显著，DNA上的甲基化出现变化，可能是绵延几千位点的！而且只会在基因以外的区域，但是这些基因以外的区域发生变化，却会导致基因的表达发生变化。</p>
 <p>DMP,DMR,DMB的结果都是基于的shiny的交互页面，左栏上方是 P-value 和 abs(logFC) ，可以选择想看的值，然后点submit, 右栏可以生成差异甲基化表，热图，feature&amp;cgi, 左栏下方还有基因，CpG按钮，选择你想看的结果，submit, 右栏就会生成相应gene,CpG结果</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#DMP差异化CpG位点</span><br><span class="line">myDMP &lt;- champ.DMP(beta &#x3D; myNorm,pheno&#x3D;myLoad$pd$Sample_Group)</span><br><span class="line">save(myDMP,file&#x3D;&quot;myDMP.rda&quot;)</span><br><span class="line">DMP.GUI(DMP&#x3D;myDMP[[1]],beta&#x3D;myNorm,pheno&#x3D;myLoad$pd$Sample_Group)</span><br><span class="line"></span><br><span class="line">#DMR差异化CpG区域</span><br><span class="line">myDMR &lt;- champ.DMR(beta&#x3D;myNorm,pheno&#x3D;myLoad$pd$Sample_Group,method&#x3D;&quot;Bumphunter&quot;)</span><br><span class="line">save(myDMR,file&#x3D;&quot;myDMR.rda&quot;)</span><br><span class="line">DMR.GUI(DMR&#x3D;myDMR)</span><br><span class="line"></span><br><span class="line">#DMB</span><br><span class="line">myBlock &lt;- champ.Block(beta&#x3D;myNorm,pheno&#x3D;myLoad$pd$Sample_Group,arraytype&#x3D;&quot;450K&quot;)</span><br><span class="line">Block.GUI(Block&#x3D;myBlock,beta&#x3D;myNorm,pheno&#x3D;myLoad$pd$Sample_Group,runDMP&#x3D;TRUE,compare.group&#x3D;NULL,arraytype&#x3D;&quot;450K&quot;)</span><br></pre></td></tr></table></figure>
-<p><img src="'/images/DMP.jpg'" alt="image"></p>
+<p><img src="/images/DMP.jpg" alt="image"></p>
 <h4 id="Gene-Set富集分析和网络分析"><a href="#Gene-Set富集分析和网络分析" class="headerlink" title="Gene Set富集分析和网络分析"></a>Gene Set富集分析和网络分析</h4><p>差异甲基化分析后，你可能想知道<strong>DMP,DMR中涉及到的基因是否可以富集到某个生物功能或通路</strong>，GSEA(Gene Set Enrichment Analysis)和EpiMod（Differential Methylated Interaction Hotspots）提供了可以寻找作用通路网络中的疾病关联小网络的功能。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#富集分析</span><br><span class="line">myGSEA &lt;- champ.GSEA(beta&#x3D;myNorm,DMP&#x3D;myDMP[[1]], DMR&#x3D;myDMR, arraytype&#x3D;&quot;450K&quot;,adjPval&#x3D;0.05, method&#x3D;&quot;fisher&quot;)</span><br><span class="line"># myDMP and myDMR could (not must) be used directly.</span><br><span class="line">head(myGSEA$DMP)</span><br><span class="line">save(myGSEA,file&#x3D;&quot;myGSEA.rda&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">myEpiMod &lt;- champ.EpiMod(beta&#x3D;myNorm,pheno&#x3D;myLoad$pd$Sample_Group)</span><br><span class="line"></span><br><span class="line">save(myEpiMod,file&#x3D;&quot;myEpiMod.rda&quot;)</span><br></pre></td></tr></table></figure>
-<p><img src="'/images/tonglu.jpg'" alt="image"></p>
+<p><img src="/images/tonglu.jpg" alt="image"></p>
 <h4 id="拷贝数变异分析（CNA"><a href="#拷贝数变异分析（CNA" class="headerlink" title="拷贝数变异分析（CNA)"></a>拷贝数变异分析（CNA)</h4><p>拷贝数变异就是有些基因片段被复制的此处过多或者过少，从而导致某些疾病。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">myCNA &lt;- champ.CNA(intensity&#x3D;myLoad$intensity,pheno&#x3D;myLoad$pd$Sample_Group)</span><br><span class="line">save(myCNA,file&#x3D;myCNA)</span><br></pre></td></tr></table></figure>
 
-<p><img src="'/images/CNA.jpg'" alt="image"></p>
+<p><img src="/images/CNA.jpg" alt="image"></p>
 ]]></content>
       <categories>
         <category>表观遗传</category>
         <category>DNA甲基化芯片</category>
       </categories>
       <tags>
-        <tag>生信软件</tag>
         <tag>甲基化</tag>
         <tag>甲基化芯片</tag>
+        <tag>生信软件</tag>
         <tag>R语言</tag>
       </tags>
   </entry>
@@ -103,8 +103,8 @@
         <category>DNA甲基化测序</category>
       </categories>
       <tags>
-        <tag>二代测序</tag>
         <tag>甲基化</tag>
+        <tag>二代测序</tag>
         <tag>BatMeth2</tag>
       </tags>
   </entry>
@@ -139,8 +139,8 @@
         <category>高通量测序</category>
       </categories>
       <tags>
-        <tag>二代测序</tag>
         <tag>基因组</tag>
+        <tag>二代测序</tag>
       </tags>
   </entry>
   <entry>
@@ -259,8 +259,8 @@
         <category>二代测序</category>
       </categories>
       <tags>
-        <tag>二代测序</tag>
         <tag>基因组</tag>
+        <tag>二代测序</tag>
       </tags>
   </entry>
   <entry>
@@ -392,8 +392,8 @@
       </categories>
       <tags>
         <tag>二代测序</tag>
-        <tag>高通量测序</tag>
         <tag>单细胞测序</tag>
+        <tag>高通量测序</tag>
       </tags>
   </entry>
   <entry>
