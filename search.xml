@@ -6,6 +6,7 @@
     <content><![CDATA[<p>ChAMP是用来分析illuminate甲基化数据的包，包括 HumanMethylation450 和 EPIC。</p>
 <p>参考：<br><a href="http://www.bioconductor.org/packages/release/bioc/vignettes/ChAMP/inst/doc/ChAMP.html" target="_blank" rel="noopener">http://www.bioconductor.org/packages/release/bioc/vignettes/ChAMP/inst/doc/ChAMP.html</a></p>
 <h3 id="甲基化芯片简介"><a href="#甲基化芯片简介" class="headerlink" title="甲基化芯片简介"></a>甲基化芯片简介</h3><p>450K和850K采用了两种探针Infinium Ⅰ 和Infinium Ⅱ对甲基化进行测定，Infinium I采用了两种bead（甲基化M和非甲基化U，如图显示），而II只有一种bead（即甲基化和非甲基化在一起），这也导致了它们在后续荧光探测的不同，450K采用了两种荧光探测信号（红光和绿光）<br><img src="/images/yuanli.jpg" alt="image"></p>
+<a id="more"></a>
 <h3 id="安装ChAMP"><a href="#安装ChAMP" class="headerlink" title="安装ChAMP"></a>安装ChAMP</h3><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!requireNamespace(<span class="string">"BiocManager"</span>, quietly = <span class="literal">TRUE</span>))</span><br><span class="line">    install.packages(<span class="string">"BiocManager"</span>)</span><br><span class="line"></span><br><span class="line">BiocManager::install(<span class="string">"ChAMP"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#或者直接安装所有依赖包</span></span><br><span class="line"><span class="keyword">if</span> (!requireNamespace(<span class="string">"BiocManager"</span>, quietly=<span class="literal">TRUE</span>))</span><br><span class="line">    install.packages(<span class="string">"BiocManager"</span>)</span><br><span class="line">BiocManager::install(c(<span class="string">"minfi"</span>,<span class="string">"ChAMPdata"</span>,<span class="string">"Illumina450ProbeVariants.db"</span>,<span class="string">"sva"</span>,<span class="string">"IlluminaHumanMethylation450kmanifest"</span>,<span class="string">"limma"</span>,<span class="string">"RPMM"</span>,<span class="string">"DNAcopy"</span>,<span class="string">"preprocessCore"</span>,<span class="string">"impute"</span>,<span class="string">"marray"</span>,<span class="string">"wateRmelon"</span>,<span class="string">"goseq"</span>,<span class="string">"plyr"</span>,<span class="string">"GenomicRanges"</span>,<span class="string">"RefFreeEWAS"</span>,<span class="string">"qvalue"</span>,<span class="string">"isva"</span>,<span class="string">"doParallel"</span>,<span class="string">"bumphunter"</span>,<span class="string">"quadprog"</span>,<span class="string">"shiny"</span>,<span class="string">"shinythemes"</span>,<span class="string">"plotly"</span>,<span class="string">"RColorBrewer"</span>,<span class="string">"DMRcate"</span>,<span class="string">"dendextend"</span>,<span class="string">"IlluminaHumanMethylationEPICmanifest"</span>,<span class="string">"FEM"</span>,<span class="string">"matrixStats"</span>,<span class="string">"missMethyl"</span>,<span class="string">"combinat"</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#如果报错，试用</span></span><br><span class="line">BiocManager::install(<span class="string">"YourErrorPackage"</span>)</span><br></pre></td></tr></table></figure>
 <p>如果ChAMP 版本<strong>大于 2.8.3</strong>, 必须安装最新的 ChAMPdata package(version 2.8.1)。</p>
 <p>如果版本<strong>R &lt; 3.5.0</strong>，请用以下安装。</p>
@@ -391,8 +392,8 @@
       </categories>
       <tags>
         <tag>二代测序</tag>
-        <tag>单细胞测序</tag>
         <tag>高通量测序</tag>
+        <tag>单细胞测序</tag>
       </tags>
   </entry>
   <entry>
