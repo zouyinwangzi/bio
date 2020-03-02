@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>bed</title>
+    <url>/2020/03/02/bed/</url>
+    <content><![CDATA[<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format4" target="_blank" rel="noopener">UCSC GTF format</a><br><a href="https://blog.csdn.net/sinat_38163598/article/details/72851239" target="_blank" rel="noopener">https://blog.csdn.net/sinat_38163598/article/details/72851239</a></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>GFF和GTF是两种<code>最常用</code>的基因组注释格式，在信息分析中建库时除了需要fasta文件一般还会需要这两种文件，提取需要的信息进行注释。</p>
+<p>GTF是GFF2的扩展。前八个GTF字段与GFF相同，但是GTF还包含<code>可选字段</code>: 5UTR, 3UTR, inter, inter_CNS, and intron_CNS。<br><strong>前八个字段：</strong></p>
+<p>1)  <code>seq_id</code>：序列的编号，一般为chr或者scanfold编号；<br>2)  <code>source</code>: 注释的来源，一般为数据库或者注释的机构，如果未知，则用点“.”代替；<br>3) <code>type</code>: 注释信息的类型，比如Gene、cDNA、mRNA、CDS等<br>4)  <code>start</code>:该基因或转录本在参考序列上的起始位置；<br>5)  <code>end</code>: 该基因或转录本在参考序列上的终止位置；<br>6)  <code>score</code>: 得分，数字，是注释信息可能性的说明，可以是序列相似性比对时的E-values值或者基因预测是的P-values值，“.”表示为空；<br>7)  <code>strand</code>: 该基因或转录本位于参考序列的正链(+)或负链(-)上;<br>8)  <code>phase</code>: 仅对注释类型为“CDS”有效，表示起始编码的位置，有效值为0、1、2(对于编码蛋白质的CDS来说，本列指定下一个密码子开始的位置。每3个核苷酸翻译一个氨基酸，从0开始，CDS的起始位置，除以3，余数就是这个值，，表示到达下一个密码子需要跳过的碱基个数。该编码区第一个密码子的位置，取值0,1,2。0表示该编码框的第一个密码子第一个碱基位于其5’末端；1表示该编码框的第一个密码子的第一个碱基位于该编码区外；2表示该编码框的第一个密码子的第一、二个碱基位于该编码区外；如果Feature为CDS时，必须指明具体值。)</p>
+<a id="more"></a>
+<p><strong>例子：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">browser position chr22:10000000-10025000</span><br><span class="line">browser hide all</span><br><span class="line">track name&#x3D;regulatory	description&#x3D;&quot;TeleGene(tm) Regulatory Regions&quot; visibility&#x3D;2</span><br><span class="line">chr22	TeleGene	enhancer	10000000	10001000	500	+	.	touch1</span><br><span class="line">chr22	TeleGene	promoter	10010000	10010100	900	+	.	touch1</span><br><span class="line">chr22	TeleGene	promoter	10020000	10025000	800	-	.	touch2</span><br></pre></td></tr></table></figure>
+<p><a href="http://genome.ucsc.edu/cgi-bin/hgTracks?org=human&position=chr22&hgt.customText=http://genome.ucsc.edu/goldenPath/help/regulatory.txt" target="_blank" rel="noopener">用Genome Browser查看该例子</a></p>
+<h3 id="什么时候用到GTF文件"><a href="#什么时候用到GTF文件" class="headerlink" title="什么时候用到GTF文件"></a>什么时候用到GTF文件</h3><p> <code>Cufflinks/Tophat 软件</code>需要 GTF文件作为基因注释文件。</p>
+<h3 id="与GFF比较"><a href="#与GFF比较" class="headerlink" title="与GFF比较"></a>与GFF比较</h3><p><code>GFF</code>全称为general feature format，这种格式主要是用来注释<code>基因组</code>。<br><code>GTF</code>全称为gene transfer format，主要是用来对<code>基因</code>进行注释。<br>目前两种文件可以方便的<code>相互转化</code>，比如:使用Cufflinks软件的 的<code>gffread</code>。</p>
+<h3 id="GTF文件下载"><a href="#GTF文件下载" class="headerlink" title="GTF文件下载"></a>GTF文件下载</h3><p>以<code>gencode</code>最为权威，Ensemble、NCBI 、UCSC也有提供下载。<br><strong>genecode的FTP</strong>：<a href="ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/" target="_blank" rel="noopener">ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/</a><br><a href="http://www.gencodegenes.org/stats.html" target="_blank" rel="noopener">gencode官网的统计信息</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载release_24所有的gtf文件</span><br><span class="line">wget -c -r -np -nd -k -L -A “*gtf.gz” ftp:&#x2F;&#x2F;ftp.sanger.ac.uk&#x2F;pub&#x2F;gencode&#x2F;Gencode_human&#x2F;release_24&#x2F;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>生物信息学常用格式</category>
+      </categories>
+      <tags>
+        <tag>基因组注释</tag>
+        <tag>生物信息学常用格式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ChAMP 甲基化芯片数据分析（450 和 EPIC）</title>
     <url>/2020/02/28/ChAMP/</url>
     <content><![CDATA[<p>ChAMP是用来分析illuminate甲基化数据的包，包括 HumanMethylation450 和 EPIC。</p>
