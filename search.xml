@@ -16,9 +16,17 @@
 <p>是view的一个应用-b指定输出文件为bam, -S 指定输入文件为sam</p>
 <h3 id="2、查看bam文件的header信息"><a href="#2、查看bam文件的header信息" class="headerlink" title="2、查看bam文件的header信息"></a>2、查看bam文件的header信息</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools view -H in.bam</span><br></pre></td></tr></table></figure>
 
-<h3 id="3、取出bam文件的一部分"><a href="#3、取出bam文件的一部分" class="headerlink" title="3、取出bam文件的一部分"></a>3、取出bam文件的一部分</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools view -b your.bam Chr1 &gt; Chr1.bam</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">- -b **指定是输出文件**为bam, </span><br><span class="line">- Chr1指定你**要看的是哪一部分**， 这里指看Chr1那一部分，然后重定向到一个新的bam文件，注意，这个bam文件是没有header的，如果想要包括header 可以使用-h参数。</span><br><span class="line"></span><br><span class="line">**随机取出bam文件的某一部分出来， 必须要有index文件**，否则会报错： [bam_index_load] fail to load BAM index. [main_samview] random alignment retrieval only works <span class="keyword">for</span> indexed BAM files.</span><br><span class="line"></span><br><span class="line">**关于view更详细的参数说明**：</span><br></pre></td></tr></table></figure>
-<p>Usage:   samtools view [options] &lt;in.bam&gt;|&lt;in.sam&gt; [region1 […]]<br>Options:<br>-b       output BAM<br>-h       print header for the SAM output<br>-H       print header only (no alignments)<br>-S       input is SAM<br>-u       uncompressed BAM output (force -b)<br>-1       fast compression (force -b)<br>-x       output FLAG in HEX (samtools-C specific)<br>-X       output FLAG in string (samtools-C specific)<br>-c       print only the count of matching records<br>-B       collapse the backward CIGAR operation<br>-@ INT   number of BAM compression threads [0]<br>-L FILE  output alignments overlapping the input BED FILE [null]<br>-t FILE  list of reference names and lengths (force -S) [null]<br>-T FILE  reference sequence file (force -S) [null]<br>-o FILE  output file name [stdout]<br>-R FILE  list of read groups to be outputted [null]<br>-f INT   required flag, 0 for unset [0]<br>-F INT   filtering flag, 0 for unset [0]<br>-q INT   minimum mapping quality [0]<br>-l STR   only output reads in library STR [null]<br>-r STR   only output reads in read group STR [null]<br>-s FLOAT fraction of templates to subsample; integer part as seed [-1]<br>  -?       longer help</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 4、bam文件 转化为sam文件</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;bash</span><br><span class="line">samtools view -h R12.merged.bam &gt; test.sam</span><br></pre></td></tr></table></figure>
+<h3 id="3、取出bam文件的一部分"><a href="#3、取出bam文件的一部分" class="headerlink" title="3、取出bam文件的一部分"></a>3、取出bam文件的一部分</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools view -b your.bam Chr1 &gt; Chr1.bam</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-b <strong>指定是输出文件</strong>为bam, </li>
+<li>Chr1指定你<strong>要看的是哪一部分</strong>， 这里指看Chr1那一部分，然后重定向到一个新的bam文件，注意，这个bam文件是没有header的，如果想要包括header 可以使用-h参数。</li>
+</ul>
+<p><strong>随机取出bam文件的某一部分出来， 必须要有index文件</strong>，否则会报错： [bam_index_load] fail to load BAM index. [main_samview] random alignment retrieval only works for indexed BAM files.</p>
+<p><strong>关于view更详细的参数说明</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Usage:   samtools view [options] &lt;in.bam&gt;|&lt;in.sam&gt; [region1 [...]]</span><br><span class="line">Options:</span><br><span class="line">-b       output BAM         </span><br><span class="line">-h       print header for the SAM output         </span><br><span class="line">-H       print header only (no alignments)         </span><br><span class="line">-S       input is SAM         </span><br><span class="line">-u       uncompressed BAM output (force -b)         </span><br><span class="line">-1       fast compression (force -b)         </span><br><span class="line">-x       output FLAG in HEX (samtools-C specific)         </span><br><span class="line">-X       output FLAG in string (samtools-C specific)         </span><br><span class="line">-c       print only the count of matching records         </span><br><span class="line">-B       collapse the backward CIGAR operation         </span><br><span class="line">-@ INT   number of BAM compression threads [0]         </span><br><span class="line">-L FILE  output alignments overlapping the input BED FILE [null]         </span><br><span class="line">-t FILE  list of reference names and lengths (force -S) [null]         </span><br><span class="line">-T FILE  reference sequence file (force -S) [null]         </span><br><span class="line">-o FILE  output file name [stdout]         </span><br><span class="line">-R FILE  list of read groups to be outputted [null]         </span><br><span class="line">-f INT   required flag, 0 for unset [0]         </span><br><span class="line">-F INT   filtering flag, 0 for unset [0]         </span><br><span class="line">-q INT   minimum mapping quality [0]         </span><br><span class="line">-l STR   only output reads in library STR [null]         </span><br><span class="line">-r STR   only output reads in read group STR [null]         </span><br><span class="line">-s FLOAT fraction of templates to subsample; integer part as seed [-1]        </span><br><span class="line">  -?       longer help</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、bam文件-转化为sam文件"><a href="#4、bam文件-转化为sam文件" class="headerlink" title="4、bam文件 转化为sam文件"></a>4、bam文件 转化为sam文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools view -h R12.merged.bam &gt; test.sam</span><br></pre></td></tr></table></figure>
 <p>-h是将bam文件中的<strong>header也加入到sam文件</strong>中。 比如htseq-count老版本只接受sam文件</p>
 <h2 id="二、建立索引Indexing"><a href="#二、建立索引Indexing" class="headerlink" title="二、建立索引Indexing"></a>二、建立索引Indexing</h2><p>注意</p>
 <ul>
@@ -275,9 +283,9 @@
         <category>DNA甲基化芯片</category>
       </categories>
       <tags>
+        <tag>生信软件</tag>
         <tag>甲基化</tag>
         <tag>甲基化芯片</tag>
-        <tag>生信软件</tag>
         <tag>R语言</tag>
       </tags>
   </entry>
@@ -304,8 +312,8 @@
         <category>DNA甲基化测序</category>
       </categories>
       <tags>
-        <tag>甲基化</tag>
         <tag>二代测序</tag>
+        <tag>甲基化</tag>
         <tag>BatMeth2</tag>
       </tags>
   </entry>
