@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>GDC 利用API应用接口查询下载数据</title>
+    <url>/2020/03/02/gdc/</url>
+    <content><![CDATA[<p><img src="https://upload-images.jianshu.io/upload_images/14137386-3e44354fcfcf5c28?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>GDC（<a href="https://gdc.cancer.gov/）" target="_blank" rel="noopener">https://gdc.cancer.gov/）</a> Application Programming Interface 简称API，是GDC开放对外的应用接口。有许多功能，包括<code>数据查询、数据提交、文件下载、metadata、注释、BAM Slicing</code>等。下面主要介绍数据查询和下载功能。</p>
+<p>GDC网站有详尽的使用教程（<a href="https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication），下面按照我的理解说一下。" target="_blank" rel="noopener">https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication），下面按照我的理解说一下。</a></p>
+<a id="more"></a>
+<h4 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h4><p><strong>一个查询请求</strong>需要包含以下参数：</p>
+<ul>
+<li><p>filters 参数：限定查询；</p>
+</li>
+<li><p>format 参数：限定返回的文件格式，JSON, TSV, XML</p>
+</li>
+<li><p>fields 参数：限定返回文件中必须包含哪些列；</p>
+</li>
+<li><p>size 参数：限定最多返回多少条记录；</p>
+</li>
+</ul>
+<p>请求可以用HTTP GET or HTTP POST两种方法。<code>但是GET会限定URL的长度</code>，所以我<strong>一般使用POST方法</strong>。 </p>
+<h4 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h4><p>以下是<code>LAML</code>的gdc_manifest.2018-01-08T04_35_55.788687.txt的前几行，要找到htseq.counts.gz文件<strong>对应的样本id以及样本类型（肿瘤样本或normal样本）</strong>等信息，我们可以通过GDC的API接口实现这一功能：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">id	filename	md5	size	state</span><br><span class="line">fdf76d41-8909-49be-83fb-d5ce8715b7e9	a3376c90-202c-42f6-a120-98d650e0765d.htseq.counts.gz	eaf6cb895b36d591d28e2e153176ca7e	259927	live</span><br><span class="line">3e1f3a96-6d9a-47aa-b319-d0e3e3fd12f9	d398a330-6a57-4172-9f2a-d6187fa2c71d.htseq.counts.gz	309d1459a02bce16766f6fe24e611930	253383	live</span><br><span class="line">5cf34517-66c6-4b12-b83b-4cb71309f68a	4fd2de09-663c-4452-8cc8-1733a78bf71f.htseq.counts.gz	3b7ac338c1d8bf4721c5a95e41832702	259239	live</span><br><span class="line">47c9d58f-d7b4-41fe-b500-d95b537dc21e	ccb70fba-ed81-4b83-90e1-99375e0db559.htseq.counts.gz	1d1753b6af24831fd254ea031e33032e	258247	live</span><br><span class="line">fe4f0b9a-46c8-4419-8315-0646418e3591	0d8702cc-d3db-4daf-94a8-b37103d771a6.htseq.counts.gz	e18c8cf1ab7cb3bd82196451ab94d5f2	257574	live</span><br></pre></td></tr></table></figure>
+
+<p>实现的python脚本如下：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsimport json</span><br><span class="line"></span><br><span class="line">cases_endpt = <span class="string">'https://api.gdc.cancer.gov/files'</span>filt=&#123;</span><br><span class="line">    <span class="string">"op"</span>:<span class="string">"in"</span>,</span><br><span class="line">    <span class="string">"content"</span>:&#123;</span><br><span class="line">        <span class="string">"field"</span>:<span class="string">"files.file_id"</span>,<span class="comment">##file_id就是gdc_manifest的id列</span></span><br><span class="line">        <span class="string">"value"</span>:[</span><br><span class="line">            <span class="string">"fdf76d41-8909-49be-83fb-d5ce8715b7e9"</span>,</span><br><span class="line">            <span class="string">"3e1f3a96-6d9a-47aa-b319-d0e3e3fd12f9"</span>,</span><br><span class="line">            <span class="string">"5cf34517-66c6-4b12-b83b-4cb71309f68a"</span>,</span><br><span class="line">            <span class="string">"47c9d58f-d7b4-41fe-b500-d95b537dc21e"</span>,</span><br><span class="line">            <span class="string">"fe4f0b9a-46c8-4419-8315-0646418e3591"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;&#125;params = &#123;<span class="string">'filters'</span>:json.dumps(filt),</span><br><span class="line">    <span class="string">"format"</span>:<span class="string">"tsv"</span>,</span><br><span class="line">    <span class="string">"fields"</span>:<span class="string">"file_name,cases.samples.sample_type_id,cases.samples.sample_type,cases.samples.submitter_id"</span>,</span><br><span class="line">    <span class="string">"size"</span>:<span class="string">"100"</span>&#125;response = requests.get(cases_endpt, params = params)print(response.content)  </span><br><span class="line"></span><br><span class="line"><span class="comment">#运行结果如下，得到了文件对应的样本id，以及样本类型等：</span></span><br><span class="line"><span class="string">b'file_name	cases.0.samples.0.submitter_id	cases.0.samples.0.sample_type_id	cases.0.samples.0.sample_type	id											</span></span><br><span class="line"><span class="string">a3376c90-202c-42f6-a120-98d650e0765d.htseq.counts.gz	TCGA-AB-2927-03A	3	Primary Blood Derived Cancer - Peripheral Blood	fdf76d41-8909-49be-83fb-d5ce8715b7e9											</span></span><br><span class="line"><span class="string">d398a330-6a57-4172-9f2a-d6187fa2c71d.htseq.counts.gz	TCGA-AB-2843-03A	3	Primary Blood Derived Cancer - Peripheral Blood	3e1f3a96-6d9a-47aa-b319-d0e3e3fd12f9											</span></span><br><span class="line"><span class="string">4fd2de09-663c-4452-8cc8-1733a78bf71f.htseq.counts.gz	TCGA-AB-2859-03A	3	Primary Blood Derived Cancer - Peripheral Blood	5cf34517-66c6-4b12-b83b-4cb71309f68a											</span></span><br><span class="line"><span class="string">ccb70fba-ed81-4b83-90e1-99375e0db559.htseq.counts.gz	TCGA-AB-2931-03A	3	Primary Blood Derived Cancer - Peripheral Blood	47c9d58f-d7b4-41fe-b500-d95b537dc21e											</span></span><br><span class="line"><span class="string">0d8702cc-d3db-4daf-94a8-b37103d771a6.htseq.counts.gz	TCGA-AB-2897-03A	3	Primary Blood Derived Cancer - Peripheral Blood	fe4f0b9a-46c8-4419-8315-0646418e3591</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>医学公共数据库</category>
+        <category>TCGA数据库</category>
+      </categories>
+      <tags>
+        <tag>生信软件</tag>
+        <tag>TCGA</tag>
+        <tag>API</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hisat2比对软件将reads比对到参考基因组</title>
     <url>/2020/03/02/hisat2/</url>
     <content><![CDATA[<p>HISAT2是TopHat2/Bowti2的<strong>继任者</strong>，使用改进的<strong>BWT算法</strong>，实现了更快的速度和更少的资源占用。<code>TopHat2已经就不再维护</code>，作者推荐TopHat2/Bowti2和HISAT的用户转换到HISAT2。HISAT利用大量FM索引，以覆盖整个基因组。下面一段话是tohat2官网的说明：</p>

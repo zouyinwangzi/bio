@@ -46,21 +46,24 @@
   };
 </script>
 
-  <meta name="description" content="参考UCSC GTF formathttps:&#x2F;&#x2F;blog.csdn.net&#x2F;sinat_38163598&#x2F;article&#x2F;details&#x2F;72851239 简介GFF和GTF是两种最常用的基因组注释格式，在信息分析中建库时除了需要fasta文件一般还会需要这两种文件，提取需要的信息进行注释。 GTF是GFF2的扩展。前八个GTF字段与GFF相同，但是GTF还包含可选字段: 5UTR, 3UTR,">
+  <meta name="description" content="GDC（https:&#x2F;&#x2F;gdc.cancer.gov&#x2F;） Application Programming Interface 简称API，是GDC开放对外的应用接口。有许多功能，包括数据查询、数据提交、文件下载、metadata、注释、BAM Slicing等。下面主要介绍数据查询和下载功能。 GDC网站有详尽的使用教程（https:&#x2F;&#x2F;docs.gdc.cancer.gov&#x2F;API&#x2F;Users">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基因组注释文件格式 -- （二）GTF文件格式">
-<meta property="og:url" content="http://yoursite.com/2020/03/02/gtf/index.html">
+<meta property="og:title" content="GDC 利用API应用接口查询下载数据">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/gdc/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="参考UCSC GTF formathttps:&#x2F;&#x2F;blog.csdn.net&#x2F;sinat_38163598&#x2F;article&#x2F;details&#x2F;72851239 简介GFF和GTF是两种最常用的基因组注释格式，在信息分析中建库时除了需要fasta文件一般还会需要这两种文件，提取需要的信息进行注释。 GTF是GFF2的扩展。前八个GTF字段与GFF相同，但是GTF还包含可选字段: 5UTR, 3UTR,">
+<meta property="og:description" content="GDC（https:&#x2F;&#x2F;gdc.cancer.gov&#x2F;） Application Programming Interface 简称API，是GDC开放对外的应用接口。有许多功能，包括数据查询、数据提交、文件下载、metadata、注释、BAM Slicing等。下面主要介绍数据查询和下载功能。 GDC网站有详尽的使用教程（https:&#x2F;&#x2F;docs.gdc.cancer.gov&#x2F;API&#x2F;Users">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-02T02:36:55.000Z">
-<meta property="article:modified_time" content="2020-03-02T02:36:55.421Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14137386-3e44354fcfcf5c28?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-03-02T09:02:52.000Z">
+<meta property="article:modified_time" content="2020-03-02T09:02:52.857Z">
 <meta property="article:author" content="Aimi">
-<meta property="article:tag" content="基因组注释">
-<meta property="article:tag" content="生物信息学常用格式">
+<meta property="article:tag" content="生信软件">
+<meta property="article:tag" content="TCGA">
+<meta property="article:tag" content="API">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/14137386-3e44354fcfcf5c28?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
-<link rel="canonical" href="http://yoursite.com/2020/03/02/gtf/">
+<link rel="canonical" href="http://yoursite.com/2020/03/02/gdc/">
 
 
 <script id="page-configurations">
@@ -72,7 +75,7 @@
   };
 </script>
 
-  <title>基因组注释文件格式 -- （二）GTF文件格式 | Hexo</title>
+  <title>GDC 利用API应用接口查询下载数据 | Hexo</title>
   
 
 
@@ -206,7 +209,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/gtf/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/gdc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -219,7 +222,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          基因组注释文件格式 -- （二）GTF文件格式
+          GDC 利用API应用接口查询下载数据
         </h1>
 
         <div class="post-meta">
@@ -229,7 +232,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-02 10:36:55" itemprop="dateCreated datePublished" datetime="2020-03-02T10:36:55+08:00">2020-03-02</time>
+              <time title="创建时间：2020-03-02 17:02:52" itemprop="dateCreated datePublished" datetime="2020-03-02T17:02:52+08:00">2020-03-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,14 +240,20 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E5%B8%B8%E7%94%A8%E6%A0%BC%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">生物信息学常用格式</span>
+                  <a href="/categories/%E5%8C%BB%E5%AD%A6%E5%85%AC%E5%85%B1%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">医学公共数据库</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BB%E5%AD%A6%E5%85%AC%E5%85%B1%E6%95%B0%E6%8D%AE%E5%BA%93/TCGA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">TCGA数据库</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2020/03/02/gtf/" class="post-meta-item leancloud_visitors" data-flag-title="基因组注释文件格式 -- （二）GTF文件格式" title="阅读次数">
+            <span id="/2020/03/02/gdc/" class="post-meta-item leancloud_visitors" data-flag-title="GDC 利用API应用接口查询下载数据" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -259,8 +268,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/03/02/gtf/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/02/gtf/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/03/02/gdc/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/02/gdc/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -275,18 +284,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format4" target="_blank" rel="noopener">UCSC GTF format</a><br><a href="https://blog.csdn.net/sinat_38163598/article/details/72851239" target="_blank" rel="noopener">https://blog.csdn.net/sinat_38163598/article/details/72851239</a></p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>GFF和GTF是两种<code>最常用</code>的基因组注释格式，在信息分析中建库时除了需要fasta文件一般还会需要这两种文件，提取需要的信息进行注释。</p>
-<p>GTF是GFF2的扩展。前八个GTF字段与GFF相同，但是GTF还包含<code>可选字段</code>: 5UTR, 3UTR, inter, inter_CNS, and intron_CNS。<br><strong>前八个字段：</strong></p>
-<p>1)  <code>seq_id</code>：序列的编号，一般为chr或者scanfold编号；<br>2)  <code>source</code>: 注释的来源，一般为数据库或者注释的机构，如果未知，则用点“.”代替；<br>3) <code>type</code>: 注释信息的类型，比如Gene、cDNA、mRNA、CDS等<br>4)  <code>start</code>:该基因或转录本在参考序列上的起始位置；<br>5)  <code>end</code>: 该基因或转录本在参考序列上的终止位置；<br>6)  <code>score</code>: 得分，数字，是注释信息可能性的说明，可以是序列相似性比对时的E-values值或者基因预测是的P-values值，“.”表示为空；<br>7)  <code>strand</code>: 该基因或转录本位于参考序列的正链(+)或负链(-)上;<br>8)  <code>phase</code>: 仅对注释类型为“CDS”有效，表示起始编码的位置，有效值为0、1、2(对于编码蛋白质的CDS来说，本列指定下一个密码子开始的位置。每3个核苷酸翻译一个氨基酸，从0开始，CDS的起始位置，除以3，余数就是这个值，，表示到达下一个密码子需要跳过的碱基个数。该编码区第一个密码子的位置，取值0,1,2。0表示该编码框的第一个密码子第一个碱基位于其5’末端；1表示该编码框的第一个密码子的第一个碱基位于该编码区外；2表示该编码框的第一个密码子的第一、二个碱基位于该编码区外；如果Feature为CDS时，必须指明具体值。)</p>
+        <p><img src="https://upload-images.jianshu.io/upload_images/14137386-3e44354fcfcf5c28?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>GDC（<a href="https://gdc.cancer.gov/）" target="_blank" rel="noopener">https://gdc.cancer.gov/）</a> Application Programming Interface 简称API，是GDC开放对外的应用接口。有许多功能，包括<code>数据查询、数据提交、文件下载、metadata、注释、BAM Slicing</code>等。下面主要介绍数据查询和下载功能。</p>
+<p>GDC网站有详尽的使用教程（<a href="https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication），下面按照我的理解说一下。" target="_blank" rel="noopener">https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication），下面按照我的理解说一下。</a></p>
 <a id="more"></a>
-<p><strong>例子：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">browser position chr22:10000000-10025000</span><br><span class="line">browser hide all</span><br><span class="line">track name&#x3D;regulatory	description&#x3D;&quot;TeleGene(tm) Regulatory Regions&quot; visibility&#x3D;2</span><br><span class="line">chr22	TeleGene	enhancer	10000000	10001000	500	+	.	touch1</span><br><span class="line">chr22	TeleGene	promoter	10010000	10010100	900	+	.	touch1</span><br><span class="line">chr22	TeleGene	promoter	10020000	10025000	800	-	.	touch2</span><br></pre></td></tr></table></figure>
-<p><a href="http://genome.ucsc.edu/cgi-bin/hgTracks?org=human&position=chr22&hgt.customText=http://genome.ucsc.edu/goldenPath/help/regulatory.txt" target="_blank" rel="noopener">用Genome Browser查看该例子</a></p>
-<h3 id="什么时候用到GTF文件"><a href="#什么时候用到GTF文件" class="headerlink" title="什么时候用到GTF文件"></a>什么时候用到GTF文件</h3><p> <code>Cufflinks/Tophat 软件</code>需要 GTF文件作为基因注释文件。</p>
-<h3 id="与GFF比较"><a href="#与GFF比较" class="headerlink" title="与GFF比较"></a>与GFF比较</h3><p><code>GFF</code>全称为general feature format，这种格式主要是用来注释<code>基因组</code>。<br><code>GTF</code>全称为gene transfer format，主要是用来对<code>基因</code>进行注释。<br>目前两种文件可以方便的<code>相互转化</code>，比如:使用Cufflinks软件的 的<code>gffread</code>。</p>
-<h3 id="GTF文件下载"><a href="#GTF文件下载" class="headerlink" title="GTF文件下载"></a>GTF文件下载</h3><p>以<code>gencode</code>最为权威，Ensemble、NCBI 、UCSC也有提供下载。<br><strong>genecode的FTP</strong>：<a href="ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/" target="_blank" rel="noopener">ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/</a><br><a href="http://www.gencodegenes.org/stats.html" target="_blank" rel="noopener">gencode官网的统计信息</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#下载release_24所有的gtf文件</span><br><span class="line">wget -c -r -np -nd -k -L -A “*gtf.gz” ftp:&#x2F;&#x2F;ftp.sanger.ac.uk&#x2F;pub&#x2F;gencode&#x2F;Gencode_human&#x2F;release_24&#x2F;</span><br></pre></td></tr></table></figure>
+<h4 id="参数介绍"><a href="#参数介绍" class="headerlink" title="参数介绍"></a>参数介绍</h4><p><strong>一个查询请求</strong>需要包含以下参数：</p>
+<ul>
+<li><p>filters 参数：限定查询；</p>
+</li>
+<li><p>format 参数：限定返回的文件格式，JSON, TSV, XML</p>
+</li>
+<li><p>fields 参数：限定返回文件中必须包含哪些列；</p>
+</li>
+<li><p>size 参数：限定最多返回多少条记录；</p>
+</li>
+</ul>
+<p>请求可以用HTTP GET or HTTP POST两种方法。<code>但是GET会限定URL的长度</code>，所以我<strong>一般使用POST方法</strong>。 </p>
+<h4 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h4><p>以下是<code>LAML</code>的gdc_manifest.2018-01-08T04_35_55.788687.txt的前几行，要找到htseq.counts.gz文件<strong>对应的样本id以及样本类型（肿瘤样本或normal样本）</strong>等信息，我们可以通过GDC的API接口实现这一功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">id	filename	md5	size	state</span><br><span class="line">fdf76d41-8909-49be-83fb-d5ce8715b7e9	a3376c90-202c-42f6-a120-98d650e0765d.htseq.counts.gz	eaf6cb895b36d591d28e2e153176ca7e	259927	live</span><br><span class="line">3e1f3a96-6d9a-47aa-b319-d0e3e3fd12f9	d398a330-6a57-4172-9f2a-d6187fa2c71d.htseq.counts.gz	309d1459a02bce16766f6fe24e611930	253383	live</span><br><span class="line">5cf34517-66c6-4b12-b83b-4cb71309f68a	4fd2de09-663c-4452-8cc8-1733a78bf71f.htseq.counts.gz	3b7ac338c1d8bf4721c5a95e41832702	259239	live</span><br><span class="line">47c9d58f-d7b4-41fe-b500-d95b537dc21e	ccb70fba-ed81-4b83-90e1-99375e0db559.htseq.counts.gz	1d1753b6af24831fd254ea031e33032e	258247	live</span><br><span class="line">fe4f0b9a-46c8-4419-8315-0646418e3591	0d8702cc-d3db-4daf-94a8-b37103d771a6.htseq.counts.gz	e18c8cf1ab7cb3bd82196451ab94d5f2	257574	live</span><br></pre></td></tr></table></figure>
+
+<p>实现的python脚本如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requestsimport json</span><br><span class="line"></span><br><span class="line">cases_endpt = <span class="string">'https://api.gdc.cancer.gov/files'</span>filt=&#123;</span><br><span class="line">    <span class="string">"op"</span>:<span class="string">"in"</span>,</span><br><span class="line">    <span class="string">"content"</span>:&#123;</span><br><span class="line">        <span class="string">"field"</span>:<span class="string">"files.file_id"</span>,<span class="comment">##file_id就是gdc_manifest的id列</span></span><br><span class="line">        <span class="string">"value"</span>:[</span><br><span class="line">            <span class="string">"fdf76d41-8909-49be-83fb-d5ce8715b7e9"</span>,</span><br><span class="line">            <span class="string">"3e1f3a96-6d9a-47aa-b319-d0e3e3fd12f9"</span>,</span><br><span class="line">            <span class="string">"5cf34517-66c6-4b12-b83b-4cb71309f68a"</span>,</span><br><span class="line">            <span class="string">"47c9d58f-d7b4-41fe-b500-d95b537dc21e"</span>,</span><br><span class="line">            <span class="string">"fe4f0b9a-46c8-4419-8315-0646418e3591"</span></span><br><span class="line">        ]</span><br><span class="line">    &#125;&#125;params = &#123;<span class="string">'filters'</span>:json.dumps(filt),</span><br><span class="line">    <span class="string">"format"</span>:<span class="string">"tsv"</span>,</span><br><span class="line">    <span class="string">"fields"</span>:<span class="string">"file_name,cases.samples.sample_type_id,cases.samples.sample_type,cases.samples.submitter_id"</span>,</span><br><span class="line">    <span class="string">"size"</span>:<span class="string">"100"</span>&#125;response = requests.get(cases_endpt, params = params)print(response.content)  </span><br><span class="line"></span><br><span class="line"><span class="comment">#运行结果如下，得到了文件对应的样本id，以及样本类型等：</span></span><br><span class="line"><span class="string">b'file_name	cases.0.samples.0.submitter_id	cases.0.samples.0.sample_type_id	cases.0.samples.0.sample_type	id											</span></span><br><span class="line"><span class="string">a3376c90-202c-42f6-a120-98d650e0765d.htseq.counts.gz	TCGA-AB-2927-03A	3	Primary Blood Derived Cancer - Peripheral Blood	fdf76d41-8909-49be-83fb-d5ce8715b7e9											</span></span><br><span class="line"><span class="string">d398a330-6a57-4172-9f2a-d6187fa2c71d.htseq.counts.gz	TCGA-AB-2843-03A	3	Primary Blood Derived Cancer - Peripheral Blood	3e1f3a96-6d9a-47aa-b319-d0e3e3fd12f9											</span></span><br><span class="line"><span class="string">4fd2de09-663c-4452-8cc8-1733a78bf71f.htseq.counts.gz	TCGA-AB-2859-03A	3	Primary Blood Derived Cancer - Peripheral Blood	5cf34517-66c6-4b12-b83b-4cb71309f68a											</span></span><br><span class="line"><span class="string">ccb70fba-ed81-4b83-90e1-99375e0db559.htseq.counts.gz	TCGA-AB-2931-03A	3	Primary Blood Derived Cancer - Peripheral Blood	47c9d58f-d7b4-41fe-b500-d95b537dc21e											</span></span><br><span class="line"><span class="string">0d8702cc-d3db-4daf-94a8-b37103d771a6.htseq.counts.gz	TCGA-AB-2897-03A	3	Primary Blood Derived Cancer - Peripheral Blood	fe4f0b9a-46c8-4419-8315-0646418e3591</span></span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -309,8 +328,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%B3%A8%E9%87%8A/" rel="tag"><i class="fa fa-tag"></i> 基因组注释</a>
-              <a href="/tags/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E5%B8%B8%E7%94%A8%E6%A0%BC%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 生物信息学常用格式</a>
+              <a href="/tags/%E7%94%9F%E4%BF%A1%E8%BD%AF%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 生信软件</a>
+              <a href="/tags/TCGA/" rel="tag"><i class="fa fa-tag"></i> TCGA</a>
+              <a href="/tags/API/" rel="tag"><i class="fa fa-tag"></i> API</a>
           </div>
 
         
@@ -319,13 +339,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/02/bed/" rel="prev" title="基因组注释文件格式 --（一）BED文件格式">
-      <i class="fa fa-chevron-left"></i> 基因组注释文件格式 --（一）BED文件格式
+    <a href="/2020/03/02/hisat2/" rel="prev" title="hisat2比对软件将reads比对到参考基因组">
+      <i class="fa fa-chevron-left"></i> hisat2比对软件将reads比对到参考基因组
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/03/02/sam/" rel="next" title="SAM文件格式介绍">
-      SAM文件格式介绍 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -386,7 +403,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候用到GTF文件"><span class="nav-number">3.</span> <span class="nav-text">什么时候用到GTF文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与GFF比较"><span class="nav-number">4.</span> <span class="nav-text">与GFF比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GTF文件下载"><span class="nav-number">5.</span> <span class="nav-text">GTF文件下载</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数介绍"><span class="nav-number">1.</span> <span class="nav-text">参数介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用实例"><span class="nav-number">2.</span> <span class="nav-text">应用实例</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
