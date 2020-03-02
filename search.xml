@@ -8,7 +8,6 @@
 <p>安装过程中有许多<code>依赖的库</code>需要安装的，可能每个人缺的库都不尽相同，不懂的就百度一下吧：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt install gcc</span><br><span class="line">sudo apt install git</span><br><span class="line">sudo apt install make</span><br><span class="line">sudo apt-get install libncurses5-dev  ##bam_tview_curses.c:41:20: fatal error: curses.h: No such file or directory</span><br><span class="line">sudo yum install bzip2-devel  ##cram&#x2F;cram_io.c:57:19: fatal error: bzlib.h: No such file or directory</span><br><span class="line">sudo apt-get install liblzma-dev ##cram&#x2F;cram_io.c:60:18: fatal error: lzma.h: No such file or directory</span><br></pre></td></tr></table></figure>
 <p>装好之后有如下这么多命令，下面我们只介绍samtools：</p>
-<a id="more"></a>
 <p><img src="https://upload-images.jianshu.io/upload_images/14137386-c09696c7b20a9f14?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rqq@ubuntu:~&#x2F;bio$ samtools</span><br><span class="line"></span><br><span class="line">Program: samtools (Tools for alignments in the SAM format)Version: 1.5 (using htslib 1.5) </span><br><span class="line">Usage:   samtools &lt;command&gt; [options] </span><br><span class="line">Commands:  -- Indexing</span><br><span class="line">     dict           create a sequence dictionary file</span><br><span class="line">     faidx          index&#x2F;extract FASTA</span><br><span class="line">     index          index alignment</span><br><span class="line">   -- Editing</span><br><span class="line">     calmd          recalculate MD&#x2F;NM tags and &#39;&#x3D;&#39; bases</span><br><span class="line">     fixmate        fix mate information</span><br><span class="line">     reheader       replace BAM header</span><br><span class="line">     rmdup          remove PCR duplicates</span><br><span class="line">     targetcut      cut fosmid regions (for fosmid pool only)</span><br><span class="line">     addreplacerg   adds or replaces RG tags</span><br><span class="line">   -- File operations</span><br><span class="line">     collate        shuffle and group alignments by name     cat            concatenate BAMs</span><br><span class="line">     merge          merge sorted alignments</span><br><span class="line">     mpileup        multi-way pileup     sort           sort alignment file</span><br><span class="line">     split          splits a file by read group</span><br><span class="line">     quickcheck     quickly check if SAM&#x2F;BAM&#x2F;CRAM file appears intact</span><br><span class="line">     fastq          converts a BAM to a FASTQ</span><br><span class="line">     fasta          converts a BAM to a FASTA</span><br><span class="line">   -- Statistics</span><br><span class="line">     bedcov         read depth per BED region</span><br><span class="line">     depth          compute the depth</span><br><span class="line">     flagstat       simple stats</span><br><span class="line">     idxstats       BAM index stats</span><br><span class="line">     phase          phase heterozygotes</span><br><span class="line">     stats          generate stats (former bamcheck)   -- Viewing</span><br><span class="line">     flags          explain BAM flags</span><br><span class="line">     tview          text alignment viewer</span><br><span class="line">     view           SAM&lt;-&gt;BAM&lt;-&gt;CRAM conversion</span><br><span class="line">     depad          convert padded BAM to unpadded BAM</span><br></pre></td></tr></table></figure>
 
@@ -37,14 +36,28 @@
 </ul>
 <h3 id="1、对fasta文件建立索引"><a href="#1、对fasta文件建立索引" class="headerlink" title="1、对fasta文件建立索引"></a>1、对fasta文件建立索引</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools faidx ref.fasta`</span><br></pre></td></tr></table></figure>
 
-<h3 id="2、对BAM文件建立索引"><a href="#2、对BAM文件建立索引" class="headerlink" title="2、对BAM文件建立索引"></a>2、对BAM文件建立索引</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools index in.bam</span><br><span class="line">``` </span><br><span class="line">- 结果文件名为in.bam.bai</span><br><span class="line"></span><br><span class="line"><span class="comment">### 3、知道位置信息查找对应的序列信息</span></span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">samtools faidx ref.fa Chr1:33667-33667</span><br></pre></td></tr></table></figure>
+<h3 id="2、对BAM文件建立索引"><a href="#2、对BAM文件建立索引" class="headerlink" title="2、对BAM文件建立索引"></a>2、对BAM文件建立索引</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools index in.bam</span><br></pre></td></tr></table></figure>
+<ul>
+<li>结果文件名为in.bam.bai</li>
+</ul>
+<h3 id="3、知道位置信息查找对应的序列信息"><a href="#3、知道位置信息查找对应的序列信息" class="headerlink" title="3、知道位置信息查找对应的序列信息"></a>3、知道位置信息查找对应的序列信息</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools faidx ref.fa Chr1:33667-33667</span><br></pre></td></tr></table></figure>
 <p>指查看染色体一上的第33667个碱基。</p>
 <h2 id="三、将bam文件进行sort"><a href="#三、将bam文件进行sort" class="headerlink" title="三、将bam文件进行sort"></a>三、将bam文件进行sort</h2><p>只能对<strong>bam文件</strong>进行sort, 不能对sam文件。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools sort aln.bam anl.sorted</span><br><span class="line">``` </span><br><span class="line">- 默认是根据**coordinate**进行sort， 如果输入bam文件为in.bam , 则输出文件名为in.sorted.bam </span><br><span class="line">- 如果要按照**<span class="built_in">read</span> name**进行sort, 需要加`-n`, 如heseq-count 就要求文件时按照<span class="built_in">read</span> name 而不是coordinate。</span><br><span class="line">```bash</span><br><span class="line">samtools sort -n aln.bam anl.sorted</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools sort aln.bam anl.sorted</span><br></pre></td></tr></table></figure>
+<ul>
+<li>默认是根据<strong>coordinate</strong>进行sort， 如果输入bam文件为in.bam , 则输出文件名为in.sorted.bam </li>
+<li>如果要按照<strong>read name</strong>进行sort, 需要加<code>-n</code>, 如heseq-count 就要求文件时按照read name 而不是coordinate。<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools sort -n aln.bam anl.sorted</span><br></pre></td></tr></table></figure>
 
+</li>
+</ul>
 <h2 id="四、去除bam文件中pcr导致的重复reads信息"><a href="#四、去除bam文件中pcr导致的重复reads信息" class="headerlink" title="四、去除bam文件中pcr导致的重复reads信息"></a>四、去除bam文件中pcr导致的重复reads信息</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools rmdup in.bam in.rmp.bam</span><br></pre></td></tr></table></figure>
 
-<h2 id="五、合并bam文件"><a href="#五、合并bam文件" class="headerlink" title="五、合并bam文件"></a>五、合并bam文件</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools merge out.bam in1.bam in2.bam in3.bam</span><br><span class="line">``` </span><br><span class="line"> 假如in1.bam, in2.bam, in3.bam是某个某样本的三个重复，我们可以将他们合并为一个bam文件。</span><br><span class="line"></span><br><span class="line">```bash</span><br><span class="line">samtools merge -R chr1 out.bam in1.bam in2.bam in3.bam</span><br><span class="line">``` </span><br><span class="line"> 如果想对**部分合并**，如至合并一号染色的上的bam文件合并，chr1必须为序列的名字，一号染色体序列的名字为Chr1，那么就应为**-R Chr1**</span><br><span class="line"></span><br><span class="line">**注意**：要合并的bam文件，必须有对应的index文件。</span><br><span class="line">```bash</span><br><span class="line">samtools index in.bam  <span class="comment">#结果文件名为in.bam.bai</span></span><br></pre></td></tr></table></figure>
+<h2 id="五、合并bam文件"><a href="#五、合并bam文件" class="headerlink" title="五、合并bam文件"></a>五、合并bam文件</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools merge out.bam in1.bam in2.bam in3.bam</span><br></pre></td></tr></table></figure>
+<p> 假如in1.bam, in2.bam, in3.bam是某个某样本的三个重复，我们可以将他们合并为一个bam文件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools merge -R chr1 out.bam in1.bam in2.bam in3.bam</span><br></pre></td></tr></table></figure>
+<p> 如果想对<strong>部分合并</strong>，如至合并一号染色的上的bam文件合并，chr1必须为序列的名字，一号染色体序列的名字为Chr1，那么就应为<strong>-R Chr1</strong></p>
+<p><strong>注意</strong>：要合并的bam文件，必须有对应的index文件。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools index in.bam  <span class="comment">#结果文件名为in.bam.bai</span></span><br></pre></td></tr></table></figure>
 
 
 
@@ -283,9 +296,9 @@
         <category>DNA甲基化芯片</category>
       </categories>
       <tags>
-        <tag>生信软件</tag>
         <tag>甲基化</tag>
         <tag>甲基化芯片</tag>
+        <tag>生信软件</tag>
         <tag>R语言</tag>
       </tags>
   </entry>
@@ -312,8 +325,8 @@
         <category>DNA甲基化测序</category>
       </categories>
       <tags>
-        <tag>二代测序</tag>
         <tag>甲基化</tag>
+        <tag>二代测序</tag>
         <tag>BatMeth2</tag>
       </tags>
   </entry>
@@ -601,8 +614,8 @@
       </categories>
       <tags>
         <tag>二代测序</tag>
-        <tag>单细胞测序</tag>
         <tag>高通量测序</tag>
+        <tag>单细胞测序</tag>
       </tags>
   </entry>
   <entry>
