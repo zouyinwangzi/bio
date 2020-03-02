@@ -271,7 +271,7 @@
 
       
           <p><img src="https://upload-images.jianshu.io/upload_images/14137386-beb579b6d4f17223?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
-<p>SAM 是sequence alignment format （<a href="http://samtools.github.io/hts-specs/SAMv1.pdf）的缩写，`BAM文件是SAM的二进制文件`。当测序生成的fastq文件`比对到参考基因组`后就会生成SAM文件或者BAM文件。大部分的数据分析都是始于SAM文件。" target="_blank" rel="noopener">http://samtools.github.io/hts-specs/SAMv1.pdf）的缩写，`BAM文件是SAM的二进制文件`。当测序生成的fastq文件`比对到参考基因组`后就会生成SAM文件或者BAM文件。大部分的数据分析都是始于SAM文件。</a></p>
+<p>SAM 是sequence alignment format （<a href="http://samtools.github.io/hts-specs/SAMv1.pdf" target="_blank" rel="noopener">http://samtools.github.io/hts-specs/SAMv1.pdf</a>) 的缩写，<code>BAM文件是SAM的二进制文件</code>。当测序生成的fastq文件<code>比对到参考基因组</code>后就会生成SAM文件或者BAM文件。大部分的数据分析都是始于SAM文件。</p>
 <h4 id="SAM-文件的结构"><a href="#SAM-文件的结构" class="headerlink" title="SAM 文件的结构"></a>SAM 文件的结构</h4><p>SAM格式文件包括<code>头部注释部分</code>和<code>比对结果部分</code>，头部分为’’可选部分’’。头部分位于比对部分之前，<code>以“@”开头</code>。比对部分有<code>11列是固定</code>的，其他多列可选。看如下例子：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> @HD     VN:1.0  SO:unsorted     <span class="comment">#VN版本，比对有无sorted</span></span><br><span class="line"></span><br><span class="line">@SQ     SN:17   LN:83257441    <span class="comment">##SQ：参考序列目录。SN：参考序列名字。LN：参考序列长度</span></span><br><span class="line"></span><br><span class="line"> @PG     ID:hisat2       PN:hisat2       VN:2.1.0        CL:/home/bio/bin/hisat2/hisat2-align<span class="_">-s</span> --wrapper basic-0 -c GTGCTGAACGACGAGGACTGCCGGGAGTTCCCCTGGCAC    <span class="comment">##PG：program 。 ID：program record identifier 。 VN：程序版本。CL：command line</span></span><br><span class="line"></span><br><span class="line"> 0       16      17      805144  60      39M     *       0       0       GTGCCAGGGGAACTCCCGGCAGTCCTCGTCGTTCAGCAC IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII AS:i:0  Z:39    YT:Z:UU NH:i:1</span><br></pre></td></tr></table></figure>
 <h5 id="头部注释部分"><a href="#头部注释部分" class="headerlink" title="头部注释部分"></a>头部注释部分</h5><ul>
@@ -280,80 +280,14 @@
 <li><p>@SQ：参考序列目录。SN：参考序列名字。LN：参考序列长度。</p>
 </li>
 <li><p>@PG：使用的比对程序名，这个例子是hisat2</p>
-<h5 id="比对结果部分"><a href="#比对结果部分" class="headerlink" title="比对结果部分"></a>比对结果部分</h5></li>
-</ul>
-<p>比对结果部分每行标示一个read与参考序列的比对信息，前11列为必须字段，顺序固定。其余列是可选字段。前11列如下解释：</p>
-<ul>
-<li><p>第一列Query Name：read的名称，即片段的编号。</p>
-</li>
-<li><p>第二列FLAG：如果不是以下数字中的一个，则是一下数据某几个的和</p>
-<ul>
-<li><p>1：标示对应的二进制为01，标示read有多个测序数据，一般理解为有双端测序数据，另一条没有过滤掉；</p>
-</li>
-<li><p>2：二进制为10，标示read的多个片段都有比对结果，双端的read都比对上了；</p>
-</li>
-<li><p>4：表示这条read没有比对上；</p>
-</li>
-<li><p>8：标示下一条read没有比对上；</p>
-</li>
-<li><p>16：表示这条read的反向比对上了；</p>
-</li>
-<li><p>32：表示这条read的下一条的反向没有比对上；</p>
-</li>
-<li><p>64：表示样本中第一个片段；</p>
-</li>
-<li><p>128：表示样本中最后一条片段；</p>
-</li>
-<li><p>256：表示第二次比对；</p>
-</li>
-<li><p>512：表示比对的质量不合格；</p>
-</li>
-<li><p>1204：表示read是pcr或光学副本产生的；</p>
-</li>
-<li><p>2048：表示辅助比对结果；</p>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;Bit Description</span><br><span class="line"></span><br><span class="line"> 1 0x1   template having multiple segments <span class="keyword">in</span> sequencing</span><br><span class="line"></span><br><span class="line"> 2 0x2   each segment properly aligned according to the aligner</span><br><span class="line"></span><br><span class="line"> 4 0x4   segment unmapped</span><br><span class="line"></span><br><span class="line"> 8 0x8   next segment <span class="keyword">in</span> the template unmapped</span><br><span class="line"></span><br><span class="line"> 16 0x10   SEQ being reverse complemented</span><br><span class="line"></span><br><span class="line"> 32 0x20   SEQ of the next segment <span class="keyword">in</span> the template being reverse complemented</span><br><span class="line"></span><br><span class="line"> 64 0x40   the first segment <span class="keyword">in</span> the template</span><br><span class="line"></span><br><span class="line"> 128 0x80   the last segment <span class="keyword">in</span> the template</span><br><span class="line"></span><br><span class="line"> 256 0x100   secondary alignment</span><br><span class="line"></span><br><span class="line"> 512 0x200 not passing filters, such as platform/vendor quality controls</span><br><span class="line"></span><br><span class="line"> 1024 0x400 PCR or optical duplicate</span><br><span class="line"></span><br><span class="line"> 2048 0x800 supplementary alignment</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>第三列Reference Name：参考序列的名称，或者比对到参考序列上的染色体号。比对不上为*</p>
-</li>
-<li><p>第四列Position：比对上的位置，从1开始计数（顺着链的方向从1数起，哪个位置开始匹配）。没有比对上为0；</p>
-</li>
-<li><p>第五列Mapping Quality：比对的质量分数，越高表示比对的越准确。</p>
-</li>
-<li><p>第六列CIGAR：表示比对的结果。</p>
-<pre><code>* M：表示match或mismatch
-
-* I：表示插入
-
-* D：表示删除
-
-* N：表示skipped，跳过这段区域
-
-* S：表示被剪切的序列存在于序列中
-
-* H：表示被剪切的序列不存在于序列中
-
-* P：表示padding（填补）
-
-* =：表示match
-
-* X：表示mismatch（错配，位置是一一对应的）</code></pre></li>
-<li><p>第七列RNEXT：表示下一个片段比对上的参考序列的编号，比对不上用’*‘，该片段和下一个片段比对上同一个参考片段，用’=‘；</p>
-</li>
-<li><p>第八列PNEXT：表示下一个片段比对上的位置，如果不可用，此处为0；</p>
-</li>
-<li><p>第九列TLEN：表示Template的长度。如果第八列大于第四列，则为正数，否则负数。</p>
-</li>
-<li><p>第十列SEQ：表示序列片段的序列信息，（注意CIGAR中M/I/S/=/X对应数字的和要等于序列长度），表示read的碱基序列，如果是比对到互补链上则是反转互补序列。</p>
-</li>
-<li><p>第十一列QUAL：表示read的质量，用ASCII编码表示。</p>
-</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/02/sam/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
