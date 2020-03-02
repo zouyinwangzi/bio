@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="简介肿瘤基因组图谱 (TCGA) 计划由美国 National Cancer Institute(NCI) 和 National Human Genome Research Institute（NHGRI）于 2006 年联合启动的项目，目前共计研究 36 种癌症类型。 TCGA 利用大规模测序为主的基因组分析技术，通过广泛的合作，理解癌症的分子机制。提高人们对癌症发病分子基础的科学认识及提高我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCGA数据库介绍">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/TCGA-introduce/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简介肿瘤基因组图谱 (TCGA) 计划由美国 National Cancer Institute(NCI) 和 National Human Genome Research Institute（NHGRI）于 2006 年联合启动的项目，目前共计研究 36 种癌症类型。 TCGA 利用大规模测序为主的基因组分析技术，通过广泛的合作，理解癌症的分子机制。提高人们对癌症发病分子基础的科学认识及提高我们">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-02T09:46:12.000Z">
+<meta property="article:modified_time" content="2020-03-02T09:46:13.026Z">
+<meta property="article:author" content="Aimi">
+<meta property="article:tag" content="TCGA">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/02/TCGA-introduce/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>TCGA数据库介绍 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/TCGA-introduce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Aimi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TCGA数据库介绍
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-02 17:46:12 / 修改时间：17:46:13" itemprop="dateCreated datePublished" datetime="2020-03-02T17:46:12+08:00">2020-03-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BB%E5%AD%A6%E5%85%AC%E5%85%B1%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">医学公共数据库</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BB%E5%AD%A6%E5%85%AC%E5%85%B1%E6%95%B0%E6%8D%AE%E5%BA%93/TCGA%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">TCGA数据库</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/03/02/TCGA-introduce/" class="post-meta-item leancloud_visitors" data-flag-title="TCGA数据库介绍" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/02/TCGA-introduce/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/02/TCGA-introduce/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>肿瘤基因组图谱 (TCGA) 计划由美国 National Cancer Institute(NCI) 和 National Human Genome Research Institute（NHGRI）于 2006 年联合启动的项目，目前共计研究 36 种癌症类型。</p>
+<p>TCGA 利用大规模测序为主的基因组分析技术，通过广泛的合作，理解癌症的分子机制。提高人们对癌症发病分子基础的科学认识及提高我们诊断、治疗和预防癌症的能力。 最终完成一套完整的与所有癌症基因组改变相关的「图谱」。</p>
+<a id="more"></a>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(TCGAbiolinks)</span><br><span class="line">tmp&lt;-getGDCprojects()</span><br><span class="line"><span class="comment"># TCGA 总共有如下40个project</span></span><br><span class="line">tmp$project_id</span><br><span class="line"> [<span class="number">1</span>] <span class="string">"TCGA-READ"</span>   <span class="string">"TCGA-THCA"</span>   <span class="string">"TARGET-CCSK"</span> <span class="string">"TCGA-MESO"</span>   <span class="string">"TCGA-SARC"</span>   <span class="string">"TARGET-AML"</span>  <span class="string">"TCGA-LGG"</span>   </span><br><span class="line"> [<span class="number">8</span>] <span class="string">"TARGET-NBL"</span>  <span class="string">"TCGA-ACC"</span>    <span class="string">"TCGA-CESC"</span>   <span class="string">"TCGA-KIRP"</span>   <span class="string">"TCGA-PAAD"</span>   <span class="string">"TARGET-WT"</span>   <span class="string">"TCGA-PCPG"</span>  </span><br><span class="line">[<span class="number">15</span>] <span class="string">"TCGA-UCS"</span>    <span class="string">"TCGA-LUAD"</span>   <span class="string">"TCGA-BLCA"</span>   <span class="string">"TCGA-OV"</span>     <span class="string">"TCGA-CHOL"</span>   <span class="string">"TCGA-SKCM"</span>   <span class="string">"TCGA-GBM"</span>   </span><br><span class="line">[<span class="number">22</span>] <span class="string">"TCGA-KIRC"</span>   <span class="string">"TCGA-BRCA"</span>   <span class="string">"TCGA-UCEC"</span>   <span class="string">"TCGA-PRAD"</span>   <span class="string">"TCGA-LAML"</span>   <span class="string">"TCGA-STAD"</span>   <span class="string">"TCGA-LUSC"</span>  </span><br><span class="line">[<span class="number">29</span>] <span class="string">"TCGA-KICH"</span>   <span class="string">"TCGA-TGCT"</span>   <span class="string">"TCGA-DLBC"</span>   <span class="string">"TCGA-THYM"</span>   <span class="string">"TCGA-UVM"</span>    <span class="string">"FM-AD"</span>       <span class="string">"TARGET-OS"</span>  </span><br><span class="line">[<span class="number">36</span>] <span class="string">"TCGA-HNSC"</span>   <span class="string">"TCGA-ESCA"</span>   <span class="string">"TCGA-COAD"</span>   <span class="string">"TCGA-LIHC"</span>   <span class="string">"TARGET-RT"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clinical</td>
+<td>病人的基本信息，诊断情况、TNM分期、肿瘤病理、生存情况等等</td>
+</tr>
+<tr>
+<td>mRNA</td>
+<td>由mRNA芯片或RNA-seq测得的mRNA表达量数据</td>
+</tr>
+<tr>
+<td>microRNA</td>
+<td>由microRNA芯片或RNA-seq测得的microRNA表达量数据</td>
+</tr>
+<tr>
+<td>CopyNumber</td>
+<td>由SNP芯片测序得到的肿瘤对比正常组织染色体各片段的比值</td>
+</tr>
+<tr>
+<td>Mutation</td>
+<td>肿瘤测序数据相对于参考基因组序列得到的核苷酸变化，包括插入、缺失等</td>
+</tr>
+<tr>
+<td>Protein</td>
+<td>由蛋白质芯片测序得到的200多种癌症的相关蛋白的表达量。</td>
+</tr>
+<tr>
+<td>Methylation</td>
+<td>由甲基化芯片测序得到的DNA甲基化程度</td>
+</tr>
+</tbody></table>
+<h4 id="一、Clinical数据"><a href="#一、Clinical数据" class="headerlink" title="一、Clinical数据"></a>一、Clinical数据</h4><p>TCGA临床数据有两种：</p>
+<ul>
+<li>XML数据：包含的信息最全，包括啊辐射、药品信息、跟进、biospecimen等等信息。  </li>
+<li>indexed data：只包含最终的状态信息。例如：病人第一状态是alive的，接下来第二状态dead，则数据只包含dead记录。而XML则包含两个状态的信息。</li>
+</ul>
+<h5 id="indexed-data下载"><a href="#indexed-data下载" class="headerlink" title="indexed data下载"></a>indexed data下载</h5><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">clinical &lt;- GDCquery_clinic(project = <span class="string">"TCGA-LUAD"</span>, type = <span class="string">"clinical"</span>)  </span><br><span class="line">datatable(clinical, filter = <span class="string">'top'</span>, </span><br><span class="line">          options = list(scrollX = <span class="literal">TRUE</span>, keys = <span class="literal">TRUE</span>, pageLength = <span class="number">5</span>),  </span><br><span class="line">          rownames = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="XML数据下载"><a href="#XML数据下载" class="headerlink" title="XML数据下载"></a>XML数据下载</h5><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">query &lt;- GDCquery(project = <span class="string">"TCGA-COAD"</span>, </span><br><span class="line">                  data.category = <span class="string">"Clinical"</span>, </span><br><span class="line">                  barcode = c(<span class="string">"TCGA-RU-A8FL"</span>,<span class="string">"TCGA-AA-3972"</span>))  </span><br><span class="line">GDCdownload(query)  </span><br><span class="line">clinical &lt;- GDCprepare_clinic(query, clinical.info = <span class="string">"patient"</span>)</span><br><span class="line">datatable(clinical, options = list(scrollX = <span class="literal">TRUE</span>, keys = <span class="literal">TRUE</span>), rownames = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="二、mRNA表达量数据"><a href="#二、mRNA表达量数据" class="headerlink" title="二、mRNA表达量数据"></a>二、mRNA表达量数据</h4><p>数据文件有 (HTSeq count/ FPKM/ FPKM-UQ)3种</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据下载</span></span><br><span class="line">query.exp.hg19 &lt;- GDCquery(project = <span class="string">"TCGA-GBM"</span>,</span><br><span class="line">                  data.category = <span class="string">"Gene expression"</span>,</span><br><span class="line">                  data.type = <span class="string">"Gene expression quantification"</span>,</span><br><span class="line">                  platform = <span class="string">"Illumina HiSeq"</span>, </span><br><span class="line">                  file.type  = <span class="string">"normalized_results"</span>,</span><br><span class="line">                  experimental.strategy = <span class="string">"RNA-Seq"</span>,</span><br><span class="line">                  barcode = c(<span class="string">"TCGA-14-0736-02A-01R-2005-01"</span>, <span class="string">"TCGA-06-0211-02A-02R-2005-01"</span>),</span><br><span class="line">                  legacy = <span class="literal">TRUE</span>)</span><br><span class="line">                  </span><br><span class="line">datatable(getResults(query.exp.hg19), </span><br><span class="line">              filter = <span class="string">'top'</span>,</span><br><span class="line">              options = list(scrollX = <span class="literal">TRUE</span>, keys = <span class="literal">TRUE</span>, pageLength = <span class="number">5</span>), </span><br><span class="line">              rownames = <span class="literal">FALSE</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="三、microRNA数据"><a href="#三、microRNA数据" class="headerlink" title="三、microRNA数据"></a>三、microRNA数据</h4><p><a href="https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/miRNA_Pipeline/" target="_blank" rel="noopener">介绍链接</a></p>
+<blockquote>
+<p>miRN数据主要记录了miRNA定量分析产生的数据。分析过程首先是reads比对（BWA），然后注释到mirbas v21和ucsc。这个分析只能注释mirbase有的miRNA，所以不能用于鉴定新的miRNA。</p>
+</blockquote>
+<h5 id="miRNA-Expression-Quantification"><a href="#miRNA-Expression-Quantification" class="headerlink" title="miRNA Expression Quantification"></a>miRNA Expression Quantification</h5><p>生成raw read counts数据记录==在mirnas.quantification.txt==文件中。多比对用cross-mapped列标注。文件中包括associates miRNA IDs with read count and a normalized count in reads-per-million-miRNA-mapped。</p>
+<h5 id="Isoform-Expression-Quantification"><a href="#Isoform-Expression-Quantification" class="headerlink" title="Isoform Expression Quantification"></a>Isoform Expression Quantification</h5><p>RPM counts记录在 ==isoforms==.quantification.txt文件中。文件中包括miRNA表达量定量分析中的所有列，除此之外还增加了isoforms的基因组坐标信息以及miRNA信息（前体或成熟&amp;accession）</p>
+<h4 id="四、CopyNumber数据"><a href="#四、CopyNumber数据" class="headerlink" title="四、CopyNumber数据"></a>四、CopyNumber数据</h4><p>使用Affymetrix SNP 6.0芯片，基于TCGA level 2 数据，最终生成txt文件，包含5列（片段名称，染色体，基因组位置，结合到芯片上的探针数量，seqment_mean)</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(TCGAbiolinks)</span><br><span class="line"><span class="keyword">library</span>(DT)</span><br><span class="line"><span class="comment"># 下载CopyNumber数据</span></span><br><span class="line">query &lt;- GDCquery(project = <span class="string">"TCGA-ACC"</span>, </span><br><span class="line">                  data.category = <span class="string">"Copy Number Variation"</span>,</span><br><span class="line">                  data.type = <span class="string">"Copy Number Segment"</span>,</span><br><span class="line">                  barcode = c( <span class="string">"TCGA-OR-A5KU-01A-11D-A29H-01"</span>, <span class="string">"TCGA-OR-A5JK-01A-11D-A29H-01"</span>))</span><br><span class="line">GDCdownload(query)</span><br><span class="line">data &lt;- GDCprepare(query)</span><br><span class="line">datatable(data)</span><br></pre></td></tr></table></figure>
+
+<h4 id="五、Methylation数据"><a href="#五、Methylation数据" class="headerlink" title="五、Methylation数据"></a>五、Methylation数据</h4><p>包括以下几个平台：</p>
+<ul>
+<li>Illumina Human Methylation 450</li>
+<li>Illumina Human Methylation 27</li>
+<li>Illumina DNA Methylation OMA003 CPI</li>
+<li>Illumina DNA Methylation OMA002 CPI</li>
+<li>Illumina Hi Seq</li>
+</ul>
+<p>文件包括以下这些列：</p>
+<table>
+<thead>
+<tr>
+<th>列名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Composite Element</td>
+<td>A unique ID for the array probe associated with a CpG site</td>
+</tr>
+<tr>
+<td>Beta Value</td>
+<td>Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)</td>
+</tr>
+<tr>
+<td>Chromosome</td>
+<td>The chromosome in which the probe binding site is located</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>The start of the CpG site on the chromosome</td>
+</tr>
+<tr>
+<td>End</td>
+<td>The end of the CpG site on the chromosome</td>
+</tr>
+<tr>
+<td>Gene Symbol</td>
+<td>The symbol for genes associated with the CpG site. Genes that fall within 1,500 bp upstream of the transcription start site (TSS) to the end of the gene body are used.</td>
+</tr>
+<tr>
+<td>Gene Type</td>
+<td>A general classification for each gene (e.g. protein coding, miRNA, pseudogene)</td>
+</tr>
+<tr>
+<td>Transcript ID</td>
+<td>Ensembl transcript IDs for each transcript associated with the genes detailed above</td>
+</tr>
+<tr>
+<td>Position to TSS</td>
+<td>Distance in base pairs from the CpG site to each associated transcript’s start site</td>
+</tr>
+<tr>
+<td>CGI Coordinate</td>
+<td>The start and end coordinates of the CpG island associated with the CpG site</td>
+</tr>
+<tr>
+<td>Feature Type</td>
+<td>The position of the CpG site in reference to the island: Island, N_Shore or S_Shore (0-2 kb upstream or downstream from CGI), or N_Shelf or S_Shelf (2-4 kbp upstream or downstream from CGI)</td>
+</tr>
+</tbody></table>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载甲基化数据</span></span><br><span class="line">query_met.hg38 &lt;- GDCquery(project= <span class="string">"TCGA-LGG"</span>, </span><br><span class="line">                           data.category = <span class="string">"DNA Methylation"</span>, </span><br><span class="line">                           platform = <span class="string">"Illumina Human Methylation 450"</span>, </span><br><span class="line">                           barcode = c(<span class="string">"TCGA-HT-8111-01A-11D-2399-05"</span>,<span class="string">"TCGA-HT-A5R5-01A-11D-A28N-05"</span>))</span><br><span class="line">GDCdownload(query_met.hg38)</span><br><span class="line">data.hg38 &lt;- GDCprepare(query_met.hg38)</span><br><span class="line"><span class="keyword">library</span>(SummarizedExperiment)</span><br><span class="line">datatable(as.data.frame(colData(data.hg38)))</span><br><span class="line">datatable(assay(data.hg38)[<span class="number">1</span>:<span class="number">10</span>,])</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据水平"><a href="#数据水平" class="headerlink" title="数据水平"></a>数据水平</h3><table>
+<thead>
+<tr>
+<th>DataLevel</th>
+<th>LevelType</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>原始数据BAM文件</td>
+<td>包括单个样本的低水平数据、没有标准化的数据</td>
+</tr>
+<tr>
+<td>2</td>
+<td>处理过的数据</td>
+<td>包括标准化后的单个样本数据</td>
+</tr>
+<tr>
+<td>3</td>
+<td>经过分割、解释的数据</td>
+<td>包括来自单个样本的经过处理的数据的汇集、通过已探测的基因座的集合来形成较大的contig区域</td>
+</tr>
+<tr>
+<td>4</td>
+<td>感兴趣的区域或概要</td>
+<td>包括量化跨各样本之间的关联、基于两个或多个数据的关联、分子异常及样本特征和临床变量</td>
+</tr>
+</tbody></table>
+<h3 id="样本标签"><a href="#样本标签" class="headerlink" title="样本标签"></a>样本标签</h3><table>
+<thead>
+<tr>
+<th>样本标签</th>
+<th>标签代码</th>
+<th>标签描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01</td>
+<td>TP</td>
+<td>Primary solid Tumor</td>
+</tr>
+<tr>
+<td>02</td>
+<td>TR</td>
+<td>Recurrent Solid Tumor</td>
+</tr>
+<tr>
+<td>03</td>
+<td>TB</td>
+<td>Primary Blood Derived Cancer - Peripheral Blood</td>
+</tr>
+<tr>
+<td>04</td>
+<td>TRBM</td>
+<td>Recurrent Blood Derived Cancer - Bone Marrow</td>
+</tr>
+<tr>
+<td>05</td>
+<td>TAP</td>
+<td>Additional - New Primary</td>
+</tr>
+<tr>
+<td>06</td>
+<td>TM</td>
+<td>Metastatic</td>
+</tr>
+<tr>
+<td>07</td>
+<td>TAM</td>
+<td>Additional Metastatic</td>
+</tr>
+<tr>
+<td>08</td>
+<td>THOC</td>
+<td>Human Tumor Original Cells</td>
+</tr>
+<tr>
+<td>09</td>
+<td>TBM</td>
+<td>Primary Blood Derived Cancer - Bone Marrow</td>
+</tr>
+<tr>
+<td>10</td>
+<td>NB</td>
+<td>Blood Derived Normal</td>
+</tr>
+<tr>
+<td>11</td>
+<td>NT</td>
+<td>Solid Tissue Normal</td>
+</tr>
+<tr>
+<td>12</td>
+<td>NBC</td>
+<td>Buccal Cell Normal</td>
+</tr>
+<tr>
+<td>13</td>
+<td>NEBV</td>
+<td>EBV Immortalized Normal</td>
+</tr>
+<tr>
+<td>14</td>
+<td>NBM</td>
+<td>Bone Marrow Normal</td>
+</tr>
+<tr>
+<td>20</td>
+<td>CELLC</td>
+<td>Control Analyte</td>
+</tr>
+<tr>
+<td>40</td>
+<td>TRB</td>
+<td>Recurrent Blood Derived Cancer - Peripheral Blood</td>
+</tr>
+<tr>
+<td>50</td>
+<td>CELL</td>
+<td>Cell Lines</td>
+</tr>
+<tr>
+<td>60</td>
+<td>XP</td>
+<td>Primary Xenograft Tissue</td>
+</tr>
+<tr>
+<td>61</td>
+<td>XCL</td>
+<td>Cell Line Derived Xenograft Tissue</td>
+</tr>
+</tbody></table>
+<h4 id="样本过滤"><a href="#样本过滤" class="headerlink" title="样本过滤"></a>样本过滤</h4><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(TCGAbiolinks)</span><br><span class="line">bar &lt;- c(<span class="string">"TCGA-G9-6378-02A-11R-1789-07"</span>, <span class="string">"TCGA-CH-5767-04A-11R-1789-07"</span>,  </span><br><span class="line">         <span class="string">"TCGA-G9-6332-60A-11R-1789-07"</span>, <span class="string">"TCGA-G9-6336-01A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-G9-6336-11A-11R-1789-07"</span>, <span class="string">"TCGA-G9-7336-11A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-G9-7336-04A-11R-1789-07"</span>, <span class="string">"TCGA-G9-7336-14A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-G9-7036-04A-11R-1789-07"</span>, <span class="string">"TCGA-G9-7036-02A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-G9-7036-11A-11R-1789-07"</span>, <span class="string">"TCGA-G9-7036-03A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-G9-7036-10A-11R-1789-07"</span>, <span class="string">"TCGA-BH-A1ES-10A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-BH-A1F0-10A-11R-1789-07"</span>, <span class="string">"TCGA-BH-A0BZ-02A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-B6-A0WY-04A-11R-1789-07"</span>, <span class="string">"TCGA-BH-A1FG-04A-11R-1789-08"</span>,</span><br><span class="line">         <span class="string">"TCGA-D8-A1JS-04A-11R-2089-08"</span>, <span class="string">"TCGA-AN-A0FN-11A-11R-8789-08"</span>,</span><br><span class="line">         <span class="string">"TCGA-AR-A2LQ-12A-11R-8799-08"</span>, <span class="string">"TCGA-AR-A2LH-03A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-BH-A1F8-04A-11R-5789-07"</span>, <span class="string">"TCGA-AR-A24T-04A-55R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-AO-A0J5-05A-11R-1789-07"</span>, <span class="string">"TCGA-BH-A0B4-11A-12R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-B6-A1KN-60A-13R-1789-07"</span>, <span class="string">"TCGA-AO-A0J5-01A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-AO-A0J5-01A-11R-1789-07"</span>, <span class="string">"TCGA-G9-6336-11A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-G9-6380-11A-11R-1789-07"</span>, <span class="string">"TCGA-G9-6380-01A-11R-1789-07"</span>,</span><br><span class="line">         <span class="string">"TCGA-G9-6340-01A-11R-1789-07"</span>, <span class="string">"TCGA-G9-6340-11A-11R-1789-07"</span>)</span><br><span class="line">         </span><br><span class="line"><span class="comment"># 筛选TP样本</span></span><br><span class="line"></span><br><span class="line">TCGAquery_SampleTypes(bar,<span class="string">"TP"</span>)</span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>] <span class="string">"TCGA-G9-6336-01A-11R-1789-07"</span> <span class="string">"TCGA-AO-A0J5-01A-11R-1789-07"</span> <span class="string">"TCGA-G9-6380-01A-11R-1789-07"</span></span><br><span class="line"></span><br><span class="line">[<span class="number">4</span>] <span class="string">"TCGA-G9-6340-01A-11R-1789-07"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 筛选NB样本</span></span><br><span class="line"></span><br><span class="line">TCGAquery_SampleTypes(bar,<span class="string">"NB"</span>)</span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>] <span class="string">"TCGA-G9-7036-10A-11R-1789-07"</span> <span class="string">"TCGA-BH-A1ES-10A-11R-1789-07"</span> <span class="string">"TCGA-BH-A1F0-10A-11R-1789-07"</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Aimi
+  </li>
+ 
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/TCGA/" rel="tag"><i class="fa fa-tag"></i> TCGA</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/02/pip-install/" rel="prev" title="python pip 安装第三方包的方法">
+      <i class="fa fa-chevron-left"></i> python pip 安装第三方包的方法
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型"><span class="nav-number">2.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、Clinical数据"><span class="nav-number">2.1.</span> <span class="nav-text">一、Clinical数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#indexed-data下载"><span class="nav-number">2.1.1.</span> <span class="nav-text">indexed data下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XML数据下载"><span class="nav-number">2.1.2.</span> <span class="nav-text">XML数据下载</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、mRNA表达量数据"><span class="nav-number">2.2.</span> <span class="nav-text">二、mRNA表达量数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、microRNA数据"><span class="nav-number">2.3.</span> <span class="nav-text">三、microRNA数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#miRNA-Expression-Quantification"><span class="nav-number">2.3.1.</span> <span class="nav-text">miRNA Expression Quantification</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Isoform-Expression-Quantification"><span class="nav-number">2.3.2.</span> <span class="nav-text">Isoform Expression Quantification</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、CopyNumber数据"><span class="nav-number">2.4.</span> <span class="nav-text">四、CopyNumber数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、Methylation数据"><span class="nav-number">2.5.</span> <span class="nav-text">五、Methylation数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据水平"><span class="nav-number">3.</span> <span class="nav-text">数据水平</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本标签"><span class="nav-number">4.</span> <span class="nav-text">样本标签</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#样本过滤"><span class="nav-number">4.1.</span> <span class="nav-text">样本过滤</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Aimi</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Aimi</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: true,
+      notify: true,
+      appId: 'BSMCdPIQASIJECRiSlflbXHG-gzGzoHsz',
+      appKey: 'oDXoXQeCGTX5ancyoDnbkjm1',
+      placeholder: "这里留言",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: true,
+      lang: '' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
