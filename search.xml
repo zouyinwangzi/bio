@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hisat2比对软件将reads比对到参考基因组</title>
+    <url>/2020/03/02/hisat2/</url>
+    <content><![CDATA[<p>HISAT2是TopHat2/Bowti2的<strong>继任者</strong>，使用改进的<strong>BWT算法</strong>，实现了更快的速度和更少的资源占用。<code>TopHat2已经就不再维护</code>，作者推荐TopHat2/Bowti2和HISAT的用户转换到HISAT2。HISAT利用大量FM索引，以覆盖整个基因组。下面一段话是tohat2官网的说明：</p>
+<p><code>HISAT2 is a successor to both HISAT and TopHat2\. We recommend that the HISAT and TopHat2 users switch to HISAT2.</code></p>
+<h3 id="Hisat2安装"><a href="#Hisat2安装" class="headerlink" title="Hisat2安装"></a>Hisat2安装</h3><p>如果是下载source code的话还需要make编译才能用，如下下载的是编译好的，直接可以用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget ftp:&#x2F;&#x2F;ftp.ccb.jhu.edu&#x2F;pub&#x2F;infphilo&#x2F;hisat2&#x2F;downloads&#x2F;hisat2-2.1.0-Linux_x86_64.zip</span><br><span class="line">unzip hisat2-2.1.0-Linux_x86_64.zip</span><br><span class="line">echo &#39;PATH&#x3D;$PATH:&#x2F;your&#x2F;hisat2&#x2F;path&#39; &gt;&gt; ~&#x2F;.bashrc</span><br><span class="line">source ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Hisat2的使用"><a href="#Hisat2的使用" class="headerlink" title="Hisat2的使用"></a>Hisat2的使用</h3><p>Hisat2 官网有使用教程。Hisat2压缩包里面有个example目录，下面的操作以example为例做下示范。</p>
+<h4 id="第一步：建立索引"><a href="#第一步：建立索引" class="headerlink" title="第一步：建立索引"></a>第一步：建立索引</h4><p>HISAT2建立基因组索引时还支持将<strong>SNP信息以及转录组信息</strong>加入到索引中，这样比对的时候就可以考虑SNP的情况和转录本情况。生成<code>8个索引文件</code>，以<code>.ht2</code>为后缀。<code>Hisat2官网上有建好的索引可下载</code>，并且压缩包中有<code>scripts/目录</code>记录了是如何建立索引的。命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hisat2-build -p 4 genome.fa –snp genome.snp –ss genome.ss –exon genome.exon genome_snp_tran</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-p 4 ： number of threads。 <code>4个进程</code></li>
+<li>genome.fa: 基因组参考序列是必须的，多个参考序列文件请用逗号分隔。</li>
+<li>–snp： SNP 信息文件。</li>
+<li>–ss： <code>可变剪切</code>位点信息文件。Splice site file name</li>
+<li>–exon：<code>外显子</code>信息文件。Exon file name</li>
+<li>genome_snp_tran：<code>索引文件名</code>的前缀</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/14137386-07496d5e2eb27d02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>其中，<strong>剪切位点文件和外显子文件</strong>可从转录本gtf信息文件提取，Hisat2提供了提取脚本，提取如下： </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">extract_exons.py Homo_sapiens.GRCh38.83.chr.gtf &gt; genome.exon</span><br><span class="line">extract_splice_sites.py Homo_sapiens.GRCh38.83.chr.gtf &gt; genome.ss</span><br></pre></td></tr></table></figure>
+
+<p>提取snp位点信息文件的脚本如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">extract_snps.py snp142Common.txt &gt; genome.snp</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二步、将reads比对到参考序列上"><a href="#第二步、将reads比对到参考序列上" class="headerlink" title="第二步、将reads比对到参考序列上"></a>第二步、将reads比对到参考序列上</h4><p>当建好索引以后，就可以将reads比对到参考序列上。这里又分为Paired-end和unpaired 两种：</p>
+<h5 id="unpaired-reads比对"><a href="#unpaired-reads比对" class="headerlink" title="unpaired reads比对"></a>unpaired reads比对</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntumyindex]$ hisat2 -f -x 22_20-21M_snp -U ../reads/reads_1.fa  -S eg1.sam</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-f：指query input files 文件类型是<code>fasta文件类型</code></li>
+<li>-x: 指<code>索引文件</code>的前缀（看上一步建立索引的前缀）</li>
+<li>-U：指input reads文件</li>
+<li>-S：指<code>输出结果</code>到哪里，输出到SAM文件</li>
+</ul>
+<h5 id="Paired-end"><a href="#Paired-end" class="headerlink" title="Paired-end"></a>Paired-end</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[bio@ubuntumyindex]$ hisat2 -f -x 22_20-21M_snp -1 ../reads/reads_1.fa -2 ../reads/reads_2.fa  -S eg2.sam</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三步、用samtools做下游分析"><a href="#第三步、用samtools做下游分析" class="headerlink" title="第三步、用samtools做下游分析"></a>第三步、用samtools做下游分析</h4><p>详尽教程 <a href="http://samtools.sourceforge.net/mpileup.shtml" target="_blank" rel="noopener">http://samtools.sourceforge.net/mpileup.shtml</a></p>
+<h5 id="1-将SAM文件转为BAM文件"><a href="#1-将SAM文件转为BAM文件" class="headerlink" title="1.将SAM文件转为BAM文件"></a>1.将SAM文件转为BAM文件</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools view -bS eg2.sam &gt; eg2.bam</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-将BAM文件排序"><a href="#2-将BAM文件排序" class="headerlink" title="2.将BAM文件排序"></a>2.将BAM文件排序</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools sort eg2.bam -o eg2.sorted.bam</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-生成VCF文件"><a href="#3-生成VCF文件" class="headerlink" title="3.生成VCF文件"></a>3.生成VCF文件</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">samtools mpileup -uf ../reference/22_20-21M.fa eg2.sorted.bam|bcftools view - &gt;eg2.raw.bcf</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>生物信息学常用软件</category>
+      </categories>
+      <tags>
+        <tag>生信软件</tag>
+        <tag>序列比对</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>samtools 工具处理SAM文件</title>
     <url>/2020/03/02/samtools/</url>
     <content><![CDATA[<p><img src="https://upload-images.jianshu.io/upload_images/14137386-2d3511483ee87a04?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>

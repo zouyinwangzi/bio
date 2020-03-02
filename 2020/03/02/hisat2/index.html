@@ -46,26 +46,23 @@
   };
 </script>
 
-  <meta name="description" content="目前 DNA 甲基化检测相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， WGBS-Seq）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, RRBS-Seq）、DNA 甲基化芯片测序技术（450K 芯片测序技术以及 27K 芯片测序技术）以及基于富集的测">
+  <meta name="description" content="HISAT2是TopHat2&#x2F;Bowti2的继任者，使用改进的BWT算法，实现了更快的速度和更少的资源占用。TopHat2已经就不再维护，作者推荐TopHat2&#x2F;Bowti2和HISAT的用户转换到HISAT2。HISAT利用大量FM索引，以覆盖整个基因组。下面一段话是tohat2官网的说明： HISAT2 is a successor to both HISAT and TopHat2\. We">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DNA甲基化测序数据分析介绍">
-<meta property="og:url" content="http://yoursite.com/2020/02/25/methylation/index.html">
+<meta property="og:title" content="hisat2比对软件将reads比对到参考基因组">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/hisat2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="目前 DNA 甲基化检测相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， WGBS-Seq）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, RRBS-Seq）、DNA 甲基化芯片测序技术（450K 芯片测序技术以及 27K 芯片测序技术）以及基于富集的测">
+<meta property="og:description" content="HISAT2是TopHat2&#x2F;Bowti2的继任者，使用改进的BWT算法，实现了更快的速度和更少的资源占用。TopHat2已经就不再维护，作者推荐TopHat2&#x2F;Bowti2和HISAT的用户转换到HISAT2。HISAT利用大量FM索引，以覆盖整个基因组。下面一段话是tohat2官网的说明： HISAT2 is a successor to both HISAT and TopHat2\. We">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/images/jiajihua_cexu.jpg">
-<meta property="og:image" content="http://yoursite.com/images/align_map.jpg">
-<meta property="og:image" content="http://yoursite.com/images/bidui_yuanli.jpg">
-<meta property="article:published_time" content="2020-02-25T03:46:44.000Z">
-<meta property="article:modified_time" content="2020-02-25T04:05:54.815Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/14137386-07496d5e2eb27d02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-03-02T08:43:23.000Z">
+<meta property="article:modified_time" content="2020-03-02T08:43:23.657Z">
 <meta property="article:author" content="Aimi">
-<meta property="article:tag" content="甲基化">
-<meta property="article:tag" content="二代测序">
-<meta property="article:tag" content="BatMeth2">
+<meta property="article:tag" content="生信软件">
+<meta property="article:tag" content="序列比对">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/images/jiajihua_cexu.jpg">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/14137386-07496d5e2eb27d02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
-<link rel="canonical" href="http://yoursite.com/2020/02/25/methylation/">
+<link rel="canonical" href="http://yoursite.com/2020/03/02/hisat2/">
 
 
 <script id="page-configurations">
@@ -77,7 +74,7 @@
   };
 </script>
 
-  <title>DNA甲基化测序数据分析介绍 | Hexo</title>
+  <title>hisat2比对软件将reads比对到参考基因组 | Hexo</title>
   
 
 
@@ -211,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/25/methylation/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/hisat2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -224,7 +221,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          DNA甲基化测序数据分析介绍
+          hisat2比对软件将reads比对到参考基因组
         </h1>
 
         <div class="post-meta">
@@ -233,9 +230,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-02-25 11:46:44 / 修改时间：12:05:54" itemprop="dateCreated datePublished" datetime="2020-02-25T11:46:44+08:00">2020-02-25</time>
+              <time title="创建时间：2020-03-02 16:43:23" itemprop="dateCreated datePublished" datetime="2020-03-02T16:43:23+08:00">2020-03-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,20 +239,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%A1%A8%E8%A7%82%E9%81%97%E4%BC%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">表观遗传</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%A1%A8%E8%A7%82%E9%81%97%E4%BC%A0/DNA%E7%94%B2%E5%9F%BA%E5%8C%96%E6%B5%8B%E5%BA%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">DNA甲基化测序</span>
+                  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">生物信息学常用软件</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2020/02/25/methylation/" class="post-meta-item leancloud_visitors" data-flag-title="DNA甲基化测序数据分析介绍" title="阅读次数">
+            <span id="/2020/03/02/hisat2/" class="post-meta-item leancloud_visitors" data-flag-title="hisat2比对软件将reads比对到参考基因组" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -271,8 +261,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/25/methylation/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/25/methylation/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/03/02/hisat2/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/02/hisat2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -287,20 +277,46 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>目前 <strong>DNA 甲基化检测</strong>相对成熟的技术有单位点分辨率的全基因组重亚硫酸盐测序技术（Whole Genome Bisulfite Sequencing， <code>WGBS-Seq</code>）、简化重亚硫酸盐测序技术（Reduced Representation Bisulfite Sequencing, <code>RRBS-Seq</code>）、DNA 甲基化芯片测序技术（<code>450K 芯片测序</code>技术以及 <code>27K</code> 芯片测序技术）以及基于富集的测序技术等。其中<strong>基于富集的测序技术</strong>主要包括 DNA 甲基化依赖的免疫共沉淀测序技术（Methylation  Dependent ImmunoPrecipitation  followed  by  sequencing,  <code>MeDIP-Seq</code>），DNA 甲基化 CpG 结合蛋白富集区域测序技术（methyl-CpG  binding  domain protein-enriched genome sequencing, <code>MBD-Seq</code>）以及 DNA 甲基化敏感的限制性酶切测序技术（Methylation-sensitive  Restriction  Enzyme  digestion  followed  by sequencing, <code>MRE-seq</code>)。其中 DNA 甲基化依赖的免疫沉淀测序技术以及 DNA 甲基化敏感的限制性酶切测序技术能够结合完成几乎全基因组范围的 DNA甲基化测序。目前为止，最主流的检测 DNA 甲基化的测序技术是全基因组重亚硫酸盐测序技术（WGBS-Seq），能完成单位点全基因组水平 DNA甲基化测序。</p>
+        <p>HISAT2是TopHat2/Bowti2的<strong>继任者</strong>，使用改进的<strong>BWT算法</strong>，实现了更快的速度和更少的资源占用。<code>TopHat2已经就不再维护</code>，作者推荐TopHat2/Bowti2和HISAT的用户转换到HISAT2。HISAT利用大量FM索引，以覆盖整个基因组。下面一段话是tohat2官网的说明：</p>
+<p><code>HISAT2 is a successor to both HISAT and TopHat2\. We recommend that the HISAT and TopHat2 users switch to HISAT2.</code></p>
+<h3 id="Hisat2安装"><a href="#Hisat2安装" class="headerlink" title="Hisat2安装"></a>Hisat2安装</h3><p>如果是下载source code的话还需要make编译才能用，如下下载的是编译好的，直接可以用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget ftp:&#x2F;&#x2F;ftp.ccb.jhu.edu&#x2F;pub&#x2F;infphilo&#x2F;hisat2&#x2F;downloads&#x2F;hisat2-2.1.0-Linux_x86_64.zip</span><br><span class="line">unzip hisat2-2.1.0-Linux_x86_64.zip</span><br><span class="line">echo &#39;PATH&#x3D;$PATH:&#x2F;your&#x2F;hisat2&#x2F;path&#39; &gt;&gt; ~&#x2F;.bashrc</span><br><span class="line">source ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p><img src="/images/jiajihua_cexu.jpg" alt="image"></p>
-<h3 id="DNA甲基化数据分析"><a href="#DNA甲基化数据分析" class="headerlink" title="DNA甲基化数据分析"></a>DNA甲基化数据分析</h3><p>DNA 甲基化数据分析过程主要包括 DNA 甲基化<strong>测序数据比对</strong>、DNA <strong>甲基化水平计算</strong>（其中包括单位点、区间、基因等区域的 DNA甲基化水平计算）、DNA甲基化<strong>可视化</strong>、DNA甲基化<strong>差异分析</strong>等过程。</p>
-<h4 id="DNA甲基化测序数据比对"><a href="#DNA甲基化测序数据比对" class="headerlink" title="DNA甲基化测序数据比对"></a>DNA甲基化测序数据比对</h4><p>DNA 甲基化数据比对软件较早的是 2010 年左右的 <code>BatMeth</code>(Lim et al 2012)、BSmap(Xi and Li 2009)、<code>Bismark</code>(Krueger and Andrews 2011)。其中 Bismark 在早期是使用的 <code>Bowtie 1</code>(Langmead et al 2009)作为<strong>比对核心</strong>，这几款软件面临的问题是都<strong>无法处理比对数据中的插入缺失</strong>（Insertion and Deletion, Indel）比对，此外<strong>无法很好的处理长序列比对</strong>。随着生物信息学的发展以及 Bowtie 2(Langmead and Salzberg 2012)的出现和成熟，<code>BSmooth</code>(Hansen et al 2012)、<code>BS-Seeker2</code>(Guo et al 2013)、Bismark 2 等软件随之出现，尽管 DNA 甲基化数据比对软件有了非常好的发展，但是在包含长的 Indel 比对方面表现欠佳。其中 <code>BSmap2</code>只<del>允许</del>测序数据中<code>包含一个 Indel</code> 并且长度必须<code>小于3 bp</code>。而以 Bowtie 2 为比对核心的 <code>Bismark 以及 BS-Seeker</code> 中，由于 Bowtie 2 是以设定一定长度（例如 28 bp）的比对 seed，并且比对 seed 中<strong>最多允许一个错配</strong>为比对核心。因此当测序序列来自基因组位置包含多个错配或 Indel 时，该软件不能很好的完成比对过程。</p>
-<p>新的比对软件 <strong>BatMeth2</strong>设置长的比对 <code>seed（75 bp）</code>，并且在该比对 seed 中<code>允许多个错配和Indel</code>（默认 1 个 Indel 和 5 个错配），所以 BatMeth2 比对程序能够更好的处理比对到基因组上高变异的序列区域。</p>
-<h4 id="甲基化水平计算"><a href="#甲基化水平计算" class="headerlink" title="甲基化水平计算"></a>甲基化水平计算</h4><p><strong>BSmap、Bismark</strong> 等软件能够计算 DNA 甲基化水平，但是这些软件<code>只能计算单位点</code> DNA 甲基化水平。然而在实际数据分析过程中，往往需要得到基因组上某些区域的 DNA 甲基化水平以及基因、转座子、启动子等区域的 DNA 甲基化水平。<br><strong>BatMeth2</strong> 中提供了计算<code>单位点、区域以及基因</code>等功能元件<br>DNA 甲基化水平的功能模块。</p>
-<h4 id="DNA甲基化可视化"><a href="#DNA甲基化可视化" class="headerlink" title="DNA甲基化可视化"></a>DNA甲基化可视化</h4><p>目前较常用的几个比对软件例如 BSmap、Bismark 等都<strong>不包含</strong> DNA 甲基化可视化功能，例如 DNA 甲基化在<code>基因组</code>上的分布、DNA 甲基化在<code>基因等功能元件</code>上的分布、DNA 甲基化水平的<code>密度分布</code>等等。</p>
-<p><strong>BatMeth2</strong> 中整合了目前常用的 DNA 甲基化可视化功能，可以非常方便直观的观察 DNA 甲基化的分布。 </p>
-<h4 id="DNA甲基化差异分析"><a href="#DNA甲基化差异分析" class="headerlink" title="DNA甲基化差异分析"></a>DNA甲基化差异分析</h4><p>DNA 甲基化差异分析是 DNA 甲基化数据分析中非常重要的一环，尤其是方便<code>比较不同样本之间</code>的 DNA 甲基化区别。目前常见的 DNA 甲基化差异分析软件包括<strong>DSS</strong>(Feng  et  al  2014)、<strong>methylKit</strong>(Akalin  et  al  2012)、<strong>methylSig</strong>(Park  et  al  2014)、DSS-single(Wu et al 2015)等。这些程序中大部分以 R 语言开发，并且<code>大多需要测序数据存在实验重复</code>的情况下来完成差异分析。</p>
-<p>而<strong>BatMeth2</strong> 软件<code>根据是否存在实验重复采用了不同的统计算法</code>来完成 DNA 甲基化差异分析计算。</p>
-<p>综上，BatMeth2软件在比对、数据统计、可视化、差异分析四方面都比较优秀。</p>
-<h3 id="甲基化数据比对参考基因组的原理"><a href="#甲基化数据比对参考基因组的原理" class="headerlink" title="甲基化数据比对参考基因组的原理"></a>甲基化数据比对参考基因组的原理</h3><p><img src="/images/align_map.jpg" alt="image"></p>
-<p>与常规 DNA 测序序列比对过程不同的是，由于在<code>重亚硫酸盐</code>处理后，甲基化的胞嘧啶因为有甲基基团的保护并未发生化学变化，但是未甲基化的C被转换为U，在经过 PCR 扩增过程后转变为T，因此如果测序序列中存在未甲基化的C，那么测序结果T与参考基因组C之间将存在<strong>错配问题</strong>，这无疑将会影响序列比对的准确结果。因此为了规避这一问题，目前常见的方法是首先将<code>测序序列</code>完成胞嘧啶（C）到胸腺嘧啶（T）的转换，并且比对软件需要将<code>原始测序序列</code>进行鸟嘌呤（G）到腺嘌呤（A）的转换处理（这一转换是因为该测序序列可能来源于 PCR扩增的产物）。与此同时，需要分别对<code>参考基因</code>组做相同的处理（C 到 T 的转换以及 G到 A 的转换处理）。在完成这一步操作之后，软件将转换处理后的测序序列分别比对到转换处理后的参考基因组上。然后根据输入序列以及比对到的参考基因组的不同组合得到四组结果。将比对的结果信息进行综合比较分析，输出比对概率最大的位置信息（即比对分值最高的位置）<br><img src="/images/bidui_yuanli.jpg" alt="image"></p>
+<h3 id="Hisat2的使用"><a href="#Hisat2的使用" class="headerlink" title="Hisat2的使用"></a>Hisat2的使用</h3><p>Hisat2 官网有使用教程。Hisat2压缩包里面有个example目录，下面的操作以example为例做下示范。</p>
+<h4 id="第一步：建立索引"><a href="#第一步：建立索引" class="headerlink" title="第一步：建立索引"></a>第一步：建立索引</h4><p>HISAT2建立基因组索引时还支持将<strong>SNP信息以及转录组信息</strong>加入到索引中，这样比对的时候就可以考虑SNP的情况和转录本情况。生成<code>8个索引文件</code>，以<code>.ht2</code>为后缀。<code>Hisat2官网上有建好的索引可下载</code>，并且压缩包中有<code>scripts/目录</code>记录了是如何建立索引的。命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hisat2-build -p 4 genome.fa –snp genome.snp –ss genome.ss –exon genome.exon genome_snp_tran</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-p 4 ： number of threads。 <code>4个进程</code></li>
+<li>genome.fa: 基因组参考序列是必须的，多个参考序列文件请用逗号分隔。</li>
+<li>–snp： SNP 信息文件。</li>
+<li>–ss： <code>可变剪切</code>位点信息文件。Splice site file name</li>
+<li>–exon：<code>外显子</code>信息文件。Exon file name</li>
+<li>genome_snp_tran：<code>索引文件名</code>的前缀</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/14137386-07496d5e2eb27d02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>其中，<strong>剪切位点文件和外显子文件</strong>可从转录本gtf信息文件提取，Hisat2提供了提取脚本，提取如下： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extract_exons.py Homo_sapiens.GRCh38.83.chr.gtf &gt; genome.exon</span><br><span class="line">extract_splice_sites.py Homo_sapiens.GRCh38.83.chr.gtf &gt; genome.ss</span><br></pre></td></tr></table></figure>
+
+<p>提取snp位点信息文件的脚本如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extract_snps.py snp142Common.txt &gt; genome.snp</span><br></pre></td></tr></table></figure>
+
+<h4 id="第二步、将reads比对到参考序列上"><a href="#第二步、将reads比对到参考序列上" class="headerlink" title="第二步、将reads比对到参考序列上"></a>第二步、将reads比对到参考序列上</h4><p>当建好索引以后，就可以将reads比对到参考序列上。这里又分为Paired-end和unpaired 两种：</p>
+<h5 id="unpaired-reads比对"><a href="#unpaired-reads比对" class="headerlink" title="unpaired reads比对"></a>unpaired reads比对</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[bio@ubuntumyindex]$ hisat2 -f -x 22_20-21M_snp -U ../reads/reads_1.fa  -S eg1.sam</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-f：指query input files 文件类型是<code>fasta文件类型</code></li>
+<li>-x: 指<code>索引文件</code>的前缀（看上一步建立索引的前缀）</li>
+<li>-U：指input reads文件</li>
+<li>-S：指<code>输出结果</code>到哪里，输出到SAM文件</li>
+</ul>
+<h5 id="Paired-end"><a href="#Paired-end" class="headerlink" title="Paired-end"></a>Paired-end</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[bio@ubuntumyindex]$ hisat2 -f -x 22_20-21M_snp -1 ../reads/reads_1.fa -2 ../reads/reads_2.fa  -S eg2.sam</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三步、用samtools做下游分析"><a href="#第三步、用samtools做下游分析" class="headerlink" title="第三步、用samtools做下游分析"></a>第三步、用samtools做下游分析</h4><p>详尽教程 <a href="http://samtools.sourceforge.net/mpileup.shtml" target="_blank" rel="noopener">http://samtools.sourceforge.net/mpileup.shtml</a></p>
+<h5 id="1-将SAM文件转为BAM文件"><a href="#1-将SAM文件转为BAM文件" class="headerlink" title="1.将SAM文件转为BAM文件"></a>1.将SAM文件转为BAM文件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools view -bS eg2.sam &gt; eg2.bam</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-将BAM文件排序"><a href="#2-将BAM文件排序" class="headerlink" title="2.将BAM文件排序"></a>2.将BAM文件排序</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools sort eg2.bam -o eg2.sorted.bam</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-生成VCF文件"><a href="#3-生成VCF文件" class="headerlink" title="3.生成VCF文件"></a>3.生成VCF文件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools mpileup -uf ../reference/22_20-21M.fa eg2.sorted.bam|bcftools view - &gt;eg2.raw.bcf</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -324,9 +340,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E7%94%B2%E5%9F%BA%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 甲基化</a>
-              <a href="/tags/%E4%BA%8C%E4%BB%A3%E6%B5%8B%E5%BA%8F/" rel="tag"><i class="fa fa-tag"></i> 二代测序</a>
-              <a href="/tags/BatMeth2/" rel="tag"><i class="fa fa-tag"></i> BatMeth2</a>
+              <a href="/tags/%E7%94%9F%E4%BF%A1%E8%BD%AF%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 生信软件</a>
+              <a href="/tags/%E5%BA%8F%E5%88%97%E6%AF%94%E5%AF%B9/" rel="tag"><i class="fa fa-tag"></i> 序列比对</a>
           </div>
 
         
@@ -335,13 +350,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/01/06/downloadgenome/" rel="prev" title="下载参考基因组及注释文件">
-      <i class="fa fa-chevron-left"></i> 下载参考基因组及注释文件
+    <a href="/2020/03/02/samtools/" rel="prev" title="samtools 工具处理SAM文件">
+      <i class="fa fa-chevron-left"></i> samtools 工具处理SAM文件
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/28/ChAMP/" rel="next" title="ChAMP 甲基化芯片数据分析（450 和 EPIC）">
-      ChAMP 甲基化芯片数据分析（450 和 EPIC） <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -402,7 +414,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNA甲基化数据分析"><span class="nav-number">1.</span> <span class="nav-text">DNA甲基化数据分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DNA甲基化测序数据比对"><span class="nav-number">1.1.</span> <span class="nav-text">DNA甲基化测序数据比对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#甲基化水平计算"><span class="nav-number">1.2.</span> <span class="nav-text">甲基化水平计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNA甲基化可视化"><span class="nav-number">1.3.</span> <span class="nav-text">DNA甲基化可视化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNA甲基化差异分析"><span class="nav-number">1.4.</span> <span class="nav-text">DNA甲基化差异分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#甲基化数据比对参考基因组的原理"><span class="nav-number">2.</span> <span class="nav-text">甲基化数据比对参考基因组的原理</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hisat2安装"><span class="nav-number">1.</span> <span class="nav-text">Hisat2安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hisat2的使用"><span class="nav-number">2.</span> <span class="nav-text">Hisat2的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一步：建立索引"><span class="nav-number">2.1.</span> <span class="nav-text">第一步：建立索引</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二步、将reads比对到参考序列上"><span class="nav-number">2.2.</span> <span class="nav-text">第二步、将reads比对到参考序列上</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#unpaired-reads比对"><span class="nav-number">2.2.1.</span> <span class="nav-text">unpaired reads比对</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Paired-end"><span class="nav-number">2.2.2.</span> <span class="nav-text">Paired-end</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三步、用samtools做下游分析"><span class="nav-number">2.3.</span> <span class="nav-text">第三步、用samtools做下游分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-将SAM文件转为BAM文件"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.将SAM文件转为BAM文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-将BAM文件排序"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.将BAM文件排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-生成VCF文件"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.生成VCF文件</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
