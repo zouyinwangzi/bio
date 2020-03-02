@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>R语言安装第三方包的方法</title>
+    <url>/2020/03/02/R-install-packages/</url>
+    <content><![CDATA[<h4 id="第一种：普通的安装：in-CRAN"><a href="#第一种：普通的安装：in-CRAN" class="headerlink" title="第一种：普通的安装：in CRAN"></a>第一种：普通的安装：in CRAN</h4><p>从CRAN(<a href="https://cran.r-project.org/" target="_blank" rel="noopener">https://cran.r-project.org/</a>) 安装第三方包的方法：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt;install.packages (<span class="string">"coefplot"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="第二种：从bioconductor安装"><a href="#第二种：从bioconductor安装" class="headerlink" title="第二种：从bioconductor安装"></a>第二种：从bioconductor安装</h4><p>从bioconductor(<a href="http://www.bioconductor.org/" target="_blank" rel="noopener">http://www.bioconductor.org/</a>) 安装第三方包的方法：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; <span class="keyword">source</span>(<span class="string">"http://bioconductor.org/biocLite.R"</span>)</span><br><span class="line">&gt; biocLite(<span class="string">"limma"</span>)</span><br><span class="line">&gt; <span class="keyword">library</span>(limma)</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h4 id="第三种：直接从Github上直接安装"><a href="#第三种：直接从Github上直接安装" class="headerlink" title="第三种：直接从Github上直接安装"></a>第三种：直接从Github上直接安装</h4><p>直接从Github(<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a>) 上直接安装第三方包的方法：</p>
+<ol>
+<li>安装合适版本的R软件，安装对应版本的Rtools，安装Rstudio，安装Miketex软件（这些软件均可从官网下载）。</li>
+<li>打开R软件，选择镜像，安装“devtools”，具体可从R——程序包——安装程序包上进行，也可以使用’’<code>install.packages(&quot;devtools&quot;)</code>‘’；还可以从CRAN上下载最新的程序包本地安装。（推荐最后一种）<ol start="3">
+<li>导入devtools包：’’<code>library(devtools)</code>‘’</li>
+<li>使用’’<code>install_github(&quot;A&quot;,&quot;B&quot;)</code>‘’，其中A表示要从GitHub上安装的软件包的名称，B表示开发该程序包的作者，由于install_github默认B是“hadley”（即作者是“hadley”）。举个例子，mgarch包是vst开发的，则是’’<code>install_github(&quot;mgarch&quot;,&quot;vst&quot;)</code>‘’。或者’’<code>install_github(&quot;hadley/ggplot2&quot;)</code> #（user,包）’’ </li>
+</ol>
+</li>
+</ol>
+<h4 id="第四种：从源码安装"><a href="#第四种：从源码安装" class="headerlink" title="第四种：从源码安装"></a>第四种：从源码安装</h4><ul>
+<li><p>先下载第三方包的安装包，</p>
+</li>
+<li><p>然后设置安装包存放的目录为当前目录’’setwd(‘xxxx’)’’</p>
+</li>
+<li><p>然后运行’’<code>install.packages(&quot;RCurl_1.95-4.8.tar.gz&quot;,repos = NULL,type = &quot;source&quot;)</code>‘ 安装   </p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>R语言</category>
+      </categories>
+      <tags>
+        <tag>R语言</tag>
+        <tag>安装第三方包</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GDC 利用API应用接口查询下载数据</title>
     <url>/2020/03/02/gdc/</url>
     <content><![CDATA[<p><img src="https://upload-images.jianshu.io/upload_images/14137386-3e44354fcfcf5c28?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
