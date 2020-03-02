@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>python pip 安装第三方包的方法</title>
+    <url>/2020/03/02/pip-install/</url>
+    <content><![CDATA[<h4 id="如何安装pip"><a href="#如何安装pip" class="headerlink" title="如何安装pip"></a>如何安装pip</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ wget https:&#x2F;&#x2F;bootstrap.pypa.io&#x2F;get-pip.py</span><br><span class="line">$ python2.7 get-pip.py   ##安装pip2.7$ python3 get-pip.py ##安装pip3</span><br></pre></td></tr></table></figure>
+<h4 id="pip-安装第三方包"><a href="#pip-安装第三方包" class="headerlink" title="pip 安装第三方包"></a>pip 安装第三方包</h4><h5 id="安装一个包"><a href="#安装一个包" class="headerlink" title="安装一个包"></a>安装一个包</h5><p>如下命令从PyPI 安装。每个命令安装一个包。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ pip install SomePackage            # 这个命令安装的是最新版本</span><br><span class="line">$ pip install SomePackage&#x3D;&#x3D;1.0.4     # 安装制定版本</span><br><span class="line">$ pip install &#39;SomePackage&gt;&#x3D;1.0.4&#39;     # 安装最新的版本</span><br></pre></td></tr></table></figure>
+<h5 id="安装一系列包"><a href="#安装一系列包" class="headerlink" title="安装一系列包"></a>安装一系列包</h5><p>当有一系列包要安装的时候，将包写到requirements.txt文件里面，如下：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+
+<p><code>requirements.txt文件的一个例子</code>如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">######## example-requirements.txt #########</span><br><span class="line"></span><br><span class="line">##### 不指定安装版本的Requirements  ######</span><br><span class="line">nose</span><br><span class="line">nose-cov</span><br><span class="line">beautifulsoup4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###### 指定安装版本的Requirements #######   </span><br><span class="line">See https:&#x2F;&#x2F;www.python.org&#x2F;dev&#x2F;peps&#x2F;pep-0440&#x2F;#version-specifiers</span><br><span class="line">docopt &#x3D;&#x3D; 0.6.1             # 指定某版本</span><br><span class="line">keyring &gt;&#x3D; 4.1.1            # 默认安装最新版</span><br><span class="line">coverage !&#x3D; 3.5             # 某版本以外的版本</span><br><span class="line">Mopidy-Dirble ~&#x3D; 1.1        # 等同于 &gt;&#x3D; 1.1, &#x3D;&#x3D; 1.*</span><br><span class="line"># </span><br><span class="line"> ###### 指向其他的 requirements 文件 ######</span><br><span class="line">-r other-requirements.txt</span><br><span class="line"></span><br><span class="line"> ###### 下载好的wheels文件路径 ######</span><br><span class="line">.&#x2F;downloads&#x2F;numpy-1.9.2-cp34-none-win32.whl</span><br><span class="line">http:&#x2F;&#x2F;wxpython.org&#x2F;Phoenix&#x2F;snapshot-builds&#x2F;wxPython_Phoenix-3.0.3.dev1820+49a8884-cp34-none-win_amd64.whl</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="从Wheels文件安装"><a href="#从Wheels文件安装" class="headerlink" title="从Wheels文件安装"></a>从Wheels文件安装</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ pip install SomePackage-1.0-py2.py3-none-any.whl</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>python语言</category>
+      </categories>
+      <tags>
+        <tag>pip</tag>
+        <tag>python安装第三方包</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>R语言安装第三方包的方法</title>
     <url>/2020/03/02/R-install-packages/</url>
     <content><![CDATA[<h4 id="第一种：普通的安装：in-CRAN"><a href="#第一种：普通的安装：in-CRAN" class="headerlink" title="第一种：普通的安装：in CRAN"></a>第一种：普通的安装：in CRAN</h4><p>从CRAN(<a href="https://cran.r-project.org/" target="_blank" rel="noopener">https://cran.r-project.org/</a>) 安装第三方包的方法：</p>
