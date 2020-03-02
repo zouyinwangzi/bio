@@ -46,12 +46,12 @@
   };
 </script>
 
-  <meta name="description" content="参考UCSC GTF formathttps:&#x2F;&#x2F;blog.csdn.net&#x2F;sinat_38163598&#x2F;article&#x2F;details&#x2F;72851239 简介GFF和GTF是两种最常用的基因组注释格式，在信息分析中建库时除了需要fasta文件一般还会需要这两种文件，提取需要的信息进行注释。 GTF是GFF2的扩展。前八个GTF字段与GFF相同，但是GTF还包含可选字段: 5UTR, 3UTR,">
+  <meta name="description" content="参考UCSC数据文件格式基因组数据注释常用的文件-Bed文件和GFF文件 1、简介注释文件就是基因组的说明书。告诉我们哪些序列是编码蛋白的基因，哪些是非编码基因，外显子、内含子、UTR等的位置等等。注释文件在以下三个提供参考基因组的网站中都有提供，比如Ensemble、NCBI 、UCSC。但是现在最权威的人类和小鼠基因组的注释还属Gencode数据库。基因组注释（genomic features">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bed">
+<meta property="og:title" content="基因组注释文件格式 --（一）BED文件格式">
 <meta property="og:url" content="http://yoursite.com/2020/03/02/bed/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="参考UCSC GTF formathttps:&#x2F;&#x2F;blog.csdn.net&#x2F;sinat_38163598&#x2F;article&#x2F;details&#x2F;72851239 简介GFF和GTF是两种最常用的基因组注释格式，在信息分析中建库时除了需要fasta文件一般还会需要这两种文件，提取需要的信息进行注释。 GTF是GFF2的扩展。前八个GTF字段与GFF相同，但是GTF还包含可选字段: 5UTR, 3UTR,">
+<meta property="og:description" content="参考UCSC数据文件格式基因组数据注释常用的文件-Bed文件和GFF文件 1、简介注释文件就是基因组的说明书。告诉我们哪些序列是编码蛋白的基因，哪些是非编码基因，外显子、内含子、UTR等的位置等等。注释文件在以下三个提供参考基因组的网站中都有提供，比如Ensemble、NCBI 、UCSC。但是现在最权威的人类和小鼠基因组的注释还属Gencode数据库。基因组注释（genomic features">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-02T02:30:59.000Z">
 <meta property="article:modified_time" content="2020-03-02T02:30:59.291Z">
@@ -72,7 +72,7 @@
   };
 </script>
 
-  <title>bed | Hexo</title>
+  <title>基因组注释文件格式 --（一）BED文件格式 | Hexo</title>
   
 
 
@@ -219,7 +219,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          bed
+          基因组注释文件格式 --（一）BED文件格式
         </h1>
 
         <div class="post-meta">
@@ -244,7 +244,7 @@
             </span>
 
           
-            <span id="/2020/03/02/bed/" class="post-meta-item leancloud_visitors" data-flag-title="bed" title="阅读次数">
+            <span id="/2020/03/02/bed/" class="post-meta-item leancloud_visitors" data-flag-title="基因组注释文件格式 --（一）BED文件格式" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -275,17 +275,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format4" target="_blank" rel="noopener">UCSC GTF format</a><br><a href="https://blog.csdn.net/sinat_38163598/article/details/72851239" target="_blank" rel="noopener">https://blog.csdn.net/sinat_38163598/article/details/72851239</a></p>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>GFF和GTF是两种<code>最常用</code>的基因组注释格式，在信息分析中建库时除了需要fasta文件一般还会需要这两种文件，提取需要的信息进行注释。</p>
-<p>GTF是GFF2的扩展。前八个GTF字段与GFF相同，但是GTF还包含<code>可选字段</code>: 5UTR, 3UTR, inter, inter_CNS, and intron_CNS。<br><strong>前八个字段：</strong></p>
-<p>1)  <code>seq_id</code>：序列的编号，一般为chr或者scanfold编号；<br>2)  <code>source</code>: 注释的来源，一般为数据库或者注释的机构，如果未知，则用点“.”代替；<br>3) <code>type</code>: 注释信息的类型，比如Gene、cDNA、mRNA、CDS等<br>4)  <code>start</code>:该基因或转录本在参考序列上的起始位置；<br>5)  <code>end</code>: 该基因或转录本在参考序列上的终止位置；<br>6)  <code>score</code>: 得分，数字，是注释信息可能性的说明，可以是序列相似性比对时的E-values值或者基因预测是的P-values值，“.”表示为空；<br>7)  <code>strand</code>: 该基因或转录本位于参考序列的正链(+)或负链(-)上;<br>8)  <code>phase</code>: 仅对注释类型为“CDS”有效，表示起始编码的位置，有效值为0、1、2(对于编码蛋白质的CDS来说，本列指定下一个密码子开始的位置。每3个核苷酸翻译一个氨基酸，从0开始，CDS的起始位置，除以3，余数就是这个值，，表示到达下一个密码子需要跳过的碱基个数。该编码区第一个密码子的位置，取值0,1,2。0表示该编码框的第一个密码子第一个碱基位于其5’末端；1表示该编码框的第一个密码子的第一个碱基位于该编码区外；2表示该编码框的第一个密码子的第一、二个碱基位于该编码区外；如果Feature为CDS时，必须指明具体值。)</p>
+        <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format1" target="_blank" rel="noopener">UCSC数据文件格式</a><br><a href="http://blog.sina.com.cn/s/blog_80572f5d0102x5m7.html" target="_blank" rel="noopener">基因组数据注释常用的文件-Bed文件和GFF文件</a></p>
+<h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p><code>注释文件</code>就是基因组的说明书。告诉我们哪些序列是编码蛋白的基因，哪些是非编码基因，外显子、内含子、UTR等的位置等等。注释文件在以下三个提供参考基因组的网站中都有提供，比如Ensemble、NCBI 、UCSC。但是现在<code>最权威</code>的人类和小鼠基因组的注释还属<strong>Gencode数据库</strong>。<br><code>基因组注释（genomic features）</code>通常使用Browser Extensible Data (BED) 或者 General Feature Format (GFF)文件格式表示，用UCSC Genome Browser进行可视化比较。<br><code>Bed文件和GFF文件</code>最基本的信息就是染色体或Contig的ID或编号，然后就是DNA的正负链信息，接着就是在染色体上的起始和终止位置数值。<br><code>两种文件的区别</code>在于，BED文件中起始坐标为0，结束坐标至少是1,； GFF中起始坐标是1而结束坐标至少是1。<br><code>处理Bed格式和GFF格式的工具</code>主要有 BedTools和Tophat 。</p>
 <a id="more"></a>
-<p><strong>例子：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">browser position chr22:10000000-10025000</span><br><span class="line">browser hide all</span><br><span class="line">track name&#x3D;regulatory	description&#x3D;&quot;TeleGene(tm) Regulatory Regions&quot; visibility&#x3D;2</span><br><span class="line">chr22	TeleGene	enhancer	10000000	10001000	500	+	.	touch1</span><br><span class="line">chr22	TeleGene	promoter	10010000	10010100	900	+	.	touch1</span><br><span class="line">chr22	TeleGene	promoter	10020000	10025000	800	-	.	touch2</span><br></pre></td></tr></table></figure>
-<p><a href="http://genome.ucsc.edu/cgi-bin/hgTracks?org=human&position=chr22&hgt.customText=http://genome.ucsc.edu/goldenPath/help/regulatory.txt" target="_blank" rel="noopener">用Genome Browser查看该例子</a></p>
-<h3 id="什么时候用到GTF文件"><a href="#什么时候用到GTF文件" class="headerlink" title="什么时候用到GTF文件"></a>什么时候用到GTF文件</h3><p> <code>Cufflinks/Tophat 软件</code>需要 GTF文件作为基因注释文件。</p>
-<h3 id="与GFF比较"><a href="#与GFF比较" class="headerlink" title="与GFF比较"></a>与GFF比较</h3><p><code>GFF</code>全称为general feature format，这种格式主要是用来注释<code>基因组</code>。<br><code>GTF</code>全称为gene transfer format，主要是用来对<code>基因</code>进行注释。<br>目前两种文件可以方便的<code>相互转化</code>，比如:使用Cufflinks软件的 的<code>gffread</code>。</p>
-<h3 id="GTF文件下载"><a href="#GTF文件下载" class="headerlink" title="GTF文件下载"></a>GTF文件下载</h3><p>以<code>gencode</code>最为权威，Ensemble、NCBI 、UCSC也有提供下载。<br><strong>genecode的FTP</strong>：<a href="ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/" target="_blank" rel="noopener">ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/</a><br><a href="http://www.gencodegenes.org/stats.html" target="_blank" rel="noopener">gencode官网的统计信息</a></p>
+<h3 id="2、文件格式介绍"><a href="#2、文件格式介绍" class="headerlink" title="2、文件格式介绍"></a>2、文件格式介绍</h3><p>BED文件每行至少包括chrom，chromStart，chromEnd三列<code>必选</code>;另外还可以添加额外的9列<code>可选</code>，这些列的顺序是固定的。</p>
+<p><strong>必选的三列：</strong></p>
+<ol>
+<li><code>chrom</code> - 染色体的名称（例如chr3，chrY，chr2_random）或支架（例如scaffold10671）。</li>
+<li><code>chromStart</code>- 染色体或支架中特征的起始位置。染色体中的第一个碱基编号为0。</li>
+<li><code>chromEnd</code>- 染色体或支架中特征的结束位置。所述 chromEnd碱没有包括在特征的显示。例如，染色体的前100个碱基定义为chromStart = 0，chromEnd = 100，并跨越编号为0-99的碱基。</li>
+</ol>
+<p><strong>9个可选的BED字段：</strong><br>4. <code>name</code> - 定义BED行的名称。当轨道打开到完全显示模式时，此标签显示在Genome浏览器窗口中BED行的左侧，或者在打包模式下直接显示在项目的左侧。<br>5. <code>score</code> - 得分在0到1000之间。如果此注释数据集的轨迹线useScore属性设置为1，则得分值将确定显示此要素的灰度级别（较高的数字=较深的灰色）。此表显示 Genome Browser将BED分数值转换为灰色阴影：<br>6. <code>strand</code> - 定义strand。要么“。” （=无绞线）或“+”或“ - ”。<br>7. <code>thickStart</code>- 绘制特征的起始位置（例如，基因显示中的起始密码子）。当没有厚部分时，thickStart和thickEnd通常设置为chromStart位置。<br>8. <code>thickEnd</code> - 绘制特征的结束位置（例如基因显示中的终止密码子）。<br>9. <code>itemRgb</code>- R，G，B形式的RGB值（例如255,0,0）。如果轨道行 itemRgb属性设置为“On”，则此RBG值将确定此BED行中包含的数据的显示颜色。注意：建议使用此属性的简单颜色方案（八种颜色或更少颜色），以避免压倒Genome浏览器和Internet浏览器的颜色资源。<br>10. <code>blockCount</code>- BED行中的块（外显子）数。<br>11. <code>blockSizes</code>- 块大小的逗号分隔列表。此列表中的项目数应与blockCount相对应。<br>12. <code>blockStarts</code> - 以逗号分隔的块开始列表。应该相对于chromStart计算所有 blockStart位置。此列表中的项目数应与blockCount相对应。</p>
+<p><strong>例如：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[bio@ubuntu ~]$ less -S GRCh38.gene.bed </span><br><span class="line"></span><br><span class="line">chr3    124792319       124792562       ENSG00000276626 RF00100 -</span><br><span class="line">chr1    92700819        92700934        ENSG00000201317 RNU4-59P        -</span><br><span class="line">chr14   100951856       100951933       ENSG00000200823 SNORD114-2      +</span><br><span class="line">chr22   45200954        45201019        ENSG00000221598 MIR1249 -</span><br><span class="line">chr1    161699506       161699607       ENSG00000199595 RF00019 +</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、基因组注释文件下载"><a href="#3、基因组注释文件下载" class="headerlink" title="3、基因组注释文件下载"></a>3、基因组注释文件下载</h3><p>以<code>gencode</code>最为权威，Ensemble、NCBI 、UCSC也有提供下载。<br><strong>genecode的FTP</strong>：<a href="ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/" target="_blank" rel="noopener">ftp://ftp.sanger.ac.uk/pub/gencode/Gencode_human/</a><br><a href="http://www.gencodegenes.org/stats.html" target="_blank" rel="noopener">gencode官网的统计信息</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#下载release_24所有的gtf文件</span><br><span class="line">wget -c -r -np -nd -k -L -A “*gtf.gz” ftp:&#x2F;&#x2F;ftp.sanger.ac.uk&#x2F;pub&#x2F;gencode&#x2F;Gencode_human&#x2F;release_24&#x2F;</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -386,7 +390,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么时候用到GTF文件"><span class="nav-number">3.</span> <span class="nav-text">什么时候用到GTF文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与GFF比较"><span class="nav-number">4.</span> <span class="nav-text">与GFF比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GTF文件下载"><span class="nav-number">5.</span> <span class="nav-text">GTF文件下载</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1、简介"><span class="nav-number">2.</span> <span class="nav-text">1、简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、文件格式介绍"><span class="nav-number">3.</span> <span class="nav-text">2、文件格式介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、基因组注释文件下载"><span class="nav-number">4.</span> <span class="nav-text">3、基因组注释文件下载</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
