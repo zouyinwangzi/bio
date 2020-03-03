@@ -200,6 +200,117 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/03/fastq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Aimi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/03/fastq/" class="post-title-link" itemprop="url">fastq 格式介绍</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-03 10:49:26" itemprop="dateCreated datePublished" datetime="2020-03-03T10:49:26+08:00">2020-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E5%B8%B8%E7%94%A8%E6%A0%BC%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">生物信息学常用格式</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/03/03/fastq/" class="post-meta-item leancloud_visitors" data-flag-title="fastq 格式介绍" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/03/fastq/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/03/fastq/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="fasta格式"><a href="#fasta格式" class="headerlink" title="fasta格式"></a>fasta格式</h3><p><code>fasta格式</code>是最基本的表示<strong>序列信息</strong>的格式。是一种文本格式，一般以后缀.fa或者.fasta</p>
+<p>主要由两部分组成：</p>
+<ul>
+<li>第一部分 以&gt;符号开头，是序列的定义行，后面跟着序列的名称或者标识，然后空格后是序列的描述信息</li>
+</ul>
+<ul>
+<li>第二部分就是序列，可以使碱基序列也可以是氨基酸序列</li>
+</ul>
+<h3 id="Fastq格式"><a href="#Fastq格式" class="headerlink" title="Fastq格式"></a>Fastq格式</h3><p><code>Fastq格式</code>同样是以<strong>文本形式来储存序列信息</strong>的格式，后缀通常位.fq或者.fastq，最早有Sanger机构开发，目前大多数<strong>NGS高通量测序的标准下机格式</strong>就是FASTQ。其序列以及<code>质量信息都是使用一个ASCII字符</code>标示。</p>
+<p>fastq格式文件中<strong>一个完整的单元分为四行</strong>，每行的含义如下：</p>
+<ul>
+<li>第一行：以@开头，内容同fasta的描述行类似</li>
+<li>第二行：具体的碱基序列</li>
+<li>第三行：以+开头，后面的内容可以和第一行类似，也可以什么都没有只留+</li>
+<li>第四行：以<code>ASCII字符集</code>编码来表示对应碱基的<strong>测序质量</strong>。Illumina测序仪是按照<code>荧光信号</code>来判断所测序的碱基是哪一种的，例如红黄蓝绿分别对应ATCG，那么一旦出现一个紫色的信号该怎么判断呢，因此对每个结果都有一个概率的问题。起初sanger中心用<code>Phred quality score</code>来衡量该read中每个碱基的质量，既-10lgP ，其中P代表该<strong>碱基被测序错误的概率</strong>，如果该碱基测序出错的概率为0.001，则Q应该为30，那么30+33=63，那么63对应的ASCii码为“？”，则在第四行中该碱基对应的质量代表值即为“？”,一般地，碱基质量从0-40，既ASCii码为从 “！”（0+33）到“I”(40+33）。以上是sanger中心采用记录read测序质量的方法，Illumina起初没有完全依照sanger中心的方法来定义测序质量，而是把P换成了p/(1-p). 其他完全按照sanger的定义来做。但是他这形式在某些情况下是不准确的，可以看出当测序质量很高的情况下两种形式几乎没区别，但低质量的碱基则有区别了。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/03/fastq/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/TCGA-introduce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -531,8 +642,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-03-02 17:02:52" itemprop="dateCreated datePublished" datetime="2020-03-02T17:02:52+08:00">2020-03-02</time>
+              <time title="创建时间：2020-03-02 17:02:52 / 修改时间：17:06:13" itemprop="dateCreated datePublished" datetime="2020-03-02T17:02:52+08:00">2020-03-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -586,7 +698,7 @@
       
           <p><img src="https://upload-images.jianshu.io/upload_images/14137386-3e44354fcfcf5c28?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <p>GDC（<a href="https://gdc.cancer.gov/）" target="_blank" rel="noopener">https://gdc.cancer.gov/）</a> Application Programming Interface 简称API，是GDC开放对外的应用接口。有许多功能，包括<code>数据查询、数据提交、文件下载、metadata、注释、BAM Slicing</code>等。下面主要介绍数据查询和下载功能。</p>
-<p>GDC网站有详尽的使用教程（<a href="https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication），下面按照我的理解说一下。" target="_blank" rel="noopener">https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication），下面按照我的理解说一下。</a></p>
+<p>GDC网站有详尽的使用教程（<a href="https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication）" target="_blank" rel="noopener">https://docs.gdc.cancer.gov/API/Users_Guide/Getting_Started/#authentication）</a> ，下面按照我的理解说一下。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/03/02/gdc/#more" rel="contents">
@@ -1114,112 +1226,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/28/ChAMP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Aimi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/28/ChAMP/" class="post-title-link" itemprop="url">ChAMP 甲基化芯片数据分析（450 和 EPIC）</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-28 17:59:07 / 修改时间：18:27:37" itemprop="dateCreated datePublished" datetime="2020-02-28T17:59:07+08:00">2020-02-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%A1%A8%E8%A7%82%E9%81%97%E4%BC%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">表观遗传</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%A1%A8%E8%A7%82%E9%81%97%E4%BC%A0/DNA%E7%94%B2%E5%9F%BA%E5%8C%96%E8%8A%AF%E7%89%87/" itemprop="url" rel="index">
-                    <span itemprop="name">DNA甲基化芯片</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/02/28/ChAMP/" class="post-meta-item leancloud_visitors" data-flag-title="ChAMP 甲基化芯片数据分析（450 和 EPIC）" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/28/ChAMP/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/28/ChAMP/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>ChAMP是用来分析illuminate甲基化数据的包，包括 HumanMethylation450 和 EPIC。</p>
-<p>参考：<br><a href="http://www.bioconductor.org/packages/release/bioc/vignettes/ChAMP/inst/doc/ChAMP.html" target="_blank" rel="noopener">http://www.bioconductor.org/packages/release/bioc/vignettes/ChAMP/inst/doc/ChAMP.html</a></p>
-<h3 id="甲基化芯片简介"><a href="#甲基化芯片简介" class="headerlink" title="甲基化芯片简介"></a>甲基化芯片简介</h3><p>450K和850K采用了两种探针Infinium Ⅰ 和Infinium Ⅱ对甲基化进行测定，Infinium I采用了两种bead（甲基化M和非甲基化U，如图显示），而II只有一种bead（即甲基化和非甲基化在一起），这也导致了它们在后续荧光探测的不同，450K采用了两种荧光探测信号（红光和绿光）<br><img src="/images/yuanli.jpg" alt="image"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/28/ChAMP/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1290,7 +1296,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
