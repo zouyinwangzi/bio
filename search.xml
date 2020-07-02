@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>GEO数据库中国区镜像</title>
+    <url>/2020/07/02/geoChina/</url>
+    <content><![CDATA[<h3 id="安装我的GitHub包AnnoProbe"><a href="#安装我的GitHub包AnnoProbe" class="headerlink" title="安装我的GitHub包AnnoProbe"></a>安装我的GitHub包AnnoProbe</h3><p>因为目前 AnnoProbe 包在 GitHub，所以不要使用其它方法安装，只能是下面的 install_github 函数哦：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">library</span>(devtools)</span><br><span class="line">install_github(<span class="string">"jmzeng1314/AnnoProbe"</span>)</span><br><span class="line"><span class="keyword">library</span>(AnnoProbe)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>使用起来非常方便，就一句话，找到你的GSE数据集的ID，传给我们的函数即可，真的是完全没有门槛了！</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">gset &lt;- geoChina(<span class="string">"GSE11924"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE16515"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE16757"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE1818"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE18842"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE23561"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE24460"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE28735"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE55940"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE59867"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE68004"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE8157"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>下载后的 gset 对象就可以走我们的GEO数据挖掘流程啦！</p>
+<h3 id="不安装包也可以使用"><a href="#不安装包也可以使用" class="headerlink" title="不安装包也可以使用"></a>不安装包也可以使用</h3><p>运行下面的代码，加载一个函数文件即可：</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">source</span>(<span class="string">'http://raw.githubusercontent.com/jmzeng1314/GEOmirror/master/R/geoChina.R'</span>)</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>医学公共数据库</category>
+        <category>GEO数据库</category>
+      </categories>
+      <tags>
+        <tag>生信软件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>fastq 格式介绍</title>
     <url>/2020/03/03/fastq/</url>
     <content><![CDATA[<h3 id="fasta格式"><a href="#fasta格式" class="headerlink" title="fasta格式"></a>fasta格式</h3><p><code>fasta格式</code>是最基本的表示<strong>序列信息</strong>的格式。是一种文本格式，一般以后缀.fa或者.fasta</p>

@@ -200,6 +200,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/02/geoChina/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Aimi">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/02/geoChina/" class="post-title-link" itemprop="url">GEO数据库中国区镜像</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-02 11:08:41" itemprop="dateCreated datePublished" datetime="2020-07-02T11:08:41+08:00">2020-07-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BB%E5%AD%A6%E5%85%AC%E5%85%B1%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">医学公共数据库</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8C%BB%E5%AD%A6%E5%85%AC%E5%85%B1%E6%95%B0%E6%8D%AE%E5%BA%93/GEO%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">GEO数据库</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/02/geoChina/" class="post-meta-item leancloud_visitors" data-flag-title="GEO数据库中国区镜像" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/02/geoChina/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/02/geoChina/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="安装我的GitHub包AnnoProbe"><a href="#安装我的GitHub包AnnoProbe" class="headerlink" title="安装我的GitHub包AnnoProbe"></a>安装我的GitHub包AnnoProbe</h3><p>因为目前 AnnoProbe 包在 GitHub，所以不要使用其它方法安装，只能是下面的 install_github 函数哦：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(devtools)</span><br><span class="line">install_github(<span class="string">"jmzeng1314/AnnoProbe"</span>)</span><br><span class="line"><span class="keyword">library</span>(AnnoProbe)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>使用起来非常方便，就一句话，找到你的GSE数据集的ID，传给我们的函数即可，真的是完全没有门槛了！</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">gset &lt;- geoChina(<span class="string">"GSE11924"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE16515"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE16757"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE1818"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE18842"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE23561"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE24460"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE28735"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE55940"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE59867"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE68004"</span>)</span><br><span class="line">gset &lt;- geoChina(<span class="string">"GSE8157"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>下载后的 gset 对象就可以走我们的GEO数据挖掘流程啦！</p>
+<h3 id="不安装包也可以使用"><a href="#不安装包也可以使用" class="headerlink" title="不安装包也可以使用"></a>不安装包也可以使用</h3><p>运行下面的代码，加载一个函数文件即可：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">source</span>(<span class="string">'http://raw.githubusercontent.com/jmzeng1314/GEOmirror/master/R/geoChina.R'</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/03/fastq/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1128,104 +1234,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/02/bed/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Aimi">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/02/bed/" class="post-title-link" itemprop="url">基因组注释文件格式 --（一）BED文件格式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-02 10:30:59" itemprop="dateCreated datePublished" datetime="2020-03-02T10:30:59+08:00">2020-03-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E5%B8%B8%E7%94%A8%E6%A0%BC%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">生物信息学常用格式</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/03/02/bed/" class="post-meta-item leancloud_visitors" data-flag-title="基因组注释文件格式 --（一）BED文件格式" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/03/02/bed/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/02/bed/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://genome.ucsc.edu/FAQ/FAQformat.html#format1" target="_blank" rel="noopener">UCSC数据文件格式</a><br><a href="http://blog.sina.com.cn/s/blog_80572f5d0102x5m7.html" target="_blank" rel="noopener">基因组数据注释常用的文件-Bed文件和GFF文件</a></p>
-<h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p><code>注释文件</code>就是基因组的说明书。告诉我们哪些序列是编码蛋白的基因，哪些是非编码基因，外显子、内含子、UTR等的位置等等。注释文件在以下三个提供参考基因组的网站中都有提供，比如Ensemble、NCBI 、UCSC。但是现在<code>最权威</code>的人类和小鼠基因组的注释还属<strong>Gencode数据库</strong>。<br><code>基因组注释（genomic features）</code>通常使用Browser Extensible Data (BED) 或者 General Feature Format (GFF)文件格式表示，用UCSC Genome Browser进行可视化比较。<br><code>Bed文件和GFF文件</code>最基本的信息就是染色体或Contig的ID或编号，然后就是DNA的正负链信息，接着就是在染色体上的起始和终止位置数值。<br><code>两种文件的区别</code>在于，BED文件中起始坐标为0，结束坐标至少是1,； GFF中起始坐标是1而结束坐标至少是1。<br><code>处理Bed格式和GFF格式的工具</code>主要有 BedTools和Tophat 。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/02/bed/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1296,14 +1304,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
